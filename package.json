@@ -1,7 +1,7 @@
 {
   "name": "solo-cmp",
   "version": "1.0.0",
-  "description": "Wrapper of iab module that make simple to made a CMP",
+  "description": "Wrapper of IAB module that make simple to made a CMP",
   "author": "Marco Prontera <https://github.com/Marco-Prontera>",
   "license": "Apache-2.0",
   "main": "index.ts",
