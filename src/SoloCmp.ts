@@ -9,23 +9,23 @@ class SoloCmp {
 
     constructor() {
 
-        this.buildServices();
-        this.buildSubscribers();
+        this.registerServices();
+        this.registerSubscribers();
 
     }
 
     /**
      * Register all default services.
      */
-    buildServices(): void {
-        // TODO Add all service provider.
+    registerServices(): void {
+        // TODO Add Logger Service #4
     }
 
     /**
      * Register all default subscribers.
      */
-    buildSubscribers(): void {
-        // TODO Add all subscriber provider.
+    registerSubscribers(): void {
+        // TODO Add SoloCmp subscribers and relative events #11
     }
 
     /**
