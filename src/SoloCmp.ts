@@ -7,6 +7,9 @@ class SoloCmp {
 
     private _DIContainer = DIContainer;
 
+    /**
+     * Constructor.
+     */
     constructor() {
 
         this.registerServices();
