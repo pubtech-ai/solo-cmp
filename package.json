@@ -10,7 +10,7 @@
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet --fix",
-    "prettier-format": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
+    "prettier-format": "prettier --config .prettierrc.js 'src/**/*.ts' --write",
     "clean:build": "prettier --config .prettierrc.json 'src/**/*.ts' --write && eslint 'src/**/*.{js,ts}' --quiet --fix && tsc"
   },
   "dependencies": {
