@@ -16,7 +16,7 @@ class EventDispatcher {
     /**
      * Subscribe a method to a specific event
      * when it will be dispatched the subscriber
-     * the callback will be executed.
+     * callback will be executed.
      *
      * @param {string} name
      * @param {string} eventType

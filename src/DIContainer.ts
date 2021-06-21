@@ -44,7 +44,7 @@ class DIContainer {
     }
 
     /**
-     * Registers optional services & provider for the application.
+     * Add optional services & provider for the application.
      * The service will be added to a nested DI container.
      *
      * @param {String} name Name of the service
@@ -60,8 +60,7 @@ class DIContainer {
     }
 
     /**
-     * Registers optional services & provider for the application.
-     *
+     * Add optional services & provider for the application.
      * The service will be added to a nested DI container.
      *
      * @param {String} name Name of the service
