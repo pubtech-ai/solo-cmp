@@ -13,6 +13,10 @@
     "prettier-format": "prettier --config .prettierrc.js 'src/**/*.ts' --write",
     "clean:build": "prettier --config .prettierrc.json 'src/**/*.ts' --write && eslint 'src/**/*.{js,ts}' --quiet --fix && tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pubtech-ai/solo-cmp.git"
+  },
   "dependencies": {
     "@iabtcf/cmpapi": "1.2.1",
     "@iabtcf/core": "1.2.1",

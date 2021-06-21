@@ -1,5 +1,7 @@
+import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
 import Logger from './Service/Logger';
+import Cookie from './Service/Cookie';
 
 /**
  * SoloCmp.
@@ -27,13 +29,18 @@ class SoloCmp {
      * Register all default services.
      */
     registerServices(): void {
+        this._DependencyInjectionManager
+            .addServiceProvider(Logger.name, () => {
 
-        this._DependencyInjectionManager.addServiceProvider(Logger.name, () => {
+                return new Logger(this.isDebugEnabled);
 
-            return new Logger(this.isDebugEnabled);
+            })
+            .addServiceProvider(Cookie.name, (container: IContainer) => {
 
-        });
+                return new Cookie(container[Logger.name], window.location.hostname, document);
 
+            })
+      ;
     }
 
     /**
