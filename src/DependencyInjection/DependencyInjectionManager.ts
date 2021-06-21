@@ -1,11 +1,11 @@
 import Bottle, {IContainer} from 'bottlejs';
-import EventDispatcher from './EventDispatcher/EventDispatcher';
-import EventSubscriberInterface from './EventDispatcher/EventSubscriberInterface';
+import EventDispatcher from '../EventDispatcher/EventDispatcher';
+import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
 
 /**
- * DIContainer.
+ * DependencyInjectionManager.
  */
-class DIContainer {
+class DependencyInjectionManager {
 
     private bottle: Bottle;
 
@@ -24,22 +24,22 @@ class DIContainer {
     }
 
     /**
-     * Returns all containers. Use this method if you're want to get initializers in your services.
+     * Return a sub container or throw an error if it not exists.
      *
-     * @param {String=} containerName Name of the nested container. "init" & "service" are the core containers.
+     * @param {String=} subContainerName Name of the nested container.
      * @return {Bottle.IContainer}
      */
-    public getContainer(containerName = ''): Bottle.IContainer {
+    public getSubContainer(subContainerName = ''): Bottle.IContainer {
 
         const containerNames = this.bottle.list();
 
-        if (containerNames.indexOf(containerName) !== -1) {
+        if (containerNames.indexOf(subContainerName) !== -1) {
 
-            return this.bottle.container[containerName];
+            return this.bottle.container[subContainerName];
 
         }
 
-        return this.bottle.container;
+        throw new Error(`Sub container with name: ${subContainerName}, not exists.`);
 
     }
 
@@ -50,9 +50,9 @@ class DIContainer {
      * @param {String} name Name of the service
      * @param {Function} provider Factory method for the service
      *
-     * @return {DIContainer}
+     * @return {DependencyInjectionManager}
      */
-    public addServiceProvider(name: string, provider: (container: IContainer) => any): DIContainer {
+    public addServiceProvider(name: string, provider: (container: IContainer) => any): DependencyInjectionManager {
 
         this.bottle.factory(`service.${name}`, provider.bind(this));
         return this;
@@ -66,16 +66,16 @@ class DIContainer {
      * @param {String} name Name of the service
      * @param {Function} provider Factory method for the service
      *
-     * @return {DIContainer}
+     * @return {DependencyInjectionManager}
      */
     public addEventSubscriberProvider(
         name: string,
         provider: (container: IContainer) => EventSubscriberInterface,
-    ): DIContainer {
+    ): DependencyInjectionManager {
 
         this.bottle.factory(`eventSubscriber.${name}`, provider.bind(this));
 
-        const subscriber = provider(this.getContainer('service'));
+        const subscriber = provider(this.getSubContainer('service'));
 
         for (const [key, methodName] of Object.entries(subscriber.getSubscribedEvents())) {
 
@@ -96,7 +96,7 @@ class DIContainer {
      */
     public getService(className: string): any {
 
-        const serviceContainer = this.getContainer('service');
+        const serviceContainer = this.getSubContainer('service');
 
         return serviceContainer[className];
 
@@ -104,7 +104,7 @@ class DIContainer {
 
 }
 
-const instance = new DIContainer();
+const instance = new DependencyInjectionManager();
 Object.freeze(instance);
 
 export default instance;

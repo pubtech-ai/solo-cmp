@@ -1,11 +1,11 @@
-import DIContainer from './DIContainer';
+import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
 
 /**
  * SoloCmp.
  */
 class SoloCmp {
 
-    private _DIContainer = DIContainer;
+    private _DependencyInjectionManager = DependencyInjectionManager;
 
     /**
      * Constructor.
@@ -32,13 +32,13 @@ class SoloCmp {
     }
 
     /**
-     * Return the DIContainer instance.
+     * Return the DependencyInjectionManager instance.
      *
-     * @return {DIContainer}
+     * @return {DependencyInjectionManager}
      */
-    getDIContainer(): typeof DIContainer {
+    getDependencyInjectionManager(): typeof DependencyInjectionManager {
 
-        return this._DIContainer;
+        return this._DependencyInjectionManager;
 
     }
 
