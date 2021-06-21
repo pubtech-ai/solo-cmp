@@ -1,4 +1,5 @@
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
+import Logger from './Service/Logger';
 
 /**
  * SoloCmp.
@@ -6,11 +7,16 @@ import DependencyInjectionManager from './DependencyInjection/DependencyInjectio
 class SoloCmp {
 
     private _DependencyInjectionManager = DependencyInjectionManager;
+    private isDebugEnabled: boolean;
 
     /**
      * Constructor.
+     *
+     * @param {boolean} isDebugEnabled
      */
-    constructor() {
+    constructor(isDebugEnabled: boolean) {
+
+        this.isDebugEnabled = isDebugEnabled;
 
         this.registerServices();
         this.registerSubscribers();
@@ -21,7 +27,13 @@ class SoloCmp {
      * Register all default services.
      */
     registerServices(): void {
-        // TODO Add Logger Service #4
+
+        this._DependencyInjectionManager.addServiceProvider(Logger.name, () => {
+
+            return new Logger(this.isDebugEnabled);
+
+        });
+
     }
 
     /**
