@@ -29,7 +29,6 @@ class SoloCmp {
      * Register all default services.
      */
     registerServices(): void {
-
         this._DependencyInjectionManager
             .addServiceProvider(Logger.name, () => {
 
@@ -40,8 +39,8 @@ class SoloCmp {
 
                 return new Cookie(container[Logger.name], window.location.hostname, document);
 
-            });
-
+            })
+      ;
     }
 
     /**
