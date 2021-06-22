@@ -3,16 +3,25 @@
  */
 class CmpSupportedLanguageProvider {
 
-    private languages: string[];
+    private language: string;
 
     /**
      * Constructor.
      *
      * @param {string[]} languages
      */
-    constructor(languages: string[]) {
+    constructor(languages: string[], browserLanguage: string) {
 
-        this.languages = languages;
+        let languageVendorList = 'en';
+        const cleanedBrowserLanguage = browserLanguage.split('-', 2)[0];
+
+        if (languages.includes(cleanedBrowserLanguage)) {
+
+            languageVendorList = cleanedBrowserLanguage;
+
+        }
+
+        this.language = languageVendorList.toLowerCase();
 
     }
 
@@ -24,16 +33,7 @@ class CmpSupportedLanguageProvider {
      */
     getLanguage(): string {
 
-        let languageVendorList = 'en';
-        const browserLanguage = navigator.language.split('-', 2)[0];
-
-        if (this.languages.includes(browserLanguage)) {
-
-            languageVendorList = browserLanguage;
-
-        }
-
-        return languageVendorList.toLowerCase();
+        return this.language;
 
     }
 

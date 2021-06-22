@@ -47,7 +47,7 @@ class SoloCmp {
             })
             .addServiceProvider(CmpSupportedLanguageProvider.name, () => {
 
-                return new CmpSupportedLanguageProvider(this.supportedLanguages);
+                return new CmpSupportedLanguageProvider(this.supportedLanguages, navigator.language);
 
             });
 
