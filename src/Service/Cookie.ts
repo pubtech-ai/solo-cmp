@@ -8,7 +8,7 @@ import Logger from './Logger';
  */
 class Cookie {
 
-    public static readonly milliSecondsInADay = 86400000;
+    public static readonly milliSecondsInADay: number = 86400000;
 
     private logger: Logger;
     private hostName: string;

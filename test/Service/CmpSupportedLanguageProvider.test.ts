@@ -3,19 +3,19 @@ import CmpSupportedLanguageProvider from "../../src/Service/CmpSupportedLanguage
 
 describe("CmpSupportedLanguageProvider suit test", () => {
 
-    it("CmpSupportedLanguageProvider construction fallback to en test", () => {
+    it("CmpSupportedLanguageProvider construction test", () => {
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
-        expect(cmpSupportedLanguageProvider.getLanguage()).to.equal('en');
+        expect(cmpSupportedLanguageProvider.getLanguage()).to.equal('it');
 
     });
 
     it("CmpSupportedLanguageProvider construction fallback to en test", () => {
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
 
-        expect(cmpSupportedLanguageProvider.getLanguage()).to.equal('it');
+        expect(cmpSupportedLanguageProvider.getLanguage()).to.equal(CmpSupportedLanguageProvider.defaultLanguage);
 
     });
 

@@ -3,16 +3,18 @@
  */
 class CmpSupportedLanguageProvider {
 
+    public static readonly defaultLanguage: string = 'en';
     private language: string;
 
     /**
      * Constructor.
      *
      * @param {string[]} languages
+     * @param {string} browserLanguage
      */
     constructor(languages: string[], browserLanguage: string) {
 
-        let languageVendorList = 'en';
+        let languageVendorList = CmpSupportedLanguageProvider.defaultLanguage;
         const cleanedBrowserLanguage = browserLanguage.split('-', 2)[0];
 
         if (languages.includes(cleanedBrowserLanguage)) {
