@@ -2,6 +2,7 @@ import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
 import Logger from './Service/Logger';
 import Cookie from './Service/Cookie';
+import CmpSupportedLanguageProvider from './Service/CmpSupportedLanguageProvider';
 
 /**
  * SoloCmp.
@@ -10,15 +11,18 @@ class SoloCmp {
 
     private _DependencyInjectionManager = DependencyInjectionManager;
     private isDebugEnabled: boolean;
+    private supportedLanguages: string[];
 
     /**
      * Constructor.
      *
      * @param {boolean} isDebugEnabled
+     * @param {string[]} supportedLanguages
      */
-    constructor(isDebugEnabled: boolean) {
+    constructor(isDebugEnabled: boolean, supportedLanguages: string[]) {
 
         this.isDebugEnabled = isDebugEnabled;
+        this.supportedLanguages = supportedLanguages;
 
         this.registerServices();
         this.registerSubscribers();
@@ -29,6 +33,7 @@ class SoloCmp {
      * Register all default services.
      */
     registerServices(): void {
+
         this._DependencyInjectionManager
             .addServiceProvider(Logger.name, () => {
 
@@ -40,7 +45,12 @@ class SoloCmp {
                 return new Cookie(container[Logger.name], window.location.hostname, document);
 
             })
-      ;
+            .addServiceProvider(CmpSupportedLanguageProvider.name, () => {
+
+                return new CmpSupportedLanguageProvider(this.supportedLanguages);
+
+            });
+
     }
 
     /**
