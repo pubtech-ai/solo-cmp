@@ -1,2 +1,4 @@
-// eslint-disable-next-line
-console.log('Hello!');
+export * from './SoloCmp';
+export * from './Service';
+export * from './EventDispatcher';
+export * from './DependencyInjection';
