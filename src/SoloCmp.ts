@@ -4,6 +4,7 @@ import Logger from './Service/Logger';
 import Cookie from './Service/Cookie';
 import CmpConfigurationProvider from './Service/CmpConfigurationProvider';
 import CmpSupportedLanguageProvider from './Service/CmpSupportedLanguageProvider';
+import TCStringService from './Service/TCStringService';
 
 /**
  * SoloCmp.
@@ -11,9 +12,12 @@ import CmpSupportedLanguageProvider from './Service/CmpSupportedLanguageProvider
 class SoloCmp {
 
     private _DependencyInjectionManager = DependencyInjectionManager;
-    private isDebugEnabled: boolean;
-    private cmpConfig: any;
-    private supportedLanguages: string[];
+    private readonly isDebugEnabled: boolean;
+    private readonly cmpVersion: number;
+    private readonly cmpVendorListVersion: number;
+    private readonly tcStringCookieName: string;
+    private readonly cmpConfig: any;
+    private readonly supportedLanguages: string[];
 
     /**
      * Constructor.
@@ -21,12 +25,25 @@ class SoloCmp {
      * @param {boolean} isDebugEnabled
      * @param {object} cmpConfig
      * @param {string[]} supportedLanguages
+     * @param {number} cmpVersion
+     * @param {number} cmpVendorListVersion
+     * @param {string} tcStringCookieName
      */
-    constructor(isDebugEnabled: boolean, cmpConfig: any, supportedLanguages: string[]) {
+    constructor(
+        isDebugEnabled: boolean,
+        cmpConfig: any,
+        supportedLanguages: string[],
+        cmpVersion: number,
+        cmpVendorListVersion: number,
+        tcStringCookieName: string,
+    ) {
 
         this.isDebugEnabled = isDebugEnabled;
         this.cmpConfig = cmpConfig;
         this.supportedLanguages = supportedLanguages;
+        this.cmpVersion = cmpVersion;
+        this.cmpVendorListVersion = cmpVendorListVersion;
+        this.tcStringCookieName = tcStringCookieName;
 
         this.registerServices();
         this.registerSubscribers();
@@ -57,6 +74,18 @@ class SoloCmp {
             .addServiceProvider(CmpSupportedLanguageProvider.name, () => {
 
                 return new CmpSupportedLanguageProvider(this.supportedLanguages, navigator.language);
+
+            })
+            .addServiceProvider(TCStringService.name, (container: IContainer) => {
+
+                return new TCStringService(
+                    container[Cookie.name],
+                    container[Logger.name],
+                    container[CmpSupportedLanguageProvider.name],
+                    this.cmpVersion,
+                    this.cmpVendorListVersion,
+                    this.tcStringCookieName,
+                );
 
             });
 
