@@ -4,38 +4,64 @@
 class CmpSupportedLanguageProvider {
 
     public static readonly defaultLanguage: string = 'en';
-    private language: string;
+    private readonly language: string;
+    private readonly browserLanguage: string;
+    private readonly cmpSupportedLanguages: string[];
 
     /**
      * Constructor.
      *
-     * @param {string[]} languages
+     * @param {string[]} supportedLanguages
      * @param {string} browserLanguage
      */
-    constructor(languages: string[], browserLanguage: string) {
+    constructor(supportedLanguages: string[], browserLanguage: string) {
 
         let languageVendorList = CmpSupportedLanguageProvider.defaultLanguage;
         const cleanedBrowserLanguage = browserLanguage.split('-', 2)[0];
 
-        if (languages.includes(cleanedBrowserLanguage)) {
+        if (supportedLanguages.includes(cleanedBrowserLanguage)) {
 
             languageVendorList = cleanedBrowserLanguage;
 
         }
 
+        this.cmpSupportedLanguages = supportedLanguages;
+        this.browserLanguage = browserLanguage;
         this.language = languageVendorList.toLowerCase();
 
     }
 
     /**
-     * Retrieve the language of the browser.
+     * Retrieve the current language used by CMP.
      * If the language of the browser is not supported it fallbacks to en.
      *
      * @return {string}
      */
-    getLanguage(): string {
+    getCurrentLanguageForCmp(): string {
 
         return this.language;
+
+    }
+
+    /**
+     * Retrieve the current language of browser.
+     *
+     * @return {string}
+     */
+    getBrowserLanguage(): string {
+
+        return this.browserLanguage;
+
+    }
+
+    /**
+     * Retrieve the current CMP supported languages.
+     *
+     * @return {string[]}
+     */
+    getCmpSupportedLanguages(): string[] {
+
+        return this.cmpSupportedLanguages;
 
     }
 

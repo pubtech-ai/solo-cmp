@@ -7,7 +7,7 @@ describe("CmpSupportedLanguageProvider suit test", () => {
 
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
-        expect(cmpSupportedLanguageProvider.getLanguage()).to.equal('it');
+        expect(cmpSupportedLanguageProvider.getCurrentLanguageForCmp()).to.equal('it');
 
     });
 
@@ -15,7 +15,25 @@ describe("CmpSupportedLanguageProvider suit test", () => {
 
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
 
-        expect(cmpSupportedLanguageProvider.getLanguage()).to.equal(CmpSupportedLanguageProvider.defaultLanguage);
+        expect(cmpSupportedLanguageProvider.getCurrentLanguageForCmp()).to.equal(CmpSupportedLanguageProvider.defaultLanguage);
+
+    });
+
+    it("CmpSupportedLanguageProvider get browser language test", () => {
+
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
+
+        expect(cmpSupportedLanguageProvider.getBrowserLanguage()).to.equal('it-IT');
+
+    });
+
+    it("CmpSupportedLanguageProvider get supported languages test", () => {
+
+        const supportedLanguages: string[] = ['fr', 'en'];
+
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(supportedLanguages, 'it-IT');
+
+        expect(cmpSupportedLanguageProvider.getCmpSupportedLanguages()).to.deep.equal(supportedLanguages);
 
     });
 
