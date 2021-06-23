@@ -265,5 +265,4 @@ describe('TCStringService suit test', () => {
 
         expect(isValidTCString).to.be.false;
     });
-
 });
