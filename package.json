@@ -10,8 +10,8 @@
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet --fix",
-    "prettier:format": "prettier --config .prettierrc.js 'src/**/*.ts' --write",
-    "clean:build": "prettier --config .prettierrc.json 'src/**/*.ts' --write && eslint 'src/**/*.{js,ts}' --quiet --fix && tsc"
+    "prettier:format": "prettier --config .prettierrc.js 'src/**/*.ts' 'test/**/*.{js,ts}' --write",
+    "clean:build": "prettier --config .prettierrc.json 'src/**/*.ts' --write && eslint 'src/**/*.{js,ts}' 'test/**/*.{js,ts}' --quiet --fix && tsc"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "bottlejs": "^2.0.0"
   },
   "devDependencies": {
+    "@iabtcf/testing": "^1.2.1",
     "@types/expect": "^24.3.0",
     "@types/mocha": "^8.2.2",
     "@types/node": "^14.14.31",
