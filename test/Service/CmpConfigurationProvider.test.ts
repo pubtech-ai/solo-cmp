@@ -22,6 +22,16 @@ describe("CmpConfigurationProvider suit test", () => {
 
     });
 
+    it("CmpConfigurationProvider construction thrown if wrong config parameter is null test", () => {
+
+        const construction = function () {
+            new CmpConfigurationProvider(null);
+        };
+
+        expect(construction).to.throw('CmpConfig parameter must be provided, see docs!');
+
+    });
+
     it("CmpConfigurationProvider construction thrown if wrong isAmp parameter is provided test", () => {
 
         const cmpConfig = {

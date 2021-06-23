@@ -19,20 +19,26 @@ class CmpConfigurationProvider {
 
         if (typeof cmpConfig !== 'object' || cmpConfig === null) {
 
-            throw new Error('CmpConfig object must be provided, see docs!');
+            throw new Error('CmpConfig parameter must be provided, see docs!');
 
         }
 
         if (typeof cmpConfig.isAmp !== 'boolean') {
+
             throw new Error('CmpConfig, isAmp parameter must be a boolean.');
+
         }
 
         if (typeof cmpConfig.onConsentAds !== 'function') {
+
             throw new Error('CmpConfig, onConsentAds parameter must be a function.');
+
         }
 
         if (typeof cmpConfig.debug !== 'boolean') {
-            throw new Error('CmpConfig, debug parameter must be a boolean.')
+
+            throw new Error('CmpConfig, debug parameter must be a boolean.');
+
         }
 
         const configuration: ConfigurationInterface = {
