@@ -33,6 +33,18 @@ class TCModelService {
         globalVendorList: GVL,
     ) {
 
+        if (Number.isNaN(cmpId)) {
+
+            throw new Error('TCModelService, cmpId parameter must be a valid number.');
+
+        }
+
+        if (Number.isNaN(cmpVersion)) {
+
+            throw new Error('TCModelService, cmpVersion parameter must be a valid number.');
+
+        }
+
         this.tcStringService = tcStringService;
         this.cmpSupportedLanguageProvider = cmpSupportedLanguageProvider;
         this.cmpId = cmpId;
@@ -50,7 +62,7 @@ class TCModelService {
      * @param {string} tcString
      * @return {Promise<TCModel>}
      */
-    public async fetchAndBuildTCModel(tcString: string): Promise<TCModel> {
+    public async buildTCModel(tcString: string): Promise<TCModel> {
 
         const encodedString = tcString;
 
