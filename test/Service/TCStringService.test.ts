@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import Cookie from '../../src/Service/Cookie';
+import CookieService from '../../src/Service/CookieService';
 import Logger from '../../src/Service/Logger';
 import TCStringService from '../../src/Service/TCStringService';
 import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
@@ -16,7 +16,7 @@ describe('TCStringService suit test', () => {
 
     const mockDocument = sinon.mock(document);
     const mockLoggerService = sinon.mock(loggerService);
-    const cookieService: Cookie = new Cookie(loggerService, 'solocmp.com', mockDocument);
+    const cookieService: CookieService = new CookieService(loggerService, 'solocmp.com', mockDocument);
 
     const getTCModel = (withoutGVL = false): TCModel => {
         let tcModel: TCModel;

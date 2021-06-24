@@ -5,7 +5,7 @@ import { TCModelFactory } from '@iabtcf/testing';
 import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import TCStringService from '../../src/Service/TCStringService';
 import Logger from '../../src/Service/Logger';
-import Cookie from '../../src/Service/Cookie';
+import CookieService from '../../src/Service/CookieService';
 import TCModelService from '../../src/Service/TCModelService';
 
 describe('TCModelService suit test', () => {
@@ -16,7 +16,7 @@ describe('TCModelService suit test', () => {
     };
 
     const mockDocument = sinon.mock(document);
-    const cookieService: Cookie = new Cookie(loggerService, 'solocmp.com', mockDocument);
+    const cookieService: CookieService = new CookieService(loggerService, 'solocmp.com', mockDocument);
 
     const getTCModel = (withoutGVL = false): TCModel => {
         let tcModel: TCModel;

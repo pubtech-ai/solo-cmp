@@ -1,7 +1,7 @@
 import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
 import Logger from './Service/Logger';
-import Cookie from './Service/Cookie';
+import CookieService from './Service/CookieService';
 import CmpConfigurationProvider from './Service/CmpConfigurationProvider';
 import CmpSupportedLanguageProvider from './Service/CmpSupportedLanguageProvider';
 import TCStringService from './Service/TCStringService';
@@ -75,9 +75,9 @@ class SoloCmp {
                 return new Logger(this.isDebugEnabled);
 
             })
-            .addServiceProvider(Cookie.name, (container: IContainer) => {
+            .addServiceProvider(CookieService.name, (container: IContainer) => {
 
-                return new Cookie(container[Logger.name], window.location.hostname, document);
+                return new CookieService(container[Logger.name], window.location.hostname, document);
 
             })
             .addServiceProvider(CmpConfigurationProvider.name, () => {
@@ -93,7 +93,7 @@ class SoloCmp {
             .addServiceProvider(TCStringService.name, (container: IContainer) => {
 
                 return new TCStringService(
-                    container[Cookie.name],
+                    container[CookieService.name],
                     container[Logger.name],
                     container[CmpSupportedLanguageProvider.name],
                     this.cmpVersion,

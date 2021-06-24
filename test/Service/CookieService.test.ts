@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import Cookie from '../../src/Service/Cookie';
+import CookieService from '../../src/Service/CookieService';
 import Logger from '../../src/Service/Logger';
 
 describe('Cookie suit test', () => {
-    let cookieService: Cookie;
+    let cookieService: CookieService;
     const logger: Logger = new Logger(true);
 
     const document = {
@@ -15,14 +15,14 @@ describe('Cookie suit test', () => {
     const mockDocument = sinon.mock(document);
 
     before(() => {
-        cookieService = new Cookie(logger, 'solocmp.com', mockDocument);
+        cookieService = new CookieService(logger, 'solocmp.com', mockDocument);
     });
 
     it('Cookie set cookie test', () => {
         cookieService.setCookie('cookieTest', 'valueTest', 365);
 
         const date = new Date();
-        date.setTime(date.getTime() + 365 * Cookie.milliSecondsInADay);
+        date.setTime(date.getTime() + 365 * CookieService.milliSecondsInADay);
 
         expect(mockDocument.cookie).to.equal(
             `cookieTest=valueTest;expires=${date.toUTCString()};path=/;domain=.solocmp.com`,
