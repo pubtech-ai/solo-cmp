@@ -8,7 +8,7 @@ import { GVL, TCModel, TCString } from '@iabtcf/core';
 import { TCModelFactory } from '@iabtcf/testing';
 
 describe('TCStringService suit test', () => {
-    const loggerService: LoggerService = new LoggerService(true);
+    const loggerService: LoggerService = new LoggerService(false);
 
     const document = {
         cookie: '',
@@ -221,7 +221,8 @@ describe('TCStringService suit test', () => {
     });
 
     it('TCStringService is valid tcString with different CMP version used test', () => {
-        const tcString = TCString.encode(getTCModel());
+        const tcModelTmp : TCModel = getTCModel();
+        const tcString = TCString.encode(tcModelTmp);
 
         const tcModel: TCModel = TCString.decode(tcString);
 
@@ -233,7 +234,7 @@ describe('TCStringService suit test', () => {
             cookieService,
             loggerService,
             cmpSupportedLanguageProvider,
-            1,
+            Number(tcModelTmp.cmpVersion) + 1,
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
         );

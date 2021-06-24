@@ -9,7 +9,7 @@ import CookieService from '../../src/Service/CookieService';
 import TCModelService from '../../src/Service/TCModelService';
 
 describe('TCModelService suit test', () => {
-    const loggerService: LoggerService = new LoggerService(true);
+    const loggerService: LoggerService = new LoggerService(false);
 
     const document = {
         cookie: '',
