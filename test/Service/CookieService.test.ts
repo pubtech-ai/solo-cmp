@@ -1,21 +1,21 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
 import CookieService from '../../src/Service/CookieService';
-import Logger from '../../src/Service/Logger';
+import LoggerService from '../../src/Service/LoggerService';
 
 describe('Cookie suit test', () => {
     let cookieService: CookieService;
-    const logger: Logger = new Logger(true);
+    const loggerService: LoggerService = new LoggerService(true);
 
     const document = {
         cookie: '',
     };
 
-    const mockLogger = sinon.mock(logger);
+    const mockLogger = sinon.mock(loggerService);
     const mockDocument = sinon.mock(document);
 
     before(() => {
-        cookieService = new CookieService(logger, 'solocmp.com', mockDocument);
+        cookieService = new CookieService(loggerService, 'solocmp.com', mockDocument);
     });
 
     it('Cookie set cookie test', () => {

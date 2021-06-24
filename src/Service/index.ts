@@ -1,5 +1,5 @@
 export * from './CookieService';
-export * from './Logger';
+export * from './LoggerService';
 export * from './CmpConfigurationProvider';
 export * from './CmpConfiguration';
 export * from './CmpSupportedLanguageProvider';

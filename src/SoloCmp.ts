@@ -1,11 +1,11 @@
+import {GVL} from '@iabtcf/core';
 import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
-import Logger from './Service/Logger';
+import LoggerService from './Service/LoggerService';
 import CookieService from './Service/CookieService';
 import CmpConfigurationProvider from './Service/CmpConfigurationProvider';
 import CmpSupportedLanguageProvider from './Service/CmpSupportedLanguageProvider';
 import TCStringService from './Service/TCStringService';
-import {GVL} from '@iabtcf/core';
 import TCModelService from './Service/TCModelService';
 
 /**
@@ -70,14 +70,14 @@ class SoloCmp {
     registerServices(): void {
 
         this._DependencyInjectionManager
-            .addServiceProvider(Logger.name, () => {
+            .addServiceProvider(LoggerService.name, () => {
 
-                return new Logger(this.isDebugEnabled);
+                return new LoggerService(this.isDebugEnabled);
 
             })
             .addServiceProvider(CookieService.name, (container: IContainer) => {
 
-                return new CookieService(container[Logger.name], window.location.hostname, document);
+                return new CookieService(container[LoggerService.name], window.location.hostname, document);
 
             })
             .addServiceProvider(CmpConfigurationProvider.name, () => {
@@ -94,7 +94,7 @@ class SoloCmp {
 
                 return new TCStringService(
                     container[CookieService.name],
-                    container[Logger.name],
+                    container[LoggerService.name],
                     container[CmpSupportedLanguageProvider.name],
                     this.cmpVersion,
                     this.cmpVendorListVersion,

@@ -1,7 +1,7 @@
 /**
- * Logger.
+ * LoggerService.
  */
-class Logger {
+class LoggerService {
 
     private isDebug: boolean;
     public static readonly debugStyle: string = 'color: #b1c800; font-size: 12px; padding: 10px;';
@@ -35,7 +35,7 @@ class Logger {
         if (this.isDebug) {
 
             // eslint-disable-next-line
-            console.debug('%c SOLO-CMP DEBUG: ' + message, Logger.debugStyle, '\n', ...errors);
+            console.debug('%c SOLO-CMP DEBUG: ' + message, LoggerService.debugStyle, '\n', ...errors);
         }
 
     }
@@ -49,9 +49,9 @@ class Logger {
     public error(message: string, ...errors: any[]): void {
 
         // eslint-disable-next-line
-        console.trace('%c SOLO-CMP ERROR: ' + message, Logger.errorStyle, '\n', ...errors);
+        console.trace('%c SOLO-CMP ERROR: ' + message, LoggerService.errorStyle, '\n', ...errors);
     }
 
 }
 
-export default Logger;
+export default LoggerService;

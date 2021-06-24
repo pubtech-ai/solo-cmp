@@ -1,4 +1,4 @@
-import Logger from './Logger';
+import LoggerService from './LoggerService';
 
 /**
  * CookieService.
@@ -7,18 +7,18 @@ class CookieService {
 
     public static readonly milliSecondsInADay: number = 86400000;
 
-    private logger: Logger;
+    private logger: LoggerService;
     private hostName: string;
     private document: Document;
 
     /**
      * Constructor.
      *
-     * @param {Logger} logger
+     * @param {LoggerService} logger
      * @param {string} hostName
      * @param {Document} document
      */
-    constructor(logger: Logger, hostName: string, document: Document) {
+    constructor(logger: LoggerService, hostName: string, document: Document) {
 
         this.logger = logger;
         this.hostName = hostName;

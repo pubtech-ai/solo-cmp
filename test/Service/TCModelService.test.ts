@@ -4,12 +4,12 @@ import { TCModel } from '@iabtcf/core';
 import { TCModelFactory } from '@iabtcf/testing';
 import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import TCStringService from '../../src/Service/TCStringService';
-import Logger from '../../src/Service/Logger';
+import LoggerService from '../../src/Service/LoggerService';
 import CookieService from '../../src/Service/CookieService';
 import TCModelService from '../../src/Service/TCModelService';
 
 describe('TCModelService suit test', () => {
-    const loggerService: Logger = new Logger(true);
+    const loggerService: LoggerService = new LoggerService(true);
 
     const document = {
         cookie: '',

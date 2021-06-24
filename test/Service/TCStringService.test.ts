@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
 import CookieService from '../../src/Service/CookieService';
-import Logger from '../../src/Service/Logger';
+import LoggerService from '../../src/Service/LoggerService';
 import TCStringService from '../../src/Service/TCStringService';
 import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import { GVL, TCModel, TCString } from '@iabtcf/core';
 import { TCModelFactory } from '@iabtcf/testing';
 
 describe('TCStringService suit test', () => {
-    const loggerService: Logger = new Logger(true);
+    const loggerService: LoggerService = new LoggerService(true);
 
     const document = {
         cookie: '',
