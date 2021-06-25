@@ -7,6 +7,8 @@ import LoggerService from './LoggerService';
  */
 class ACStringService {
 
+    private static readonly acStringIdSeparator = '~';
+
     private readonly cmpVersion: number;
     private readonly acStringLocalStorageKey: string;
     private loggerService: LoggerService;
@@ -100,7 +102,7 @@ class ACStringService {
      */
     private buildACStringString(enabledGoogleVendorIds: number[]): string {
 
-        return `${this.cmpVersion}~${enabledGoogleVendorIds.join('.')}`;
+        return `${this.cmpVersion + ACStringService.acStringIdSeparator + enabledGoogleVendorIds.join('.')}`;
 
     }
 
@@ -116,7 +118,7 @@ class ACStringService {
 
         if (acString) {
 
-            const cleanString = acString.split('~').pop();
+            const cleanString = acString.split(ACStringService.acStringIdSeparator).pop();
 
             if (cleanString) {
 
@@ -163,7 +165,7 @@ class ACStringService {
         } catch (error) {
 
             this.loggerService.error('Can\'t retrieve ACString from localStorage.', error);
-            return `${this.cmpVersion}~`;
+            return `${this.cmpVersion + ACStringService.acStringIdSeparator}`;
 
         }
 
@@ -206,8 +208,8 @@ class ACStringService {
         const cmpVersionStringLength: number = String(this.cmpVersion).length;
 
         return (
-            acString === `${this.cmpVersion}~` ||
-            (acString.includes(`${this.cmpVersion}~`) && acString.length > cmpVersionStringLength + 1)
+            acString === `${this.cmpVersion + ACStringService.acStringIdSeparator}` ||
+            (acString.includes(`${this.cmpVersion + ACStringService.acStringIdSeparator}`) && acString.length > cmpVersionStringLength + 1)
         );
 
     }
