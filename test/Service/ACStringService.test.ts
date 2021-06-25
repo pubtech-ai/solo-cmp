@@ -5,7 +5,7 @@ import ACStringService from '../../src/Service/ACStringService';
 import ACModel from '../../src/Entity/ACModel';
 import GoogleVendorOption from '../../src/Entity/GoogleVendorOption';
 
-describe('TCStringService suit test', () => {
+describe('ACStringService suit test', () => {
     const loggerService: LoggerService = new LoggerService(false);
 
     const localStorage: Storage = {
