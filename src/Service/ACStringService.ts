@@ -205,7 +205,10 @@ class ACStringService {
 
         const cmpVersionStringLength: number = String(this.cmpVersion).length;
 
-        return acString === `${this.cmpVersion}~` || (acString.includes(`${this.cmpVersion}~`) && acString.length > cmpVersionStringLength + 1);
+        return (
+            acString === `${this.cmpVersion}~` ||
+            (acString.includes(`${this.cmpVersion}~`) && acString.length > cmpVersionStringLength + 1)
+        );
 
     }
 

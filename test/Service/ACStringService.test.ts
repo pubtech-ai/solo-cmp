@@ -123,9 +123,7 @@ describe('ACStringService suit test', () => {
     it('ACStringService retrieveACString test', () => {
         const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, localStorage);
 
-        mockLocalStorage
-            .expects('getItem')
-            .withExactArgs('solo-cmp-ac-string');
+        mockLocalStorage.expects('getItem').withExactArgs('solo-cmp-ac-string');
 
         expect(acStringService.retrieveACString()).to.equal('');
 
@@ -141,9 +139,7 @@ describe('ACStringService suit test', () => {
     it('ACStringService removeACString test', () => {
         const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, localStorage);
 
-        mockLocalStorage
-            .expects('removeItem')
-            .withExactArgs('solo-cmp-ac-string');
+        mockLocalStorage.expects('removeItem').withExactArgs('solo-cmp-ac-string');
 
         acStringService.removeACString();
 

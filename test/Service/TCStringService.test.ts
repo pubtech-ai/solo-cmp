@@ -221,7 +221,7 @@ describe('TCStringService suit test', () => {
     });
 
     it('TCStringService is valid tcString with different CMP version used test', () => {
-        const tcModelTmp : TCModel = getTCModel();
+        const tcModelTmp: TCModel = getTCModel();
         const tcString = TCString.encode(tcModelTmp);
 
         const tcModel: TCModel = TCString.decode(tcString);

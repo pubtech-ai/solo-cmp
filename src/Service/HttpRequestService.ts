@@ -1,7 +1,7 @@
 /**
- * HttpRequest.
+ * HttpRequestService.
  */
-class HttpRequest {
+class HttpRequestService {
 
     /**
      * Make a request by the provided method and url.
@@ -12,7 +12,7 @@ class HttpRequest {
      *
      * @return {Promise<object>}
      */
-    public static makeRequest(method: string, url: string): Promise<any> {
+    public makeRequest(method: string, url: string): Promise<any> {
 
         return new Promise(function(resolve, reject) {
 
@@ -53,4 +53,4 @@ class HttpRequest {
 
 }
 
-export default HttpRequest;
+export default HttpRequestService;
