@@ -5,3 +5,6 @@ export * from './CmpConfiguration';
 export * from './CmpSupportedLanguageProvider';
 export * from './TCModelService';
 export * from './TCStringService';
+export * from './ACStringService';
+export * from './ACModelService';
+export * from './HttpRequestService';
