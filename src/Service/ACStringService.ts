@@ -209,7 +209,8 @@ class ACStringService {
 
         return (
             acString === `${this.cmpVersion + ACStringService.acStringIdSeparator}` ||
-            (acString.includes(`${this.cmpVersion + ACStringService.acStringIdSeparator}`) && acString.length > cmpVersionStringLength + 1)
+            (acString.includes(`${this.cmpVersion + ACStringService.acStringIdSeparator}`) &&
+                acString.length > cmpVersionStringLength + 1)
         );
 
     }
