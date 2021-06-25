@@ -7,6 +7,9 @@ import CmpConfigurationProvider from './Service/CmpConfigurationProvider';
 import CmpSupportedLanguageProvider from './Service/CmpSupportedLanguageProvider';
 import TCStringService from './Service/TCStringService';
 import TCModelService from './Service/TCModelService';
+import ACStringService from './Service/ACStringService';
+import ACModelService from './Service/ACModelService';
+import HttpRequestService from './Service/HttpRequestService';
 
 /**
  * SoloCmp.
@@ -21,6 +24,7 @@ class SoloCmp {
     private cmpId: number;
     private isServiceSpecific: boolean;
     private readonly tcStringCookieName: string;
+    private readonly acStringLocalStorageName: string;
     private readonly cmpConfig: any;
     private readonly supportedLanguages: string[];
 
@@ -33,6 +37,7 @@ class SoloCmp {
      * @param {number} cmpVersion
      * @param {number} cmpVendorListVersion
      * @param {string} tcStringCookieName
+     * @param {string} acStringLocalStorageName
      * @param {number} cmpId
      * @param {boolean} isServiceSpecific
      * @param {string} baseUrlVendorList
@@ -44,6 +49,7 @@ class SoloCmp {
         cmpVersion: number,
         cmpVendorListVersion: number,
         tcStringCookieName: string,
+        acStringLocalStorageName: string,
         cmpId: number,
         isServiceSpecific: boolean,
         baseUrlVendorList: string,
@@ -55,6 +61,7 @@ class SoloCmp {
         this.cmpVersion = cmpVersion;
         this.cmpVendorListVersion = cmpVendorListVersion;
         this.tcStringCookieName = tcStringCookieName;
+        this.acStringLocalStorageName = acStringLocalStorageName;
         this.cmpId = cmpId;
         this.isServiceSpecific = isServiceSpecific;
         this.baseUrlVendorList = baseUrlVendorList;
@@ -116,6 +123,31 @@ class SoloCmp {
                     this.isServiceSpecific,
                     gvl,
                 );
+
+            })
+            .addServiceProvider(ACStringService.name, (container: IContainer) => {
+
+                return new ACStringService(
+                    this.cmpVersion,
+                    this.acStringLocalStorageName,
+                    container[LoggerService.name],
+                    localStorage,
+                );
+
+            })
+            .addServiceProvider(ACModelService.name, (container: IContainer) => {
+
+                return new ACModelService(
+                    this.baseUrlVendorList,
+                    container[ACStringService.name],
+                    container[HttpRequestService.name],
+                    container[LoggerService.name],
+                );
+
+            })
+            .addServiceProvider(HttpRequestService.name, (container: IContainer) => {
+
+                return new HttpRequestService();
 
             });
 
