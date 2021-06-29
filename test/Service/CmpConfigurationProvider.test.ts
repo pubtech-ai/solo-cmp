@@ -14,7 +14,7 @@ describe('CmpConfigurationProvider suit test', () => {
 
         const cmpConfigurationProvider: CmpConfigurationProvider = new CmpConfigurationProvider(cmpConfig);
 
-        const cmpConfiguration: CmpConfiguration = cmpConfigurationProvider.getCmpConfiguration();
+        const cmpConfiguration: CmpConfiguration = cmpConfigurationProvider.cmpConfiguration;
 
         expect(cmpConfiguration.debug).to.be.true;
         expect(cmpConfiguration.isAmp).to.be.false;

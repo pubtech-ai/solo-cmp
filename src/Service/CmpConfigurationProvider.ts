@@ -6,7 +6,7 @@ import ConfigurationInterface from './CmpConfiguration/ConfigurationInteface';
  */
 class CmpConfigurationProvider {
 
-    private cmpConfiguration: CmpConfiguration;
+    private _cmpConfiguration: CmpConfiguration;
 
     /**
      * Constructor.
@@ -47,7 +47,7 @@ class CmpConfigurationProvider {
             debug: cmpConfig.debug,
         };
 
-        this.cmpConfiguration = new CmpConfiguration(configuration);
+        this._cmpConfiguration = new CmpConfiguration(configuration);
 
     }
 
@@ -56,9 +56,9 @@ class CmpConfigurationProvider {
      *
      * @return {CmpConfiguration}
      */
-    getCmpConfiguration(): CmpConfiguration {
+    get cmpConfiguration(): CmpConfiguration {
 
-        return this.cmpConfiguration;
+        return this._cmpConfiguration;
 
     }
 
