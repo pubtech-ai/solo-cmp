@@ -63,7 +63,7 @@ describe('CmpApiProvider suit test', () => {
         removeStub();
     });
 
-    it.only('When TCString is set the command should get also the ACString', (done: () => void): void => {
+    it('When TCString is set the command should get also the ACString', (done: () => void): void => {
         const tcString = TCStringFactory.base();
 
         window[API_KEY](TCFCommand.GET_TC_DATA, 2, (tcData: TCData, success: boolean): void => {
