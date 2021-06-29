@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-const sinon = require('sinon');
 import { API_KEY, CmpApi, TCData, TCFCommand } from '@iabtcf/cmpapi';
+import { TCStringFactory } from '@iabtcf/testing';
+const sinon = require('sinon');
 import CmpApiProvider from '../../src/Service/CmpApiProvider';
 import ACStringService from '../../src/Service/ACStringService';
 import LoggerService from '../../src/Service/LoggerService';
-import { TCStringFactory } from '@iabtcf/testing';
 
 import * as stub from '@iabtcf/stub';
 
