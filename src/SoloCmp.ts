@@ -10,6 +10,7 @@ import TCModelService from './Service/TCModelService';
 import ACStringService from './Service/ACStringService';
 import ACModelService from './Service/ACModelService';
 import HttpRequestService from './Service/HttpRequestService';
+import CmpApiProvider from './Service/CmpApiProvider';
 
 /**
  * SoloCmp.
@@ -148,6 +149,16 @@ class SoloCmp {
             .addServiceProvider(HttpRequestService.name, (container: IContainer) => {
 
                 return new HttpRequestService();
+
+            })
+            .addServiceProvider(CmpApiProvider.name, (container: IContainer) => {
+
+                return new CmpApiProvider(
+                    this.cmpId,
+                    this.cmpVersion,
+                    this.isServiceSpecific,
+                    container[ACStringService.name],
+                );
 
             });
 
