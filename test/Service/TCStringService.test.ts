@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import Cookie from '../../src/Service/Cookie';
-import Logger from '../../src/Service/Logger';
+import CookieService from '../../src/Service/CookieService';
+import LoggerService from '../../src/Service/LoggerService';
 import TCStringService from '../../src/Service/TCStringService';
 import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import { GVL, TCModel, TCString } from '@iabtcf/core';
 import { TCModelFactory } from '@iabtcf/testing';
 
 describe('TCStringService suit test', () => {
-    const loggerService: Logger = new Logger(true);
+    const loggerService: LoggerService = new LoggerService(false);
 
     const document = {
         cookie: '',
@@ -16,7 +16,7 @@ describe('TCStringService suit test', () => {
 
     const mockDocument = sinon.mock(document);
     const mockLoggerService = sinon.mock(loggerService);
-    const cookieService: Cookie = new Cookie(loggerService, 'solocmp.com', mockDocument);
+    const cookieService: CookieService = new CookieService(loggerService, 'solocmp.com', mockDocument);
 
     const getTCModel = (withoutGVL = false): TCModel => {
         let tcModel: TCModel;
@@ -221,7 +221,8 @@ describe('TCStringService suit test', () => {
     });
 
     it('TCStringService is valid tcString with different CMP version used test', () => {
-        const tcString = TCString.encode(getTCModel());
+        const tcModelTmp: TCModel = getTCModel();
+        const tcString = TCString.encode(tcModelTmp);
 
         const tcModel: TCModel = TCString.decode(tcString);
 
@@ -233,7 +234,7 @@ describe('TCStringService suit test', () => {
             cookieService,
             loggerService,
             cmpSupportedLanguageProvider,
-            1,
+            Number(tcModelTmp.cmpVersion) + 1,
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
         );

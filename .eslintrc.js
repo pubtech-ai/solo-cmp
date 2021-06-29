@@ -34,6 +34,7 @@ module.exports = {
             'ignoreRegExpLiterals': true,
             'code': 120
         }],
+        'prefer-promise-reject-errors': 0,
         'import/export': 1,
         'no-multiple-empty-lines': ['error', {'max': 1, 'maxEOF': 0, 'maxBOF': 0}],
         'require-jsdoc': [1],

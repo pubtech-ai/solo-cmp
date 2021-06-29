@@ -1,28 +1,28 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import Cookie from '../../src/Service/Cookie';
-import Logger from '../../src/Service/Logger';
+import CookieService from '../../src/Service/CookieService';
+import LoggerService from '../../src/Service/LoggerService';
 
 describe('Cookie suit test', () => {
-    let cookieService: Cookie;
-    const logger: Logger = new Logger(true);
+    let cookieService: CookieService;
+    const loggerService: LoggerService = new LoggerService(true);
 
     const document = {
         cookie: '',
     };
 
-    const mockLogger = sinon.mock(logger);
+    const mockLogger = sinon.mock(loggerService);
     const mockDocument = sinon.mock(document);
 
     before(() => {
-        cookieService = new Cookie(logger, 'solocmp.com', mockDocument);
+        cookieService = new CookieService(loggerService, 'solocmp.com', mockDocument);
     });
 
     it('Cookie set cookie test', () => {
         cookieService.setCookie('cookieTest', 'valueTest', 365);
 
         const date = new Date();
-        date.setTime(date.getTime() + 365 * Cookie.milliSecondsInADay);
+        date.setTime(date.getTime() + 365 * CookieService.milliSecondsInADay);
 
         expect(mockDocument.cookie).to.equal(
             `cookieTest=valueTest;expires=${date.toUTCString()};path=/;domain=.solocmp.com`,

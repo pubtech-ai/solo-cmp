@@ -1,6 +1,6 @@
 import {TCModel, TCString} from '@iabtcf/core';
-import Cookie from './Cookie';
-import Logger from './Logger';
+import CookieService from './CookieService';
+import LoggerService from './LoggerService';
 import CmpSupportedLanguageProvider from './CmpSupportedLanguageProvider';
 
 /**
@@ -8,8 +8,8 @@ import CmpSupportedLanguageProvider from './CmpSupportedLanguageProvider';
  */
 class TCStringService {
 
-    private cookieService: Cookie;
-    private loggerService: Logger;
+    private cookieService: CookieService;
+    private loggerService: LoggerService;
     private cmpVersion: number;
     private cmpVendorListVersion: number;
     private cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
@@ -18,16 +18,16 @@ class TCStringService {
     /**
      * Constructor.
      *
-     * @param {Cookie} cookieService
-     * @param {Logger} loggerService
+     * @param {CookieService} cookieService
+     * @param {LoggerService} loggerService
      * @param {CmpSupportedLanguageProvider} cmpSupportedLanguageProvider
      * @param {number} cmpVersion
      * @param {number} cmpVendorListVersion
      * @param {string} tcStringCookieName
      */
     constructor(
-        cookieService: Cookie,
-        loggerService: Logger,
+        cookieService: CookieService,
+        loggerService: LoggerService,
         cmpSupportedLanguageProvider: CmpSupportedLanguageProvider,
         cmpVersion: number,
         cmpVendorListVersion: number,

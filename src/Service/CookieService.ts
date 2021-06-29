@@ -1,27 +1,24 @@
+import LoggerService from './LoggerService';
+
 /**
  * CookieService.
  */
-import Logger from './Logger';
-
-/**
- * Cookie.
- */
-class Cookie {
+class CookieService {
 
     public static readonly milliSecondsInADay: number = 86400000;
 
-    private logger: Logger;
+    private logger: LoggerService;
     private hostName: string;
     private document: Document;
 
     /**
      * Constructor.
      *
-     * @param {Logger} logger
+     * @param {LoggerService} logger
      * @param {string} hostName
      * @param {Document} document
      */
-    constructor(logger: Logger, hostName: string, document: Document) {
+    constructor(logger: LoggerService, hostName: string, document: Document) {
 
         this.logger = logger;
         this.hostName = hostName;
@@ -40,10 +37,10 @@ class Cookie {
     public setCookie(cookieName: string, cookieValue: string, days: number): void {
 
         const date = new Date();
-        date.setTime(date.getTime() + days * Cookie.milliSecondsInADay);
+        date.setTime(date.getTime() + days * CookieService.milliSecondsInADay);
 
         const expires = 'expires=' + date.toUTCString();
-        const domain = Cookie.getCleanedDomain(this.hostName);
+        const domain = CookieService.getCleanedDomain(this.hostName);
 
         this.document.cookie = `${cookieName}=${cookieValue};${expires};path=/;domain=${domain}`;
 
@@ -102,7 +99,7 @@ class Cookie {
     public removeCookiesByName(cookieName: string): void {
 
         const allPossibleDomainGenerated: string[] = [];
-        allPossibleDomainGenerated.push(Cookie.getCleanedDomain(this.hostName));
+        allPossibleDomainGenerated.push(CookieService.getCleanedDomain(this.hostName));
         allPossibleDomainGenerated.push(this.hostName);
         allPossibleDomainGenerated.push('.' + this.hostName);
 
@@ -150,4 +147,4 @@ class Cookie {
 
 }
 
-export default Cookie;
+export default CookieService;
