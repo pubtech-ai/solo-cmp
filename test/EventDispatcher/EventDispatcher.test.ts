@@ -19,9 +19,11 @@ describe('EventDispatcher suit test', () => {
 
         mock.expects('method').once().withArgs(testEvent);
 
-        EventDispatcher.subscribe('SubscriberTest', testEvent.constructor.name, subscriber.method);
+        const eventDispatcher = EventDispatcher.getInstance();
 
-        EventDispatcher.dispatch(testEvent);
+        eventDispatcher.subscribe('SubscriberTest', testEvent.constructor.name, subscriber.method);
+
+        eventDispatcher.dispatch(testEvent);
 
         mock.verify();
     });
