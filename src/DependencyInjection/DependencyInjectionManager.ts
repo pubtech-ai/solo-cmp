@@ -77,9 +77,11 @@ class DependencyInjectionManager {
 
         const subscriber = provider(this.getSubContainer('service'));
 
+        const eventDispatcher = EventDispatcher.getInstance();
+
         for (const [key, methodName] of Object.entries(subscriber.getSubscribedEvents())) {
 
-            EventDispatcher.subscribe(name, key, (eventObject): void => subscriber[methodName](eventObject));
+            eventDispatcher.subscribe(name, key, (eventObject): void => subscriber[methodName](eventObject));
 
         }
 

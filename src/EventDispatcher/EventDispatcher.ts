@@ -4,6 +4,7 @@ import BaseEvent from './BaseEvent';
  * EventDispatcher.
  */
 class EventDispatcher {
+    private static instance: EventDispatcher;
 
     /**
      * subscriptions format:
@@ -12,6 +13,17 @@ class EventDispatcher {
     private subscriptions: any = {};
     private subscriptionsInfo: any = {};
     private getNextUniqueId = EventDispatcher.getIdGenerator();
+
+    /**
+     * Retrieve the instance or build it if is not instantiated.
+     */
+    public static getInstance(): EventDispatcher {
+        if (!EventDispatcher.instance) {
+            EventDispatcher.instance = new EventDispatcher();
+        }
+
+        return EventDispatcher.instance;
+    }
 
     /**
      * Subscribe a method to a specific event
@@ -110,7 +122,4 @@ class EventDispatcher {
 
 }
 
-const instance = new EventDispatcher();
-Object.freeze(instance);
-
-export default instance;
+export default EventDispatcher;
