@@ -6,6 +6,7 @@ import VendorPurpose from './VendorPurpose';
  */
 interface VendorOption {
     state: boolean;
+    expanded: boolean;
     features: VendorFeature[];
     flexiblePurposes: number[];
     id: number;
@@ -16,7 +17,6 @@ interface VendorOption {
     purposes: VendorPurpose[];
     specialFeatures: VendorFeature[];
     specialPurposes: VendorPurpose[];
-    expanded: boolean;
 }
 
 export default VendorOption;
