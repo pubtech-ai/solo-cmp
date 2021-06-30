@@ -1,0 +1,73 @@
+import { expect } from 'chai';
+import UIConstructor from '../../src/UIConstructor';
+const sinon = require('sinon');
+
+describe('UIConstructor suit test', () => {
+    it('UIConstructor construction test', () => {
+        const construction = function () {
+            const mockDocument = sinon.mock({});
+            new UIConstructor(
+                mockDocument,
+                ' \t\n',
+                () => {},
+                () => {},
+            );
+        };
+
+        expect(construction).to.throw(
+            'UIConstructor, domElementId must be a string with length greater than zero and contains only letters and numbers.',
+        );
+    });
+
+    it('UIConstructor build and render complete CMP UI test', (done) => {
+        const cmpBuildUIAndRenderCallback = function (element: HTMLElement) {
+            done();
+        };
+
+        const uiConstructor = new UIConstructor(document, 'ciccio', cmpBuildUIAndRenderCallback, () => {});
+
+        uiConstructor.buildUIAndRender();
+    });
+
+    it('UIConstructor build and render CMP open button UI test', (done) => {
+        const cmpButtonBuildUIAndRenderCallback = function (element: HTMLElement) {
+            done();
+        };
+
+        const uiConstructor = new UIConstructor(document, 'ciccio', () => {}, cmpButtonBuildUIAndRenderCallback);
+
+        uiConstructor.buildOpenCmpButtonAndRender();
+    });
+
+    it('UIConstructor build and render complete CMP UI error handling test', () => {
+        const cmpBuildUIAndRenderCallback = function (element: HTMLElement) {
+            throw new Error("Something doesn't work!");
+        };
+
+        const uiConstructor = new UIConstructor(document, 'ciccio', cmpBuildUIAndRenderCallback, () => {});
+
+        const buildUIAndRenderError = function () {
+            uiConstructor.buildUIAndRender();
+        };
+
+        expect(buildUIAndRenderError).to.throw(
+            "UIConstructor, renderCmpCallback error: Error: Something doesn't work!",
+        );
+    });
+
+    it('UIConstructor build and render CMP open button UI test', () => {
+        const cmpButtonBuildUIAndRenderCallback = function (element: HTMLElement) {
+            throw new Error("Something doesn't work!");
+        };
+
+        const uiConstructor = new UIConstructor(document, 'ciccio', () => {}, cmpButtonBuildUIAndRenderCallback);
+
+        const buildUIAndRenderError = function () {
+            uiConstructor.buildOpenCmpButtonAndRender();
+        };
+
+        expect(buildUIAndRenderError).to.throw(
+            "UIConstructor, renderOpenCmpButtonCallback error: Error: Something doesn't work!",
+        );
+    });
+});

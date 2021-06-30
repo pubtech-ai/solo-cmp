@@ -9,16 +9,16 @@ class CookieService {
 
     private logger: LoggerService;
     private hostName: string;
-    private document: Document;
+    private document: HTMLDocument;
 
     /**
      * Constructor.
      *
      * @param {LoggerService} logger
      * @param {string} hostName
-     * @param {Document} document
+     * @param {HTMLDocument} document
      */
-    constructor(logger: LoggerService, hostName: string, document: Document) {
+    constructor(logger: LoggerService, hostName: string, document: HTMLDocument) {
 
         this.logger = logger;
         this.hostName = hostName;

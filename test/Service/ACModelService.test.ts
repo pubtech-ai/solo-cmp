@@ -1,12 +1,10 @@
 import { expect } from 'chai';
-
 const sinon = require('sinon');
 import LoggerService from '../../src/Service/LoggerService';
 import ACStringService from '../../src/Service/ACStringService';
 import GoogleVendorOption from '../../src/Entity/GoogleVendorOption';
 import ACModelService from '../../src/Service/ACModelService';
 import HttpRequestService from '../../src/Service/HttpRequestService';
-import { log } from 'util';
 
 describe('ACModelService suit test', () => {
     const loggerService: LoggerService = new LoggerService(false);
