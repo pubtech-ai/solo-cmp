@@ -1,6 +1,7 @@
 import {GVL} from '@iabtcf/core';
 import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
+import EventDispatcher from './EventDispatcher/EventDispatcher';
 import LoggerService from './Service/LoggerService';
 import CookieService from './Service/CookieService';
 import CmpConfigurationProvider from './Service/CmpConfigurationProvider';
@@ -11,6 +12,8 @@ import ACStringService from './Service/ACStringService';
 import ACModelService from './Service/ACModelService';
 import HttpRequestService from './Service/HttpRequestService';
 import CmpApiProvider from './Service/CmpApiProvider';
+import Orchestrator from './Service/Orchestrator';
+import UIConstructor from './UIConstructor';
 
 /**
  * SoloCmp.
@@ -18,12 +21,13 @@ import CmpApiProvider from './Service/CmpApiProvider';
 class SoloCmp {
 
     private _DependencyInjectionManager = DependencyInjectionManager;
-    private baseUrlVendorList: string;
+    private readonly uiConstructor: UIConstructor;
+    private readonly baseUrlVendorList: string;
     private readonly isDebugEnabled: boolean;
     private readonly cmpVersion: number;
     private readonly cmpVendorListVersion: number;
-    private cmpId: number;
-    private isServiceSpecific: boolean;
+    private readonly cmpId: number;
+    private readonly isServiceSpecific: boolean;
     private readonly tcStringCookieName: string;
     private readonly acStringLocalStorageName: string;
     private readonly cmpConfig: any;
@@ -32,6 +36,7 @@ class SoloCmp {
     /**
      * Constructor.
      *
+     * @param {UIConstructor} uiConstructor
      * @param {boolean} isDebugEnabled
      * @param {object} cmpConfig
      * @param {string[]} supportedLanguages
@@ -44,6 +49,7 @@ class SoloCmp {
      * @param {string} baseUrlVendorList
      */
     constructor(
+        uiConstructor: UIConstructor,
         isDebugEnabled: boolean,
         cmpConfig: any,
         supportedLanguages: string[],
@@ -56,6 +62,7 @@ class SoloCmp {
         baseUrlVendorList: string,
     ) {
 
+        this.uiConstructor = uiConstructor;
         this.isDebugEnabled = isDebugEnabled;
         this.cmpConfig = cmpConfig;
         this.supportedLanguages = supportedLanguages;
@@ -158,6 +165,21 @@ class SoloCmp {
                     this.cmpVersion,
                     this.isServiceSpecific,
                     container[ACStringService.name],
+                );
+
+            })
+            .addServiceProvider(EventDispatcher.name, () => {
+
+                return EventDispatcher.getInstance();
+
+            })
+            .addServiceProvider(Orchestrator.name, (container: IContainer) => {
+
+                return new Orchestrator(
+                    container[TCStringService.name],
+                    container[ACStringService.name],
+                    this.uiConstructor,
+                    container[EventDispatcher.name],
                 );
 
             });
