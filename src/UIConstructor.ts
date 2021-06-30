@@ -25,7 +25,7 @@ class UIConstructor {
 
         this.document = document;
 
-        if (domElementId.length === 0 || !/^[a-z0-9]+$/i.test(domElementId)) {
+        if (domElementId.length === 0 || !/^[a-z0-9]\D\S+$/i.test(domElementId)) {
 
             throw new Error(
                 'UIConstructor, domElementId must be a string with length greater than zero and contains only letters and numbers.',
