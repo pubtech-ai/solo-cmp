@@ -4,6 +4,7 @@ import BaseEvent from './BaseEvent';
  * EventDispatcher.
  */
 class EventDispatcher {
+
     private static instance: EventDispatcher;
 
     /**
@@ -16,13 +17,19 @@ class EventDispatcher {
 
     /**
      * Retrieve the instance or build it if is not instantiated.
+     *
+     * @return {EventDispatcher}
      */
     public static getInstance(): EventDispatcher {
+
         if (!EventDispatcher.instance) {
+
             EventDispatcher.instance = new EventDispatcher();
+
         }
 
         return EventDispatcher.instance;
+
     }
 
     /**
