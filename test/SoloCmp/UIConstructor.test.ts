@@ -55,7 +55,7 @@ describe('UIConstructor suit test', () => {
         );
     });
 
-    it('UIConstructor build and render CMP open button UI test', () => {
+    it('UIConstructor build and render CMP open button UI error handling test', () => {
         const cmpButtonBuildUIAndRenderCallback = function (element: HTMLElement) {
             throw new Error("Something doesn't work!");
         };
