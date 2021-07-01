@@ -10,3 +10,5 @@ export * from './ACModelService';
 export * from './HttpRequestService';
 export * from './Orchestrator';
 export * from './CmpApiProvider';
+export * from './CmpPreparatoryService';
+export * from './ConsentGeneratorService';
