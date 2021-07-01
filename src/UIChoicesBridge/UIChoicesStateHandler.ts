@@ -139,7 +139,7 @@ class UIChoicesStateHandler {
                 expanded: false,
                 features: UIChoicesStateHandler.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
-                id: vendor.id,
+                id: Number(vendor.id),
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
@@ -206,7 +206,7 @@ class UIChoicesStateHandler {
                 legitimateInterestsPurposesOptions.push({
                     state: tcModel.purposeLegitimateInterests.has(purpose.id),
                     expanded: false,
-                    id: purpose.id,
+                    id: Number(purpose.id),
                     title: purpose.name,
                     description: purpose.description,
                     legalDescription: purpose.descriptionLegal,
@@ -299,7 +299,7 @@ class UIChoicesStateHandler {
 
             const purpose = purposesBases[purposeId];
             result.push({
-                id: purpose.id,
+                id: Number(purpose.id),
                 name: purpose.name,
                 description: purpose.description,
                 descriptionLegal: purpose.descriptionLegal,
@@ -328,7 +328,7 @@ class UIChoicesStateHandler {
 
             const feature = featuresBases[featureId];
             result.push({
-                id: feature.id,
+                id: Number(feature.id),
                 name: feature.name,
                 description: feature.description,
                 descriptionLegal: feature.descriptionLegal,
