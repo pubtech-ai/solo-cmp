@@ -41,7 +41,7 @@ class UIChoicesStateHandler {
      *
      * @param {TCModel|null} tcModel
      * @param {ACModel|null} acModel
-     * @param {boolean} forceOverride
+     * @param {boolean} forceOverride - For testing purpose only.
      *
      * @return {UIChoicesStateHandler}
      */
