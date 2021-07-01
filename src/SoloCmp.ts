@@ -16,7 +16,7 @@ import Orchestrator from './Service/Orchestrator';
 import UIConstructor from './UIConstructor';
 import CmpPreparatoryService from './Service/CmpPreparatoryService';
 import ConsentGeneratorService from './Service/ConsentGeneratorService';
-import AmpSubscriber from "./EventSubscriber/AmpSubscriber";
+import AmpSubscriber from './EventSubscriber/AmpSubscriber';
 
 /**
  * SoloCmp.
@@ -51,7 +51,7 @@ class SoloCmp {
      * @param {number} cmpId
      * @param {boolean} isServiceSpecific
      * @param {string} baseUrlVendorList
-     * @param initialHeightAmpCmpUi
+     * @param {string|null} initialHeightAmpCmpUi
      */
     constructor(
         uiConstructor: UIConstructor,
@@ -65,7 +65,7 @@ class SoloCmp {
         cmpId: number,
         isServiceSpecific: boolean,
         baseUrlVendorList: string,
-        initialHeightAmpCmpUi: string | null = null
+        initialHeightAmpCmpUi: string | null = null,
     ) {
 
         this.uiConstructor = uiConstructor;
@@ -217,23 +217,25 @@ class SoloCmp {
      * Register all default subscribers.
      */
     registerSubscribers(): void {
-        this._DependencyInjectionManager
-            .addEventSubscriberProvider(AmpSubscriber.name, (container: IContainer) => {
 
-                const cmpConfigurationProvider: CmpConfigurationProvider = container[CmpConfigurationProvider.name];
+        this._DependencyInjectionManager.addEventSubscriberProvider(AmpSubscriber.name, (container: IContainer) => {
 
-                if (this.initialHeightAmpCmpUi !== null && this.initialHeightAmpCmpUi.length > 0) {
-                    return new AmpSubscriber(
-                        cmpConfigurationProvider.cmpConfiguration.isAmp,
-                        window,
-                        this.initialHeightAmpCmpUi
-                    );
-                }
+            const cmpConfigurationProvider: CmpConfigurationProvider = container[CmpConfigurationProvider.name];
 
-                return new AmpSubscriber(cmpConfigurationProvider.cmpConfiguration.isAmp, window);
+            if (this.initialHeightAmpCmpUi !== null && this.initialHeightAmpCmpUi.length > 0) {
 
-            })
-        ;
+                return new AmpSubscriber(
+                    cmpConfigurationProvider.cmpConfiguration.isAmp,
+                    window,
+                    this.initialHeightAmpCmpUi,
+                );
+
+            }
+
+            return new AmpSubscriber(cmpConfigurationProvider.cmpConfiguration.isAmp, window);
+
+        });
+
     }
 
     /**
