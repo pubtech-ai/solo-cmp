@@ -1,10 +1,10 @@
 import {IntMap, Vendor} from '@iabtcf/core';
-import UIChoices from "./UIChoices";
+import UIChoice from "./UIChoice";
 
 /**
  * PurposeOption.
  */
-interface PurposeOption extends UIChoices {
+interface PurposeOption extends UIChoice {
     id: number;
     title: string;
     description: string;

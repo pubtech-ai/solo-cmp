@@ -1,9 +1,9 @@
-import UIChoices from "./UIChoices";
+import UIChoice from "./UIChoice";
 
 /**
  * GoogleVendorOption.
  */
-interface GoogleVendorOption extends UIChoices {
+interface GoogleVendorOption extends UIChoice {
     id: number;
     name: string;
     policyUrl: string;

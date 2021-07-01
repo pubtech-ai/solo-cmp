@@ -1,11 +1,11 @@
 import VendorFeature from './VendorFeature';
 import VendorPurpose from './VendorPurpose';
-import UIChoices from "./UIChoices";
+import UIChoice from "./UIChoice";
 
 /**
  * VendorOption.
  */
-interface VendorOption extends UIChoices {
+interface VendorOption extends UIChoice {
     features: VendorFeature[];
     flexiblePurposes: number[];
     id: number;

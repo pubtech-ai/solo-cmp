@@ -1,9 +1,9 @@
 /**
  * UIChoices.
  */
-interface UIChoices {
+interface UIChoice {
     expanded: boolean;
     state: boolean;
 }
 
-export default UIChoices;
+export default UIChoice;
