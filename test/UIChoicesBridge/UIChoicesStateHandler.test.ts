@@ -1,4 +1,4 @@
-import UIChoicesStateHandler from '../../src/ChoicesBridge/UIChoicesStateHandler';
+import UIChoicesStateHandler from '../../src/UIChoicesBridge/UIChoicesStateHandler';
 import { expect } from 'chai';
 import { GVL, TCModel } from '@iabtcf/core';
 import ACModel from '../../src/Entity/ACModel';
