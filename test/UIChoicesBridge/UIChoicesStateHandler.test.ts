@@ -4,7 +4,7 @@ import { GVL, TCModel } from '@iabtcf/core';
 import ACModel from '../../src/Entity/ACModel';
 import vendorList from '../Fixtures/vendor-list';
 
-describe('ChoicesStateHandler suit test', () => {
+describe('UIChoicesStateHandler suit test', () => {
     const getTCModelByFixture = function () {
         // @ts-ignore
         const gvl = new GVL(vendorList);
@@ -17,7 +17,7 @@ describe('ChoicesStateHandler suit test', () => {
         return tcModel;
     };
 
-    it('ChoicesStateHandler construction fail for first time with getInstance test', () => {
+    it('UIChoicesStateHandler construction fail for first time with getInstance test', () => {
         const constructionFail = function () {
             UIChoicesStateHandler.getInstance();
         };
@@ -25,7 +25,7 @@ describe('ChoicesStateHandler suit test', () => {
         expect(constructionFail).to.throw('UIChoicesStateHandler, you must provide the TCModel.');
     });
 
-    it('ChoicesStateHandler construction fail for first time with getInstance test', () => {
+    it('UIChoicesStateHandler construction fail for first time with getInstance test', () => {
         const constructionFail = function () {
             UIChoicesStateHandler.getInstance(getTCModelByFixture());
         };
@@ -33,13 +33,13 @@ describe('ChoicesStateHandler suit test', () => {
         expect(constructionFail).to.throw('UIChoicesStateHandler, you must provide the ACModel.');
     });
 
-    it('ChoicesStateHandler construction valid getInstance test', () => {
+    it('UIChoicesStateHandler construction valid getInstance test', () => {
         const choicesStateHandler = UIChoicesStateHandler.getInstance(getTCModelByFixture(), new ACModel([]));
 
         expect(choicesStateHandler instanceof UIChoicesStateHandler).to.be.true;
     });
 
-    it('ChoicesStateHandler test entity built with getInstance test', () => {
+    it('UIChoicesStateHandler test entity built with getInstance test', () => {
         const tcModel = getTCModelByFixture();
         const acModel = new ACModel([]);
 
