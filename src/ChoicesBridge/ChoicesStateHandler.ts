@@ -14,13 +14,11 @@ class ChoicesStateHandler {
 
     private static instance: ChoicesStateHandler;
 
-    public UIPurposeChoices: PurposeOption[] = [];
-    public UIVendorChoices: VendorOption[] = [];
-
-    public UILegitimateInterestsPurposeChoices: PurposeOption[] = [];
-    public UILegitimateInterestsVendorChoices: VendorOption[] = [];
-
-    public UIGoogleVendorOptions: GoogleVendorOption[] = [];
+    private _UIPurposeChoices: PurposeOption[] = [];
+    private _UIVendorChoices: VendorOption[] = [];
+    private _UILegitimateInterestsPurposeChoices: PurposeOption[] = [];
+    private _UILegitimateInterestsVendorChoices: VendorOption[] = [];
+    private _UIGoogleVendorOptions: GoogleVendorOption[] = [];
 
     /**
      * Constructor.
@@ -104,7 +102,7 @@ class ChoicesStateHandler {
 
         });
 
-        this.UIPurposeChoices = purposeOptions;
+        this._UIPurposeChoices = purposeOptions;
 
     }
 
@@ -159,7 +157,7 @@ class ChoicesStateHandler {
 
         });
 
-        this.UIVendorChoices = vendorOption;
+        this._UIVendorChoices = vendorOption;
 
     }
 
@@ -221,7 +219,7 @@ class ChoicesStateHandler {
 
         });
 
-        this.UILegitimateInterestsPurposeChoices = legitimateInterestsPurposesOptions;
+        this._UILegitimateInterestsPurposeChoices = legitimateInterestsPurposesOptions;
 
         return allVendorsWithLegitimateInterests;
 
@@ -280,7 +278,7 @@ class ChoicesStateHandler {
 
         });
 
-        this.UILegitimateInterestsVendorChoices = legitimateInterestsVendorOption;
+        this._UILegitimateInterestsVendorChoices = legitimateInterestsVendorOption;
 
     }
 
@@ -351,10 +349,29 @@ class ChoicesStateHandler {
     private buildUIGoogleVendorOptions(acModel: ACModel): void {
 
         // Clone the array
-        this.UIGoogleVendorOptions = Array.from(acModel.googleVendorOptions);
+        this._UIGoogleVendorOptions = Array.from(acModel.googleVendorOptions);
 
     }
 
+    get UIPurposeChoices(): PurposeOption[] {
+        return this._UIPurposeChoices;
+    }
+
+    get UIVendorChoices(): VendorOption[] {
+        return this._UIVendorChoices;
+    }
+
+    get UILegitimateInterestsPurposeChoices(): PurposeOption[] {
+        return this._UILegitimateInterestsPurposeChoices;
+    }
+
+    get UILegitimateInterestsVendorChoices(): VendorOption[] {
+        return this._UILegitimateInterestsVendorChoices;
+    }
+
+    get UIGoogleVendorOptions(): GoogleVendorOption[] {
+        return this._UIGoogleVendorOptions;
+    }
 }
 
 export default ChoicesStateHandler;
