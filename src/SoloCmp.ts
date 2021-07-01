@@ -14,6 +14,8 @@ import HttpRequestService from './Service/HttpRequestService';
 import CmpApiProvider from './Service/CmpApiProvider';
 import Orchestrator from './Service/Orchestrator';
 import UIConstructor from './UIConstructor';
+import CmpPreparatoryService from './Service/CmpPreparatoryService';
+import ConsentGeneratorService from './Service/ConsentGeneratorService';
 import AmpSubscriber from "./EventSubscriber/AmpSubscriber";
 
 /**
@@ -184,6 +186,26 @@ class SoloCmp {
                     container[TCStringService.name],
                     container[ACStringService.name],
                     this.uiConstructor,
+                    container[EventDispatcher.name],
+                );
+
+            })
+            .addServiceProvider(CmpPreparatoryService.name, (container: IContainer) => {
+
+                return new CmpPreparatoryService(
+                    container[TCModelService.name],
+                    container[ACModelService.name],
+                    this.uiConstructor,
+                    container[EventDispatcher.name],
+                    container[LoggerService.name],
+                );
+
+            })
+            .addServiceProvider(ConsentGeneratorService.name, (container: IContainer) => {
+
+                return new ConsentGeneratorService(
+                    container[TCStringService.name],
+                    container[ACStringService.name],
                     container[EventDispatcher.name],
                 );
 

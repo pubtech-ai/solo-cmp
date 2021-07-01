@@ -102,7 +102,9 @@ describe('TCModelService suit test', () => {
             tcModel.gvl,
         );
 
-        const builtTcModel: TCModel = await tcModelService.buildTCModel(tcStringService.buildTCString(tcModel));
+        const builtTcModel: TCModel = await tcModelService.fetchDataAndBuildTCModel(
+            tcStringService.buildTCString(tcModel),
+        );
 
         expect(builtTcModel.isServiceSpecific).to.be.true;
         expect(builtTcModel.cmpId).to.equal(123);

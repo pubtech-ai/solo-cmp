@@ -53,7 +53,7 @@ class ACModelService {
      * @param {string} acString
      * @return {Promise<ACModel>}
      */
-    public async fetchAndBuildACModel(acString: string): Promise<ACModel> {
+    public async fetchDataAndBuildACModel(acString: string): Promise<ACModel> {
 
         const url = `${this.baseUrlVendorList}/${ACModelService.googleVendorListFileName}`;
 

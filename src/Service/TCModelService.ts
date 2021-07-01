@@ -62,7 +62,7 @@ class TCModelService {
      * @param {string} tcString
      * @return {Promise<TCModel>}
      */
-    public async buildTCModel(tcString: string): Promise<TCModel> {
+    public async fetchDataAndBuildTCModel(tcString: string): Promise<TCModel> {
 
         const encodedString = tcString;
 

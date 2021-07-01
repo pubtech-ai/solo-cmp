@@ -1,8 +1,8 @@
 import {TCModel} from '@iabtcf/core';
 import ACModel from '../Entity/ACModel';
-import UIChoicesStateHandler from './UIChoicesStateHandler';
 import PurposeOption from '../Entity/PurposeOption';
 import VendorOption from '../Entity/VendorOption';
+import UIChoicesBridgeDto from './UIChoicesBridgeDto';
 
 /**
  * UIChoicesParser.
@@ -69,19 +69,19 @@ class UIChoicesParser {
      * Parse the choices to build the
      * TCModel with all choices applied.
      *
-     * @param {UIChoicesStateHandler} choicesStateHandler
+     * @param {UIChoicesBridgeDto} uiChoicesBridgeDto
      *
      * @return {TCModel}
      */
-    public parseTCModel(choicesStateHandler: UIChoicesStateHandler): TCModel {
+    public parseTCModel(uiChoicesBridgeDto: UIChoicesBridgeDto): TCModel {
 
-        this._tcModel.purposeConsents.set(this.filterEnabledChoicesId(choicesStateHandler.UIPurposeChoices));
-        this._tcModel.vendorConsents.set(this.filterEnabledChoicesId(choicesStateHandler.UIVendorChoices));
+        this._tcModel.purposeConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices));
+        this._tcModel.vendorConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIVendorChoices));
         this._tcModel.purposeLegitimateInterests.set(
-            this.filterEnabledChoicesId(choicesStateHandler.UILegitimateInterestsPurposeChoices),
+            this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices),
         );
         this._tcModel.vendorLegitimateInterests.set(
-            this.filterEnabledChoicesId(choicesStateHandler.UILegitimateInterestsVendorChoices),
+            this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsVendorChoices),
         );
 
         return this._tcModel;
@@ -92,13 +92,13 @@ class UIChoicesParser {
      * Parse the choices to build the
      * ACModel with all choices applied.
      *
-     * @param {UIChoicesStateHandler} choicesStateHandler
+     * @param {UIChoicesBridgeDto} uiChoicesBridgeDto
      *
      * @return {ACModel}
      */
-    public parseACModel(choicesStateHandler: UIChoicesStateHandler): ACModel {
+    public parseACModel(uiChoicesBridgeDto: UIChoicesBridgeDto): ACModel {
 
-        this._acModel.googleVendorOptions = choicesStateHandler.UIGoogleVendorOptions;
+        this._acModel.googleVendorOptions = uiChoicesBridgeDto.UIGoogleVendorOptions;
 
         return this._acModel;
 

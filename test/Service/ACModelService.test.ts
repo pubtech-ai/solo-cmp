@@ -93,7 +93,7 @@ describe('ACModelService suit test', () => {
             loggerService,
         );
 
-        const acModel = await acModelService.fetchAndBuildACModel('');
+        const acModel = await acModelService.fetchDataAndBuildACModel('');
 
         expect(acModel.googleVendorOptions[0].id).to.equal(jsonContent[0].provider_id);
         expect(acModel.googleVendorOptions[0].name).to.equal(jsonContent[0].provider_name);
@@ -129,7 +129,7 @@ describe('ACModelService suit test', () => {
             loggerService,
         );
 
-        const acModel = await acModelService.fetchAndBuildACModel('');
+        const acModel = await acModelService.fetchDataAndBuildACModel('');
 
         expect(acModel.googleVendorOptions.length).to.equal(0);
     });
@@ -172,7 +172,7 @@ describe('ACModelService suit test', () => {
             loggerService,
         );
 
-        const acModel = await acModelService.fetchAndBuildACModel('');
+        const acModel = await acModelService.fetchDataAndBuildACModel('');
 
         expect(acModel.googleVendorOptions.length).to.equal(0);
     });
@@ -215,7 +215,7 @@ describe('ACModelService suit test', () => {
             loggerService,
         );
 
-        const acModel = await acModelService.fetchAndBuildACModel('');
+        const acModel = await acModelService.fetchDataAndBuildACModel('');
 
         expect(acModel.googleVendorOptions.length).to.equal(0);
     });
