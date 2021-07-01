@@ -354,24 +354,35 @@ class UIChoicesStateHandler {
     }
 
     get UIPurposeChoices(): PurposeOption[] {
+
         return this._UIPurposeChoices;
+
     }
 
     get UIVendorChoices(): VendorOption[] {
+
         return this._UIVendorChoices;
+
     }
 
     get UILegitimateInterestsPurposeChoices(): PurposeOption[] {
+
         return this._UILegitimateInterestsPurposeChoices;
+
     }
 
     get UILegitimateInterestsVendorChoices(): VendorOption[] {
+
         return this._UILegitimateInterestsVendorChoices;
+
     }
 
     get UIGoogleVendorOptions(): GoogleVendorOption[] {
+
         return this._UIGoogleVendorOptions;
+
     }
+
 }
 
 export default UIChoicesStateHandler;

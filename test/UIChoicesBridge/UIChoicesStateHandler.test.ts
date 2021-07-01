@@ -17,7 +17,7 @@ describe('UIChoicesStateHandler suit test', () => {
         return tcModel;
     };
 
-    it('UIChoicesStateHandler construction fail for first time with getInstance test', () => {
+    it('UIChoicesStateHandler construction fail for first time with getInstance without any parameter test', () => {
         const constructionFail = function () {
             UIChoicesStateHandler.getInstance();
         };
@@ -25,7 +25,7 @@ describe('UIChoicesStateHandler suit test', () => {
         expect(constructionFail).to.throw('UIChoicesStateHandler, you must provide the TCModel.');
     });
 
-    it('UIChoicesStateHandler construction fail for first time with getInstance test', () => {
+    it('UIChoicesStateHandler construction fail for first time with getInstance with only TCModel test', () => {
         const constructionFail = function () {
             UIChoicesStateHandler.getInstance(getTCModelByFixture());
         };

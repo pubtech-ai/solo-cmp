@@ -1,4 +1,4 @@
-import UIChoice from "./UIChoice";
+import UIChoice from './UIChoice';
 
 /**
  * GoogleVendorOption.

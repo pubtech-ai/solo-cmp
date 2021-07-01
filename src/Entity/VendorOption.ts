@@ -1,6 +1,6 @@
 import VendorFeature from './VendorFeature';
 import VendorPurpose from './VendorPurpose';
-import UIChoice from "./UIChoice";
+import UIChoice from './UIChoice';
 
 /**
  * VendorOption.
