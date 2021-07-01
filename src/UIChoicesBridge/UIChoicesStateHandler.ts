@@ -51,13 +51,13 @@ class UIChoicesStateHandler {
         forceOverride = false,
     ): UIChoicesStateHandler {
 
-        if (!UIChoicesStateHandler.instance && tcModel === null) {
+        if ((!UIChoicesStateHandler.instance || forceOverride) && tcModel === null) {
 
             throw new Error('UIChoicesStateHandler, you must provide the TCModel.');
 
         }
 
-        if (!UIChoicesStateHandler.instance && acModel === null) {
+        if ((!UIChoicesStateHandler.instance || forceOverride) && acModel === null) {
 
             throw new Error('UIChoicesStateHandler, you must provide the ACModel.');
 
