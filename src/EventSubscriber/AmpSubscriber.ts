@@ -10,6 +10,7 @@ class AmpSubscriber implements EventSubscriberInterface {
     private window: Window;
     private readonly ampEnabled: boolean;
     private readonly initialHeightAmpCmpUi: string;
+    private readonly enableBorder: boolean;
 
     /**
      * Constructor
@@ -17,12 +18,33 @@ class AmpSubscriber implements EventSubscriberInterface {
      * @param {boolean} ampEnabled
      * @param {Window} window
      * @param {string} initialHeightAmpCmpUi
+     * @param {boolean} enableBorder
      */
-    constructor(ampEnabled: boolean, window: Window, initialHeightAmpCmpUi = '30vh') {
+    constructor(
+        ampEnabled: boolean,
+        window: Window,
+        initialHeightAmpCmpUi: string | null = null,
+        enableBorder: boolean | null = false,
+    ) {
 
         this.ampEnabled = ampEnabled;
         this.window = window;
-        this.initialHeightAmpCmpUi = initialHeightAmpCmpUi;
+
+        this.initialHeightAmpCmpUi = '30vh';
+
+        if (initialHeightAmpCmpUi !== null) {
+
+            this.initialHeightAmpCmpUi = initialHeightAmpCmpUi;
+
+        }
+
+        this.enableBorder = false;
+
+        if (enableBorder !== null) {
+
+            this.enableBorder = enableBorder;
+
+        }
 
     }
 
@@ -57,7 +79,7 @@ class AmpSubscriber implements EventSubscriberInterface {
                 type: 'consent-ui',
                 action: 'ready',
                 initialHeight: this.initialHeightAmpCmpUi,
-                enableBorder: false,
+                enableBorder: this.enableBorder,
             },
             '*',
         );

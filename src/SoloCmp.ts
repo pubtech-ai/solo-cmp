@@ -36,6 +36,7 @@ class SoloCmp {
     private readonly cmpConfig: any;
     private readonly supportedLanguages: string[];
     private readonly initialHeightAmpCmpUi: string | null;
+    private readonly enableBorderAmpCmpUi: boolean | null = null;
 
     /**
      * Constructor.
@@ -52,6 +53,7 @@ class SoloCmp {
      * @param {boolean} isServiceSpecific
      * @param {string} baseUrlVendorList
      * @param {string|null} initialHeightAmpCmpUi
+     * @param {boolean|null} enableBorderAmpCmpUi
      */
     constructor(
         uiConstructor: UIConstructor,
@@ -66,6 +68,7 @@ class SoloCmp {
         isServiceSpecific: boolean,
         baseUrlVendorList: string,
         initialHeightAmpCmpUi: string | null = null,
+        enableBorderAmpCmpUi: boolean | null = null,
     ) {
 
         this.uiConstructor = uiConstructor;
@@ -80,6 +83,7 @@ class SoloCmp {
         this.isServiceSpecific = isServiceSpecific;
         this.baseUrlVendorList = baseUrlVendorList;
         this.initialHeightAmpCmpUi = initialHeightAmpCmpUi;
+        this.enableBorderAmpCmpUi = enableBorderAmpCmpUi;
 
         this.registerServices();
         this.registerSubscribers();
@@ -222,17 +226,12 @@ class SoloCmp {
 
             const cmpConfigurationProvider: CmpConfigurationProvider = container[CmpConfigurationProvider.name];
 
-            if (this.initialHeightAmpCmpUi !== null && this.initialHeightAmpCmpUi.length > 0) {
-
-                return new AmpSubscriber(
-                    cmpConfigurationProvider.cmpConfiguration.isAmp,
-                    window,
-                    this.initialHeightAmpCmpUi,
-                );
-
-            }
-
-            return new AmpSubscriber(cmpConfigurationProvider.cmpConfiguration.isAmp, window);
+            return new AmpSubscriber(
+                cmpConfigurationProvider.cmpConfiguration.isAmp,
+                window,
+                this.initialHeightAmpCmpUi,
+                this.enableBorderAmpCmpUi,
+            );
 
         });
 
