@@ -1,33 +1,13 @@
 import { expect } from 'chai';
-import { TCModel } from '@iabtcf/core';
-import ACModel from '../../src/Entity/ACModel';
 import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
-import { TCModelFactory } from '@iabtcf/testing';
+
 // @ts-ignore
 import { getUIChoicesStateHandler } from './UIChoicesStateHandler.test';
 
 describe('UIChoicesParser suit test', () => {
-    it('UIChoicesParser singleton fail for first time with getInstance without any parameter test', () => {
-        const constructionFail = function () {
-            UIChoicesParser.getInstance();
-        };
-
-        expect(constructionFail).to.throw('UIChoicesParser, you must provide the TCModel.');
-    });
-
-    it('UIChoicesParser singleton fail for first time with getInstance and TCModel test', () => {
-        const constructionFail = function () {
-            UIChoicesParser.getInstance((TCModelFactory.withGVL() as unknown) as TCModel);
-        };
-
-        expect(constructionFail).to.throw('UIChoicesParser, you must provide the ACModel.');
-    });
 
     it('UIChoicesParser parsing logic validation test', () => {
-        const uiChoicesParser = UIChoicesParser.getInstance(
-            (TCModelFactory.withGVL() as unknown) as TCModel,
-            new ACModel([]),
-        );
+        const uiChoicesParser = UIChoicesParser.getInstance();
 
         const choicesStateHandler = getUIChoicesStateHandler();
 
@@ -37,11 +17,11 @@ describe('UIChoicesParser suit test', () => {
         expect(
             [...uiChoicesParser.tcModel.purposeConsents.values()].length,
             '[...uiChoicesParser.tcModel.purposeConsents.values()].length',
-        ).to.equal(0);
+        ).to.equal(2);
         expect(
             uiChoicesParser.acModel.googleVendorOptions.length,
             'uiChoicesParser.acModel.googleVendorOptions.length',
-        ).to.equal(0);
+        ).to.equal(2);
 
         const tcModel = uiChoicesParser.parseTCModel(choicesStateHandler);
 
