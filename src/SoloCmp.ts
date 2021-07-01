@@ -204,8 +204,7 @@ class SoloCmp {
                     container[EventDispatcher.name],
                 );
 
-            })
-        ;
+            });
 
     }
 

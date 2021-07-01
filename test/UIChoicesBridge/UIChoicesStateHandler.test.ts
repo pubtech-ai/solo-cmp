@@ -41,7 +41,7 @@ const getUIChoicesStateHandler = function () {
     const tcModel = getTCModelByFixture();
     const acModel = getACModelByFixture();
 
-    return UIChoicesStateHandler.getInstance(tcModel, acModel);
+    return UIChoicesStateHandler.getInstance(tcModel, acModel, true);
 };
 
 describe('UIChoicesStateHandler suit test', () => {
@@ -104,4 +104,4 @@ describe('UIChoicesStateHandler suit test', () => {
     });
 });
 
-export { getUIChoicesStateHandler };
+export { getUIChoicesStateHandler, getTCModelByFixture, getACModelByFixture };

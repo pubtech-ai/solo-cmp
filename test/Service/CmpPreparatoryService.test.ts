@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import ACModelService from '../../src/Service/ACModelService';
 import TCModelService from '../../src/Service/TCModelService';
 import UIConstructor from '../../src/UIConstructor';

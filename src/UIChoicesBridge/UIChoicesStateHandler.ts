@@ -41,10 +41,15 @@ class UIChoicesStateHandler {
      *
      * @param {TCModel|null} tcModel
      * @param {ACModel|null} acModel
+     * @param {boolean} forceOverride
      *
      * @return {UIChoicesStateHandler}
      */
-    public static getInstance(tcModel: TCModel | null = null, acModel: ACModel | null = null): UIChoicesStateHandler {
+    public static getInstance(
+        tcModel: TCModel | null = null,
+        acModel: ACModel | null = null,
+        forceOverride = false,
+    ): UIChoicesStateHandler {
 
         if (!UIChoicesStateHandler.instance && tcModel === null) {
 
@@ -58,7 +63,7 @@ class UIChoicesStateHandler {
 
         }
 
-        if (!UIChoicesStateHandler.instance) {
+        if (!UIChoicesStateHandler.instance || forceOverride) {
 
             if (tcModel && acModel) {
 
