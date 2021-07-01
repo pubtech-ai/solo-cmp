@@ -1,4 +1,4 @@
-import UIChoicesBridgeBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeBuilder';
+import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 import { expect } from 'chai';
 import { GVL, TCModel } from '@iabtcf/core';
 import ACModel from '../../src/Entity/ACModel';
@@ -40,7 +40,7 @@ const getACModelByFixture = function () {
 
 describe('UIChoicesStateHandler suit test', () => {
     it('UIChoicesStateHandler test entity built with getInstance singleton test', () => {
-        const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeBuilder(
+        const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
             getTCModelByFixture(),
             getACModelByFixture(),
         ).createUIChoicesBridgeDto();

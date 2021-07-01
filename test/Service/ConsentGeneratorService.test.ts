@@ -10,11 +10,11 @@ import ConsentGeneratorService from '../../src/Service/ConsentGeneratorService';
 import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
 import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
 //@ts-ignore
-import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesStateHandler.test';
+import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
 import ACModel from '../../src/Entity/ACModel';
 import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
 import ConsentPersistEvent from '../../src/Event/ConsentPersistEvent';
-import UIChoicesBridgeBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeBuilder';
+import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 
 describe('ConsentGeneratorService suit test', () => {
     const localStorage: Storage = {
@@ -78,7 +78,7 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
 
         consentGeneratorService.generateAndPersistConsent(uiChoicesBridgeDto);
 
@@ -129,7 +129,7 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
 
         consentGeneratorService.generateAndPersistConsent(uiChoicesBridgeDto);
     });

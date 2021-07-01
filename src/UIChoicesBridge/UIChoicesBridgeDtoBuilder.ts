@@ -9,9 +9,9 @@ import GoogleVendorOption from '../Entity/GoogleVendorOption';
 import UIChoicesBridgeDto from './UIChoicesBridgeDto';
 
 /**
- * UIChoicesBridgeBuilder.
+ * UIChoicesBridgeDtoBuilder.
  */
-class UIChoicesBridgeBuilder {
+class UIChoicesBridgeDtoBuilder {
 
     private _UIPurposeChoices: PurposeOption[] = [];
     private _UIVendorChoices: VendorOption[] = [];
@@ -117,19 +117,19 @@ class UIChoicesBridgeBuilder {
             vendorOption.push({
                 state: tcModel.vendorConsents.has(vendor.id),
                 expanded: false,
-                features: UIChoicesBridgeBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
+                features: UIChoicesBridgeDtoBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
                 cookieMaxAgeSeconds: cookieMaxAgeSeconds,
-                purposes: UIChoicesBridgeBuilder.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
-                specialFeatures: UIChoicesBridgeBuilder.buildVendorFeatures(
+                purposes: UIChoicesBridgeDtoBuilder.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
+                specialFeatures: UIChoicesBridgeDtoBuilder.buildVendorFeatures(
                     vendor.specialFeatures,
                     tcModel.gvl.specialFeatures,
                 ),
-                specialPurposes: UIChoicesBridgeBuilder.buildVendorPurposes(
+                specialPurposes: UIChoicesBridgeDtoBuilder.buildVendorPurposes(
                     vendor.specialPurposes,
                     tcModel.gvl.specialPurposes,
                 ),
@@ -238,19 +238,19 @@ class UIChoicesBridgeBuilder {
             legitimateInterestsVendorOption.push({
                 state: tcModel.vendorLegitimateInterests.has(vendor.id),
                 expanded: false,
-                features: UIChoicesBridgeBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
+                features: UIChoicesBridgeDtoBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
                 cookieMaxAgeSeconds: cookieMaxAgeSeconds,
-                purposes: UIChoicesBridgeBuilder.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
-                specialFeatures: UIChoicesBridgeBuilder.buildVendorFeatures(
+                purposes: UIChoicesBridgeDtoBuilder.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
+                specialFeatures: UIChoicesBridgeDtoBuilder.buildVendorFeatures(
                     vendor.specialFeatures,
                     tcModel.gvl.specialFeatures,
                 ),
-                specialPurposes: UIChoicesBridgeBuilder.buildVendorPurposes(
+                specialPurposes: UIChoicesBridgeDtoBuilder.buildVendorPurposes(
                     vendor.specialPurposes,
                     tcModel.gvl.specialPurposes,
                 ),
@@ -334,4 +334,4 @@ class UIChoicesBridgeBuilder {
 
 }
 
-export default UIChoicesBridgeBuilder;
+export default UIChoicesBridgeDtoBuilder;

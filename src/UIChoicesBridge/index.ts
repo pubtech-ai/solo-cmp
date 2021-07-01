@@ -1,3 +1,3 @@
 export * from './UIChoicesParser';
-export * from './UIChoicesBridgeBuilder';
+export * from './UIChoicesBridgeDtoBuilder';
 export * from './UIChoicesBridgeDto';

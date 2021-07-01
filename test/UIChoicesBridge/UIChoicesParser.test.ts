@@ -1,13 +1,14 @@
 import { expect } from 'chai';
 import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
-import UIChoicesBridgeBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeBuilder';
-import { getACModelByFixture, getTCModelByFixture } from './UIChoicesStateHandler.test';
+import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
+//@ts-ignore
+import { getACModelByFixture, getTCModelByFixture } from './UIChoicesBridgeDtoBuilder.test';
 
 describe('UIChoicesParser suit test', () => {
     it('UIChoicesParser parsing logic validation test', () => {
         const uiChoicesParser = UIChoicesParser.getInstance();
 
-        const choicesStateHandler = new UIChoicesBridgeBuilder(
+        const choicesStateHandler = new UIChoicesBridgeDtoBuilder(
             getTCModelByFixture(),
             getACModelByFixture(),
         ).createUIChoicesBridgeDto();

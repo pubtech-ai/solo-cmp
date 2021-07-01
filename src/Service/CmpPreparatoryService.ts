@@ -1,5 +1,5 @@
 import UIChoicesParser from '../UIChoicesBridge/UIChoicesParser';
-import UIChoicesBridgeBuilder from '../UIChoicesBridge/UIChoicesBridgeBuilder';
+import UIChoicesBridgeDtoBuilder from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 import EventDispatcher from '../EventDispatcher/EventDispatcher';
 import ACModel from '../Entity/ACModel';
 import {TCModel} from '@iabtcf/core';
@@ -73,7 +73,7 @@ class CmpPreparatoryService {
 
                 }
 
-                SoloCmpApi.getInstance().uiChoicesBridgeDto = new UIChoicesBridgeBuilder(
+                SoloCmpApi.getInstance().uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
                     tcModel,
                     acModel,
                 ).createUIChoicesBridgeDto();
