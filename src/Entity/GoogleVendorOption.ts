@@ -1,13 +1,13 @@
+import UIChoice from './UIChoice';
+
 /**
  * GoogleVendorOption.
  */
-interface GoogleVendorOption {
-    state: boolean;
+interface GoogleVendorOption extends UIChoice {
     id: number;
     name: string;
     policyUrl: string;
     domains: string;
-    expanded: boolean;
 }
 
 export default GoogleVendorOption;
