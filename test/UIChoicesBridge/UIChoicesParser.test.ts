@@ -5,7 +5,6 @@ import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
 import { getUIChoicesStateHandler } from './UIChoicesStateHandler.test';
 
 describe('UIChoicesParser suit test', () => {
-
     it('UIChoicesParser parsing logic validation test', () => {
         const uiChoicesParser = UIChoicesParser.getInstance();
 
