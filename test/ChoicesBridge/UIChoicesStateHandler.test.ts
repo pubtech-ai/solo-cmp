@@ -1,4 +1,4 @@
-import ChoicesStateHandler from '../../src/ChoicesBridge/ChoicesStateHandler';
+import UIChoicesStateHandler from '../../src/ChoicesBridge/UIChoicesStateHandler';
 import { expect } from 'chai';
 import { GVL, TCModel } from '@iabtcf/core';
 import ACModel from '../../src/Entity/ACModel';
@@ -19,31 +19,31 @@ describe('ChoicesStateHandler suit test', () => {
 
     it('ChoicesStateHandler construction fail for first time with getInstance test', () => {
         const constructionFail = function () {
-            ChoicesStateHandler.getInstance();
+            UIChoicesStateHandler.getInstance();
         };
 
-        expect(constructionFail).to.throw('ChoicesStateHandler, you must provide the TCModel.');
+        expect(constructionFail).to.throw('UIChoicesStateHandler, you must provide the TCModel.');
     });
 
     it('ChoicesStateHandler construction fail for first time with getInstance test', () => {
         const constructionFail = function () {
-            ChoicesStateHandler.getInstance(getTCModelByFixture());
+            UIChoicesStateHandler.getInstance(getTCModelByFixture());
         };
 
-        expect(constructionFail).to.throw('ChoicesStateHandler, you must provide the ACModel.');
+        expect(constructionFail).to.throw('UIChoicesStateHandler, you must provide the ACModel.');
     });
 
     it('ChoicesStateHandler construction valid getInstance test', () => {
-        const choicesStateHandler = ChoicesStateHandler.getInstance(getTCModelByFixture(), new ACModel([]));
+        const choicesStateHandler = UIChoicesStateHandler.getInstance(getTCModelByFixture(), new ACModel([]));
 
-        expect(choicesStateHandler instanceof ChoicesStateHandler).to.be.true;
+        expect(choicesStateHandler instanceof UIChoicesStateHandler).to.be.true;
     });
 
     it('ChoicesStateHandler test entity built with getInstance test', () => {
         const tcModel = getTCModelByFixture();
         const acModel = new ACModel([]);
 
-        const choicesStateHandler = ChoicesStateHandler.getInstance(tcModel, acModel);
+        const choicesStateHandler = UIChoicesStateHandler.getInstance(tcModel, acModel);
 
         expect(choicesStateHandler.UIPurposeChoices.length, 'choicesStateHandler.UIPurposeChoices.length').to.equal(
             Object.keys(tcModel.gvl.purposes).length,

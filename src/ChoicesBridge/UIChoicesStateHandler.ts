@@ -8,11 +8,11 @@ import VendorOption from '../Entity/VendorOption';
 import GoogleVendorOption from '../Entity/GoogleVendorOption';
 
 /**
- * ChoicesStateHandler.
+ * UIChoicesStateHandler.
  */
-class ChoicesStateHandler {
+class UIChoicesStateHandler {
 
-    private static instance: ChoicesStateHandler;
+    private static instance: UIChoicesStateHandler;
 
     private _UIPurposeChoices: PurposeOption[] = [];
     private _UIVendorChoices: VendorOption[] = [];
@@ -42,33 +42,33 @@ class ChoicesStateHandler {
      * @param {TCModel|null} tcModel
      * @param {ACModel|null} acModel
      *
-     * @return {ChoicesStateHandler}
+     * @return {UIChoicesStateHandler}
      */
-    public static getInstance(tcModel: TCModel | null = null, acModel: ACModel | null = null): ChoicesStateHandler {
+    public static getInstance(tcModel: TCModel | null = null, acModel: ACModel | null = null): UIChoicesStateHandler {
 
-        if (!ChoicesStateHandler.instance && tcModel === null) {
+        if (!UIChoicesStateHandler.instance && tcModel === null) {
 
-            throw new Error('ChoicesStateHandler, you must provide the TCModel.');
-
-        }
-
-        if (!ChoicesStateHandler.instance && acModel === null) {
-
-            throw new Error('ChoicesStateHandler, you must provide the ACModel.');
+            throw new Error('UIChoicesStateHandler, you must provide the TCModel.');
 
         }
 
-        if (!ChoicesStateHandler.instance) {
+        if (!UIChoicesStateHandler.instance && acModel === null) {
+
+            throw new Error('UIChoicesStateHandler, you must provide the ACModel.');
+
+        }
+
+        if (!UIChoicesStateHandler.instance) {
 
             if (tcModel && acModel) {
 
-                ChoicesStateHandler.instance = new ChoicesStateHandler(tcModel, acModel);
+                UIChoicesStateHandler.instance = new UIChoicesStateHandler(tcModel, acModel);
 
             }
 
         }
 
-        return ChoicesStateHandler.instance;
+        return UIChoicesStateHandler.instance;
 
     }
 
@@ -137,19 +137,19 @@ class ChoicesStateHandler {
             vendorOption.push({
                 state: tcModel.vendorConsents.has(vendor.id),
                 expanded: false,
-                features: ChoicesStateHandler.buildVendorFeatures(vendor.features, tcModel.gvl.features),
+                features: UIChoicesStateHandler.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: vendor.id,
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
                 cookieMaxAgeSeconds: cookieMaxAgeSeconds,
-                purposes: ChoicesStateHandler.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
-                specialFeatures: ChoicesStateHandler.buildVendorFeatures(
+                purposes: UIChoicesStateHandler.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
+                specialFeatures: UIChoicesStateHandler.buildVendorFeatures(
                     vendor.specialFeatures,
                     tcModel.gvl.specialFeatures,
                 ),
-                specialPurposes: ChoicesStateHandler.buildVendorPurposes(
+                specialPurposes: UIChoicesStateHandler.buildVendorPurposes(
                     vendor.specialPurposes,
                     tcModel.gvl.specialPurposes,
                 ),
@@ -258,19 +258,19 @@ class ChoicesStateHandler {
             legitimateInterestsVendorOption.push({
                 state: tcModel.vendorLegitimateInterests.has(vendor.id),
                 expanded: false,
-                features: ChoicesStateHandler.buildVendorFeatures(vendor.features, tcModel.gvl.features),
+                features: UIChoicesStateHandler.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
                 cookieMaxAgeSeconds: cookieMaxAgeSeconds,
-                purposes: ChoicesStateHandler.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
-                specialFeatures: ChoicesStateHandler.buildVendorFeatures(
+                purposes: UIChoicesStateHandler.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
+                specialFeatures: UIChoicesStateHandler.buildVendorFeatures(
                     vendor.specialFeatures,
                     tcModel.gvl.specialFeatures,
                 ),
-                specialPurposes: ChoicesStateHandler.buildVendorPurposes(
+                specialPurposes: UIChoicesStateHandler.buildVendorPurposes(
                     vendor.specialPurposes,
                     tcModel.gvl.specialPurposes,
                 ),
@@ -374,4 +374,4 @@ class ChoicesStateHandler {
     }
 }
 
-export default ChoicesStateHandler;
+export default UIChoicesStateHandler;
