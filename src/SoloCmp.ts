@@ -14,6 +14,7 @@ import HttpRequestService from './Service/HttpRequestService';
 import CmpApiProvider from './Service/CmpApiProvider';
 import Orchestrator from './Service/Orchestrator';
 import UIConstructor from './UIConstructor';
+import AmpSubscriber from "./EventSubscriber/AmpSubscriber";
 
 /**
  * SoloCmp.
@@ -32,6 +33,7 @@ class SoloCmp {
     private readonly acStringLocalStorageName: string;
     private readonly cmpConfig: any;
     private readonly supportedLanguages: string[];
+    private readonly initialHeightAmpCmpUi: string | null;
 
     /**
      * Constructor.
@@ -47,6 +49,7 @@ class SoloCmp {
      * @param {number} cmpId
      * @param {boolean} isServiceSpecific
      * @param {string} baseUrlVendorList
+     * @param initialHeightAmpCmpUi
      */
     constructor(
         uiConstructor: UIConstructor,
@@ -60,6 +63,7 @@ class SoloCmp {
         cmpId: number,
         isServiceSpecific: boolean,
         baseUrlVendorList: string,
+        initialHeightAmpCmpUi: string | null = null
     ) {
 
         this.uiConstructor = uiConstructor;
@@ -73,6 +77,7 @@ class SoloCmp {
         this.cmpId = cmpId;
         this.isServiceSpecific = isServiceSpecific;
         this.baseUrlVendorList = baseUrlVendorList;
+        this.initialHeightAmpCmpUi = initialHeightAmpCmpUi;
 
         this.registerServices();
         this.registerSubscribers();
@@ -190,7 +195,23 @@ class SoloCmp {
      * Register all default subscribers.
      */
     registerSubscribers(): void {
-        // TODO Add SoloCmp subscribers and relative events #11
+        this._DependencyInjectionManager
+            .addEventSubscriberProvider(AmpSubscriber.name, (container: IContainer) => {
+
+                const cmpConfigurationProvider: CmpConfigurationProvider = container[CmpConfigurationProvider.name];
+
+                if (this.initialHeightAmpCmpUi !== null && this.initialHeightAmpCmpUi.length > 0) {
+                    return new AmpSubscriber(
+                        cmpConfigurationProvider.cmpConfiguration.isAmp,
+                        window,
+                        this.initialHeightAmpCmpUi
+                    );
+                }
+
+                return new AmpSubscriber(cmpConfigurationProvider.cmpConfiguration.isAmp, window);
+
+            })
+        ;
     }
 
     /**
