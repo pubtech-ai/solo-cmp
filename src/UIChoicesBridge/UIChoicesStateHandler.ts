@@ -348,8 +348,7 @@ class UIChoicesStateHandler {
      */
     private buildUIGoogleVendorOptions(acModel: ACModel): void {
 
-        // Clone the array
-        this._UIGoogleVendorOptions = Array.from(acModel.googleVendorOptions);
+        this._UIGoogleVendorOptions = [...acModel.googleVendorOptions];
 
     }
 
