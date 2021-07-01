@@ -8,3 +8,5 @@ export * from './TCStringService';
 export * from './ACStringService';
 export * from './ACModelService';
 export * from './HttpRequestService';
+export * from './Orchestrator';
+export * from './CmpApiProvider';
