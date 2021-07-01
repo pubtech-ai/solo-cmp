@@ -7,6 +7,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "ts-mocha -p tsconfig.json test/**/*.test.ts -r jsdom-global/register --parallel",
+    "test-no-parallel": "ts-mocha -p tsconfig.json test/**/*.test.ts -r jsdom-global/register",
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet --fix",
