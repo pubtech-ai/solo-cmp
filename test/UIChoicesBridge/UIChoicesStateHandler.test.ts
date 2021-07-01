@@ -4,46 +4,52 @@ import { GVL, TCModel } from '@iabtcf/core';
 import ACModel from '../../src/Entity/ACModel';
 import vendorList from '../Fixtures/vendor-list';
 
+const getTCModelByFixture = function () {
+    // @ts-ignore
+    const gvl = new GVL(vendorList);
+
+    const tcModel = new TCModel(gvl);
+    tcModel.vendorLegitimateInterests.set([8, 46]);
+    tcModel.vendorConsents.set([8, 46]);
+    tcModel.purposeConsents.set([1, 2]);
+
+    return tcModel;
+};
+
+const getACModelByFixture = function () {
+    return new ACModel([
+        {
+            id: 1,
+            name: 'ac1',
+            policyUrl: 'urlPolicy',
+            domains: 'solo-cmp-ac.com',
+            state: true,
+            expanded: false,
+        },
+        {
+            id: 2,
+            name: 'ac2',
+            policyUrl: 'urlPolicy',
+            domains: 'solo-cmp-ac.com',
+            state: false,
+            expanded: false,
+        },
+    ]);
+};
+
+const getUIChoicesStateHandler = function () {
+    const tcModel = getTCModelByFixture();
+    const acModel = getACModelByFixture();
+
+    return UIChoicesStateHandler.getInstance(tcModel, acModel);
+};
+
 describe('UIChoicesStateHandler suit test', () => {
-    const getTCModelByFixture = function () {
-        // @ts-ignore
-        const gvl = new GVL(vendorList);
+    it('UIChoicesStateHandler test entity built with getInstance singleton test', () => {
+        const choicesStateHandler = getUIChoicesStateHandler();
 
-        const tcModel = new TCModel(gvl);
-        tcModel.vendorLegitimateInterests.set([8, 46]);
-        tcModel.vendorConsents.set([8, 46]);
-        tcModel.purposeConsents.set([1, 2]);
-
-        return tcModel;
-    };
-
-    it('UIChoicesStateHandler construction fail for first time with getInstance without any parameter test', () => {
-        const constructionFail = function () {
-            UIChoicesStateHandler.getInstance();
-        };
-
-        expect(constructionFail).to.throw('UIChoicesStateHandler, you must provide the TCModel.');
-    });
-
-    it('UIChoicesStateHandler construction fail for first time with getInstance with only TCModel test', () => {
-        const constructionFail = function () {
-            UIChoicesStateHandler.getInstance(getTCModelByFixture());
-        };
-
-        expect(constructionFail).to.throw('UIChoicesStateHandler, you must provide the ACModel.');
-    });
-
-    it('UIChoicesStateHandler construction valid getInstance test', () => {
-        const choicesStateHandler = UIChoicesStateHandler.getInstance(getTCModelByFixture(), new ACModel([]));
-
-        expect(choicesStateHandler instanceof UIChoicesStateHandler).to.be.true;
-    });
-
-    it('UIChoicesStateHandler test entity built with getInstance test', () => {
         const tcModel = getTCModelByFixture();
-        const acModel = new ACModel([]);
-
-        const choicesStateHandler = UIChoicesStateHandler.getInstance(tcModel, acModel);
+        const acModel = getACModelByFixture();
 
         expect(choicesStateHandler.UIPurposeChoices.length, 'choicesStateHandler.UIPurposeChoices.length').to.equal(
             Object.keys(tcModel.gvl.purposes).length,
@@ -54,7 +60,7 @@ describe('UIChoicesStateHandler suit test', () => {
         expect(
             choicesStateHandler.UIGoogleVendorOptions.length,
             'choicesStateHandler.UIGoogleVendorOptions.length',
-        ).to.equal(0);
+        ).to.equal(2);
 
         //Check UILegitimateInterestsPurposeChoices
         const countLegIntPurposeChoicesEnabled = choicesStateHandler.UILegitimateInterestsPurposeChoices.filter(
@@ -89,7 +95,13 @@ describe('UIChoicesStateHandler suit test', () => {
             (choice) => choice.state,
         ).length;
         expect(countGoogleVendorOptionsChoicesEnabled, 'countGoogleVendorOptionsChoicesEnabled').to.equal(
-            acModel.googleVendorOptions.length,
+            acModel.googleVendorOptions.filter((option) => option.state).length,
         );
     });
+
+    it('UIChoicesStateHandler singleton getInstance test', () => {
+        expect(UIChoicesStateHandler.getInstance() instanceof UIChoicesStateHandler).to.be.true;
+    });
 });
+
+export { getUIChoicesStateHandler };
