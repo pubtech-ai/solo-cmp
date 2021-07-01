@@ -1,2 +1,3 @@
 export * from './UIChoicesParser';
-export * from './UIChoicesStateHandler';
+export * from './UIChoicesBridgeBuilder';
+export * from './UIChoicesBridgeDto';

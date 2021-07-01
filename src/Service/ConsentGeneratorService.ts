@@ -1,10 +1,10 @@
 import ChoicesParser from '../UIChoicesBridge/UIChoicesParser';
-import ChoicesStateHandler from '../UIChoicesBridge/UIChoicesStateHandler';
 import ConsentReadyEvent from '../Event/ConsentReadyEvent';
 import ConsentPersistEvent from '../Event/ConsentPersistEvent';
 import EventDispatcher from '../EventDispatcher/EventDispatcher';
 import TCStringService from './TCStringService';
 import ACStringService from './ACStringService';
+import UIChoicesBridgeDto from '../UIChoicesBridge/UIChoicesBridgeDto';
 
 /**
  * ConsentGeneratorService.
@@ -33,14 +33,15 @@ class ConsentGeneratorService {
     /**
      * Generate the consent strings by the changes made on the UI bridges
      * parse the choices and dispatch ready and persist events.
+     *
+     * @param {UIChoicesBridgeDto} uiChoicesBridgeDto
      */
-    public generateAndPersistConsent(): void {
+    public generateAndPersistConsent(uiChoicesBridgeDto: UIChoicesBridgeDto): void {
 
         const choicesParser = ChoicesParser.getInstance();
-        const choicesStateHandler = ChoicesStateHandler.getInstance();
 
-        const tcModel = choicesParser.parseTCModel(choicesStateHandler);
-        const acModel = choicesParser.parseACModel(choicesStateHandler);
+        const tcModel = choicesParser.parseTCModel(uiChoicesBridgeDto);
+        const acModel = choicesParser.parseACModel(uiChoicesBridgeDto);
 
         const tcString = this.tcStringService.buildTCString(tcModel);
         const acString = this.acStringService.buildACString(acModel);

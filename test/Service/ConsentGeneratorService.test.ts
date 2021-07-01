@@ -9,10 +9,12 @@ import TCStringService from '../../src/Service/TCStringService';
 import ConsentGeneratorService from '../../src/Service/ConsentGeneratorService';
 import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
 import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
+//@ts-ignore
 import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesStateHandler.test';
 import ACModel from '../../src/Entity/ACModel';
 import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
 import ConsentPersistEvent from '../../src/Event/ConsentPersistEvent';
+import UIChoicesBridgeBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeBuilder';
 
 describe('ConsentGeneratorService suit test', () => {
     const localStorage: Storage = {
@@ -76,7 +78,9 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        consentGeneratorService.generateAndPersistConsent();
+        const uiChoicesBridgeDto = new UIChoicesBridgeBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+
+        consentGeneratorService.generateAndPersistConsent(uiChoicesBridgeDto);
 
         subscription.unsubscribe();
     });
@@ -125,6 +129,8 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        consentGeneratorService.generateAndPersistConsent();
+        const uiChoicesBridgeDto = new UIChoicesBridgeBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+
+        consentGeneratorService.generateAndPersistConsent(uiChoicesBridgeDto);
     });
 });

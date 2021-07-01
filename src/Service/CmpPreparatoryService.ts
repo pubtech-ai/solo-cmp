@@ -1,5 +1,5 @@
-import ChoicesParser from '../UIChoicesBridge/UIChoicesParser';
-import ChoicesStateHandler from '../UIChoicesBridge/UIChoicesStateHandler';
+import UIChoicesParser from '../UIChoicesBridge/UIChoicesParser';
+import UIChoicesBridgeBuilder from '../UIChoicesBridge/UIChoicesBridgeBuilder';
 import EventDispatcher from '../EventDispatcher/EventDispatcher';
 import ACModel from '../Entity/ACModel';
 import {TCModel} from '@iabtcf/core';
@@ -8,6 +8,7 @@ import ConsentRequiredEvent from '../Event/ConsentRequiredEvent';
 import TCModelService from './TCModelService';
 import ACModelService from './ACModelService';
 import LoggerService from './LoggerService';
+import SoloCmpApi from '../SoloCmpApi';
 
 /**
  * CmpPreparatoryService.
@@ -72,9 +73,12 @@ class CmpPreparatoryService {
 
                 }
 
-                ChoicesStateHandler.getInstance(tcModel, acModel);
+                SoloCmpApi.getInstance().uiChoicesBridgeDto = new UIChoicesBridgeBuilder(
+                    tcModel,
+                    acModel,
+                ).createUIChoicesBridgeDto();
 
-                ChoicesParser.getInstance(tcModel, acModel);
+                UIChoicesParser.getInstance(tcModel, acModel);
 
                 this.uiConstructor.buildUIAndRender();
 

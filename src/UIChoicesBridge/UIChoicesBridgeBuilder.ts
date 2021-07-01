@@ -6,13 +6,12 @@ import VendorFeature from '../Entity/VendorFeature';
 import VendorPurpose from '../Entity/VendorPurpose';
 import VendorOption from '../Entity/VendorOption';
 import GoogleVendorOption from '../Entity/GoogleVendorOption';
+import UIChoicesBridgeDto from './UIChoicesBridgeDto';
 
 /**
- * UIChoicesStateHandler.
+ * UIChoicesBridgeBuilder.
  */
-class UIChoicesStateHandler {
-
-    private static instance: UIChoicesStateHandler;
+class UIChoicesBridgeBuilder {
 
     private _UIPurposeChoices: PurposeOption[] = [];
     private _UIVendorChoices: VendorOption[] = [];
@@ -27,53 +26,29 @@ class UIChoicesStateHandler {
      * @param {ACModel} acModel
      * @private
      */
-    private constructor(tcModel: TCModel, acModel: ACModel) {
+    constructor(tcModel: TCModel, acModel: ACModel) {
 
         this.buildUIPurposeChoices(tcModel);
         this.buildUIVendorChoices(tcModel);
-        this.buildLegitimateInterestsChoices(tcModel);
+        this.buildUILegitimateInterestsChoices(tcModel);
         this.buildUIGoogleVendorOptions(acModel);
 
     }
 
     /**
-     * Retrieve the instance or build it if is not instantiated.
+     * Create the UIChoicesBridgeDto.
      *
-     * @param {TCModel|null} tcModel
-     * @param {ACModel|null} acModel
-     * @param {boolean} forceOverride - For testing purpose only.
-     *
-     * @return {UIChoicesStateHandler}
+     * @return {UIChoicesBridgeDto}
      */
-    public static getInstance(
-        tcModel: TCModel | null = null,
-        acModel: ACModel | null = null,
-        forceOverride = false,
-    ): UIChoicesStateHandler {
+    public createUIChoicesBridgeDto(): UIChoicesBridgeDto {
 
-        if ((!UIChoicesStateHandler.instance || forceOverride) && tcModel === null) {
-
-            throw new Error('UIChoicesStateHandler, you must provide the TCModel.');
-
-        }
-
-        if ((!UIChoicesStateHandler.instance || forceOverride) && acModel === null) {
-
-            throw new Error('UIChoicesStateHandler, you must provide the ACModel.');
-
-        }
-
-        if (!UIChoicesStateHandler.instance || forceOverride) {
-
-            if (tcModel && acModel) {
-
-                UIChoicesStateHandler.instance = new UIChoicesStateHandler(tcModel, acModel);
-
-            }
-
-        }
-
-        return UIChoicesStateHandler.instance;
+        return new UIChoicesBridgeDto(
+            this._UIPurposeChoices,
+            this._UIVendorChoices,
+            this._UILegitimateInterestsPurposeChoices,
+            this._UILegitimateInterestsVendorChoices,
+            this._UIGoogleVendorOptions,
+        );
 
     }
 
@@ -142,19 +117,19 @@ class UIChoicesStateHandler {
             vendorOption.push({
                 state: tcModel.vendorConsents.has(vendor.id),
                 expanded: false,
-                features: UIChoicesStateHandler.buildVendorFeatures(vendor.features, tcModel.gvl.features),
+                features: UIChoicesBridgeBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
                 cookieMaxAgeSeconds: cookieMaxAgeSeconds,
-                purposes: UIChoicesStateHandler.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
-                specialFeatures: UIChoicesStateHandler.buildVendorFeatures(
+                purposes: UIChoicesBridgeBuilder.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
+                specialFeatures: UIChoicesBridgeBuilder.buildVendorFeatures(
                     vendor.specialFeatures,
                     tcModel.gvl.specialFeatures,
                 ),
-                specialPurposes: UIChoicesStateHandler.buildVendorPurposes(
+                specialPurposes: UIChoicesBridgeBuilder.buildVendorPurposes(
                     vendor.specialPurposes,
                     tcModel.gvl.specialPurposes,
                 ),
@@ -174,7 +149,7 @@ class UIChoicesStateHandler {
      * @param {TCModel} tcModel
      * @private
      */
-    private buildLegitimateInterestsChoices(tcModel: TCModel): void {
+    private buildUILegitimateInterestsChoices(tcModel: TCModel): void {
 
         const allVendorsWithLegitimateInterests = this.buildLegitimateInterestsPurposeOptions(tcModel);
 
@@ -263,19 +238,19 @@ class UIChoicesStateHandler {
             legitimateInterestsVendorOption.push({
                 state: tcModel.vendorLegitimateInterests.has(vendor.id),
                 expanded: false,
-                features: UIChoicesStateHandler.buildVendorFeatures(vendor.features, tcModel.gvl.features),
+                features: UIChoicesBridgeBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
                 cookieMaxAgeSeconds: cookieMaxAgeSeconds,
-                purposes: UIChoicesStateHandler.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
-                specialFeatures: UIChoicesStateHandler.buildVendorFeatures(
+                purposes: UIChoicesBridgeBuilder.buildVendorPurposes(vendor.purposes, tcModel.gvl.purposes),
+                specialFeatures: UIChoicesBridgeBuilder.buildVendorFeatures(
                     vendor.specialFeatures,
                     tcModel.gvl.specialFeatures,
                 ),
-                specialPurposes: UIChoicesStateHandler.buildVendorPurposes(
+                specialPurposes: UIChoicesBridgeBuilder.buildVendorPurposes(
                     vendor.specialPurposes,
                     tcModel.gvl.specialPurposes,
                 ),
@@ -357,36 +332,6 @@ class UIChoicesStateHandler {
 
     }
 
-    get UIPurposeChoices(): PurposeOption[] {
-
-        return this._UIPurposeChoices;
-
-    }
-
-    get UIVendorChoices(): VendorOption[] {
-
-        return this._UIVendorChoices;
-
-    }
-
-    get UILegitimateInterestsPurposeChoices(): PurposeOption[] {
-
-        return this._UILegitimateInterestsPurposeChoices;
-
-    }
-
-    get UILegitimateInterestsVendorChoices(): VendorOption[] {
-
-        return this._UILegitimateInterestsVendorChoices;
-
-    }
-
-    get UIGoogleVendorOptions(): GoogleVendorOption[] {
-
-        return this._UIGoogleVendorOptions;
-
-    }
-
 }
 
-export default UIChoicesStateHandler;
+export default UIChoicesBridgeBuilder;
