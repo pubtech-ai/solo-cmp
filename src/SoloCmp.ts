@@ -15,6 +15,7 @@ import CmpApiProvider from './Service/CmpApiProvider';
 import Orchestrator from './Service/Orchestrator';
 import UIConstructor from './UIConstructor';
 import CmpPreparatoryService from './Service/CmpPreparatoryService';
+import ConsentGeneratorService from './Service/ConsentGeneratorService';
 
 /**
  * SoloCmp.
@@ -194,7 +195,17 @@ class SoloCmp {
                     container[LoggerService.name],
                 );
 
-            });
+            })
+            .addServiceProvider(ConsentGeneratorService.name, (container: IContainer) => {
+
+                return new ConsentGeneratorService(
+                    container[TCStringService.name],
+                    container[ACStringService.name],
+                    container[EventDispatcher.name],
+                );
+
+            })
+        ;
 
     }
 
