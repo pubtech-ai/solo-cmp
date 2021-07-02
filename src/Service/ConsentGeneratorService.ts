@@ -24,9 +24,9 @@ class ConsentGeneratorService {
      */
     constructor(tcStringService: TCStringService, acStringService: ACStringService, eventDispatcher: EventDispatcher) {
 
-        this.eventDispatcher = eventDispatcher;
         this.tcStringService = tcStringService;
         this.acStringService = acStringService;
+        this.eventDispatcher = eventDispatcher;
 
     }
 

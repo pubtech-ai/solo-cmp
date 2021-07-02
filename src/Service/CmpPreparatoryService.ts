@@ -16,10 +16,10 @@ import SoloCmpApi from '../SoloCmpApi';
 class CmpPreparatoryService {
 
     private tcModelService: TCModelService;
-    private uiConstructor: UIConstructor;
-    private loggerService: LoggerService;
-    private eventDispatcher: EventDispatcher;
     private acModelService: ACModelService;
+    private uiConstructor: UIConstructor;
+    private eventDispatcher: EventDispatcher;
+    private loggerService: LoggerService;
 
     /**
      * Constructor.
@@ -62,10 +62,10 @@ class CmpPreparatoryService {
             .then((result) => {
 
                 const acModel: ACModel = result[0];
-                const checkACModel: boolean = typeof acModel === 'object';
+                const checkACModel: boolean = typeof acModel === 'object' && acModel !== null;
 
                 const tcModel: TCModel = result[1];
-                const checkTCModel: boolean = typeof tcModel === 'object';
+                const checkTCModel: boolean = typeof tcModel === 'object' && tcModel !== null;
 
                 if (!checkACModel || !checkTCModel) {
 

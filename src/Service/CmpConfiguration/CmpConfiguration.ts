@@ -1,13 +1,14 @@
 import ConfigurationInterface from './ConfigurationInteface';
+import ConsentReadyEvent from '../../Event/ConsentReadyEvent';
 
 /**
  * CmpConfiguration.
  */
 class CmpConfiguration {
 
-    private _isAmp: boolean;
-    private _onConsentAdsCallBack: (consents: number[]) => void;
-    private _debug: boolean;
+    private readonly _isAmp: boolean;
+    private readonly _onConsentAdsCallBack: (event: ConsentReadyEvent) => void;
+    private readonly _debug: boolean;
 
     /**
      * Constructor.
