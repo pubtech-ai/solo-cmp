@@ -7,10 +7,6 @@ describe('DependencyInjectionManager suit test', () => {
             name;
         }
 
-        ObjTest.prototype.printContainer = function () {
-            console.log(this.container);
-        };
-
         DependencyInjectionManager.addServiceProvider(ObjTest.name, () => {
             return new ObjTest('service');
         });

@@ -5,3 +5,4 @@ export * from './DependencyInjection';
 export * from './Entity';
 export * from './UIChoicesBridge';
 export * from './Event';
+export * from './EventSubscriber';

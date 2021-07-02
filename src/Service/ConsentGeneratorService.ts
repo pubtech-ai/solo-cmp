@@ -5,6 +5,7 @@ import EventDispatcher from '../EventDispatcher/EventDispatcher';
 import TCStringService from './TCStringService';
 import ACStringService from './ACStringService';
 import UIChoicesBridgeDto from '../UIChoicesBridge/UIChoicesBridgeDto';
+import SoloCmpDataBundle from '../SoloCmpDataBundle';
 
 /**
  * ConsentGeneratorService.
@@ -24,9 +25,9 @@ class ConsentGeneratorService {
      */
     constructor(tcStringService: TCStringService, acStringService: ACStringService, eventDispatcher: EventDispatcher) {
 
-        this.eventDispatcher = eventDispatcher;
         this.tcStringService = tcStringService;
         this.acStringService = acStringService;
+        this.eventDispatcher = eventDispatcher;
 
     }
 
@@ -35,10 +36,14 @@ class ConsentGeneratorService {
      * parse the choices and dispatch ready and persist events.
      *
      * @param {UIChoicesBridgeDto} uiChoicesBridgeDto
+     * @param {SoloCmpDataBundle} soloCmpDataBundle
      */
-    public generateAndPersistConsent(uiChoicesBridgeDto: UIChoicesBridgeDto): void {
+    public generateAndPersistConsent(
+        uiChoicesBridgeDto: UIChoicesBridgeDto,
+        soloCmpDataBundle: SoloCmpDataBundle,
+    ): void {
 
-        const choicesParser = ChoicesParser.getInstance();
+        const choicesParser = new ChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
 
         const tcModel = choicesParser.parseTCModel(uiChoicesBridgeDto);
         const acModel = choicesParser.parseACModel(uiChoicesBridgeDto);
@@ -53,13 +58,13 @@ class ConsentGeneratorService {
     /**
      * Generate the consent strings with all consents enabled
      * and dispatch ready and persist events.
+     *
+     * @param {SoloCmpDataBundle} soloCmpDataBundle
      */
-    public generateAndPersistConsentWithAllEnabled(): void {
+    public generateAndPersistConsentWithAllEnabled(soloCmpDataBundle: SoloCmpDataBundle): void {
 
-        const choicesParser = ChoicesParser.getInstance();
-
-        const tcString = this.tcStringService.buildTCStringAllEnabled(choicesParser.tcModel);
-        const acString = this.acStringService.buildACStringAllEnabled(choicesParser.acModel);
+        const tcString = this.tcStringService.buildTCStringAllEnabled(soloCmpDataBundle.tcModel);
+        const acString = this.acStringService.buildACStringAllEnabled(soloCmpDataBundle.acModel);
 
         this.dispatchReadyAndPersistEvents(tcString, acString);
 

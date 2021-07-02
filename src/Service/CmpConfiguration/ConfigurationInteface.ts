@@ -1,9 +1,11 @@
+import ConsentReadyEvent from '../../Event/ConsentReadyEvent';
+
 /**
  * ConfigurationInterface.
  */
 interface ConfigurationInterface {
     isAmp: boolean;
-    onConsentAds: (consents: number[]) => void;
+    onConsentAds: (event: ConsentReadyEvent) => void;
     debug: boolean;
 }
 

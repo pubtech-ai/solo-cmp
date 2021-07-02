@@ -9,12 +9,13 @@ import TCStringService from '../../src/Service/TCStringService';
 import ConsentGeneratorService from '../../src/Service/ConsentGeneratorService';
 import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
 import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
-//@ts-ignore
-import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
 import ACModel from '../../src/Entity/ACModel';
 import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
 import ConsentPersistEvent from '../../src/Event/ConsentPersistEvent';
 import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
+//@ts-ignore
+import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
+import SoloCmpDataBundle from '../../src/SoloCmpDataBundle';
 
 describe('ConsentGeneratorService suit test', () => {
     const localStorage: Storage = {
@@ -43,8 +44,6 @@ describe('ConsentGeneratorService suit test', () => {
 
         const tcModel: TCModel = getTCModelByFixture();
         const acModel: ACModel = getACModelByFixture();
-
-        UIChoicesParser.getInstance(tcModel, acModel);
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -80,7 +79,10 @@ describe('ConsentGeneratorService suit test', () => {
 
         const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
 
-        consentGeneratorService.generateAndPersistConsent(uiChoicesBridgeDto);
+        consentGeneratorService.generateAndPersistConsent(
+            uiChoicesBridgeDto,
+            new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel),
+        );
 
         subscription.unsubscribe();
     });
@@ -94,8 +96,6 @@ describe('ConsentGeneratorService suit test', () => {
 
         const tcModel: TCModel = getTCModelByFixture();
         const acModel: ACModel = getACModelByFixture();
-
-        UIChoicesParser.getInstance(tcModel, acModel);
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -131,6 +131,9 @@ describe('ConsentGeneratorService suit test', () => {
 
         const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
 
-        consentGeneratorService.generateAndPersistConsent(uiChoicesBridgeDto);
+        consentGeneratorService.generateAndPersistConsent(
+            uiChoicesBridgeDto,
+            new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel),
+        );
     });
 });
