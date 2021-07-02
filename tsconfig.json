@@ -5,8 +5,16 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "lib": ["es6", "es2015", "DOM"],
-    "types": ["node", "mocha"],
+    "lib": [
+      "es6",
+      "es2015",
+      "DOM"
+    ],
+    "types": [
+      "node",
+      "mocha"
+    ],
+    "declaration": true,
     "outDir": "lib",
     "rootDir": "src",
     "strict": true,
@@ -15,7 +23,6 @@
     "downlevelIteration": true,
     "noImplicitAny": false,
     "preserveConstEnums": true,
-    "declaration": false,
     "allowUnreachableCode": false,
     "strictPropertyInitialization": false,
     "pretty": true,
@@ -26,8 +33,7 @@
   },
   "exclude": [
     "lib",
-    "node_modules",
-    "src/**/*.spec.ts"
+    "node_modules"
   ],
   "include": [
     "src"
