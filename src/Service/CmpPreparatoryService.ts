@@ -82,13 +82,13 @@ class CmpPreparatoryService {
                         acModel,
                     ).createUIChoicesBridgeDto();
 
-                    const soloCmpApi = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
+                    const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
 
-                    this.uiConstructor.buildUIAndRender(soloCmpApi);
+                    this.uiConstructor.buildUIAndRender(soloCmpDataBundle);
 
                     this.eventDispatcher.dispatch(new ConsentRequiredEvent());
 
-                    resolve(soloCmpApi);
+                    resolve(soloCmpDataBundle);
 
                 })
                 .catch((error) => {
