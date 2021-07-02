@@ -1,0 +1,13 @@
+@startuml
+OpenCmpUIEvent -> EventDispatcher: dispatched
+EventDispatcher -> OpenCmpUISubscriber : onOpenCmpUI(event)
+OpenCmpUISubscriber -> CmpPreparatoryService : prepareAndRender(tcString, acString)
+CmpPreparatoryService -> TCModelService : fetchDataAndBuildTCModel(tcString)
+CmpPreparatoryService -> ACModelService : fetchDataAndBuildACModel(tcString)
+CmpPreparatoryService -> UIChoicesBridgeDtoBuilder : new(tcModel, acModel)
+CmpPreparatoryService -> SoloCmpDataBundle : new(UIChoicesBridgeDto, tcModel, acModel)
+CmpPreparatoryService -> UIConstructor : buildUIAndRender(SoloCmpDataBundle)
+CmpPreparatoryService -> EventDispatcher : dispatch(ConsentRequiredEvent)
+EventDispatcher -> CmpApiSubscriber : onConsentRequired(event)
+EventDispatcher -> AmpSubscriber : onConsentRequired(event)
+@enduml

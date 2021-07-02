@@ -1,0 +1,7 @@
+@startuml
+ConsentRequiredEvent -> EventDispatcher: dispatched
+EventDispatcher -> CmpApiSubscriber : onConsentRequired(event)
+CmpApiSubscriber -> CmpApiProvider : cmpApi.update('', true)
+EventDispatcher -> AmpSubscriber : onConsentRequired(event)
+AmpSubscriber -> window : postMessage(...)
+@enduml
