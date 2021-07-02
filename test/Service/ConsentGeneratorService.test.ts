@@ -9,12 +9,12 @@ import TCStringService from '../../src/Service/TCStringService';
 import ConsentGeneratorService from '../../src/Service/ConsentGeneratorService';
 import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
 import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
-//@ts-ignore
-import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
 import ACModel from '../../src/Entity/ACModel';
 import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
 import ConsentPersistEvent from '../../src/Event/ConsentPersistEvent';
 import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
+//@ts-ignore
+import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
 
 describe('ConsentGeneratorService suit test', () => {
     const localStorage: Storage = {

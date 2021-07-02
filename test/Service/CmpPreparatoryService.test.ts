@@ -108,7 +108,7 @@ describe('CmpPreparatoryService suit test', () => {
 
         const uiConstructor = new UIConstructor(
             document,
-            'ciccio',
+            'solo-cmp-dom-id',
             () => {
                 done();
             },
@@ -204,7 +204,7 @@ describe('CmpPreparatoryService suit test', () => {
 
         const uiConstructor = new UIConstructor(
             document,
-            'ciccio',
+            'solo-cmp-dom-id',
             () => {},
             () => {},
         );

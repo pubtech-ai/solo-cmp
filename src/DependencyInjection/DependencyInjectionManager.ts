@@ -7,6 +7,9 @@ import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterfac
  */
 class DependencyInjectionManager {
 
+    private static readonly serviceContainerName: string = 'service';
+    private static readonly eventSubscriberContainerName: string = 'eventSubscriber';
+
     private bottle: Bottle;
 
     /**
@@ -18,8 +21,8 @@ class DependencyInjectionManager {
 
         const emptyContainer = (): void => {};
 
-        this.bottle.service('service', emptyContainer);
-        this.bottle.service('eventSubscriber', emptyContainer);
+        this.bottle.service(DependencyInjectionManager.serviceContainerName, emptyContainer);
+        this.bottle.service(DependencyInjectionManager.eventSubscriberContainerName, emptyContainer);
 
     }
 
@@ -54,7 +57,7 @@ class DependencyInjectionManager {
      */
     public addServiceProvider(name: string, provider: (container: IContainer) => any): DependencyInjectionManager {
 
-        this.bottle.factory(`service.${name}`, provider.bind(this));
+        this.bottle.factory(`${DependencyInjectionManager.serviceContainerName}.${name}`, provider.bind(this));
         return this;
 
     }
@@ -73,9 +76,9 @@ class DependencyInjectionManager {
         provider: (container: IContainer) => EventSubscriberInterface,
     ): DependencyInjectionManager {
 
-        this.bottle.factory(`eventSubscriber.${name}`, provider.bind(this));
+        this.bottle.factory(`${DependencyInjectionManager.eventSubscriberContainerName}.${name}`, provider.bind(this));
 
-        const subscriber = provider(this.getSubContainer('service'));
+        const subscriber = provider(this.getSubContainer(DependencyInjectionManager.serviceContainerName));
 
         const eventDispatcher = EventDispatcher.getInstance();
 
@@ -98,7 +101,7 @@ class DependencyInjectionManager {
      */
     public getService(className: string): any {
 
-        const serviceContainer = this.getSubContainer('service');
+        const serviceContainer = this.getSubContainer(DependencyInjectionManager.serviceContainerName);
 
         return serviceContainer[className];
 

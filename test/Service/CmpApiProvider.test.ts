@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-const sinon = require('sinon');
-import { API_KEY, CmpApi, TCData, TCFCommand } from '@iabtcf/cmpapi';
+import { API_KEY, TCData, TCFCommand } from '@iabtcf/cmpapi';
 import { TCStringFactory } from '@iabtcf/testing';
+const sinon = require('sinon');
 import CmpApiProvider from '../../src/Service/CmpApiProvider';
 import ACStringService from '../../src/Service/ACStringService';
 import LoggerService from '../../src/Service/LoggerService';
@@ -29,9 +29,7 @@ const getCmpApiProvider = (isServiceSpecific = false): CmpApiProvider => {
 
     const acStringService = new ACStringService(15, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
 
-    const cmpApiProvider = new CmpApiProvider(100, 15, isServiceSpecific, acStringService);
-
-    return cmpApiProvider;
+    return new CmpApiProvider(100, 15, isServiceSpecific, acStringService);
 };
 
 describe('CmpApiProvider suit test', () => {
@@ -55,6 +53,7 @@ describe('CmpApiProvider suit test', () => {
     beforeEach((): void => {
         stub.default();
     });
+
     afterEach((): void => {
         removeStub();
     });

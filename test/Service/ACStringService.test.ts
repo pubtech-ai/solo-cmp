@@ -59,15 +59,17 @@ describe('ACStringService suit test', () => {
     });
 
     it('ACStringService buildACString empty string with empty ACModel test', () => {
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const cmpVersion = 1;
+        const acStringService = new ACStringService(cmpVersion, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
 
         const acModel = new ACModel([]);
 
-        expect(acStringService.buildACString(acModel)).to.equal('1~');
+        expect(acStringService.buildACString(acModel)).to.equal(`${cmpVersion}~`);
     });
 
     it('ACStringService buildACString empty string with ACModel test', () => {
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const cmpVersion = 1;
+        const acStringService = new ACStringService(cmpVersion, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
 
         const firstVendorOption = getGoogleVendorOption();
         const secondVendorOption = getGoogleVendorOption();
@@ -79,11 +81,12 @@ describe('ACStringService suit test', () => {
 
         const acModel = new ACModel(googleVendorOptions);
 
-        expect(acStringService.buildACString(acModel)).to.equal(`1~${firstVendorOption.id}`);
+        expect(acStringService.buildACString(acModel)).to.equal(`${cmpVersion}~${firstVendorOption.id}`);
     });
 
     it('ACStringService buildACStringAllEnabled test', () => {
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const cmpVersion = 1;
+        const acStringService = new ACStringService(cmpVersion, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
 
         const firstVendorOption = getGoogleVendorOption();
         const secondVendorOption = getGoogleVendorOption();
@@ -95,7 +98,7 @@ describe('ACStringService suit test', () => {
         const acModel = new ACModel(googleVendorOptions);
 
         expect(acStringService.buildACStringAllEnabled(acModel)).to.equal(
-            `1~${firstVendorOption.id}.${secondVendorOption.id}`,
+            `${cmpVersion}~${firstVendorOption.id}.${secondVendorOption.id}`,
         );
     });
 
@@ -131,9 +134,10 @@ describe('ACStringService suit test', () => {
     });
 
     it('ACStringService retrieveACString fail test', () => {
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const cmpVersion = 1;
+        const acStringService = new ACStringService(cmpVersion, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
 
-        expect(acStringService.retrieveACString()).to.equal('1~');
+        expect(acStringService.retrieveACString()).to.equal(`${cmpVersion}~`);
     });
 
     it('ACStringService removeACString test', () => {
@@ -147,10 +151,11 @@ describe('ACStringService suit test', () => {
     });
 
     it('ACStringService isValidACString test', () => {
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, localStorage);
+        const cmpVersion = 1;
+        const acStringService = new ACStringService(cmpVersion, 'solo-cmp-ac-string', loggerService, localStorage);
 
         expect(acStringService.isValidACString(null)).to.be.false;
-        expect(acStringService.isValidACString('1~')).to.be.true;
+        expect(acStringService.isValidACString(`${cmpVersion}~`)).to.be.true;
         expect(acStringService.isValidACString('12~')).to.be.false;
         expect(acStringService.isValidACString('1~2')).to.be.true;
     });

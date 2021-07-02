@@ -24,7 +24,7 @@ describe('UIConstructor suit test', () => {
             done();
         };
 
-        const uiConstructor = new UIConstructor(document, 'ciccio', cmpBuildUIAndRenderCallback, () => {});
+        const uiConstructor = new UIConstructor(document, 'solo-cmp-dom-id', cmpBuildUIAndRenderCallback, () => {});
 
         uiConstructor.buildUIAndRender();
     });
@@ -34,7 +34,7 @@ describe('UIConstructor suit test', () => {
             done();
         };
 
-        const uiConstructor = new UIConstructor(document, 'ciccio', () => {}, cmpButtonBuildUIAndRenderCallback);
+        const uiConstructor = new UIConstructor(document, 'solo-cmp-dom-id', () => {}, cmpButtonBuildUIAndRenderCallback);
 
         uiConstructor.buildOpenCmpButtonAndRender();
     });
@@ -44,7 +44,7 @@ describe('UIConstructor suit test', () => {
             throw new Error("Something doesn't work!");
         };
 
-        const uiConstructor = new UIConstructor(document, 'ciccio', cmpBuildUIAndRenderCallback, () => {});
+        const uiConstructor = new UIConstructor(document, 'solo-cmp-dom-id', cmpBuildUIAndRenderCallback, () => {});
 
         const buildUIAndRenderError = function () {
             uiConstructor.buildUIAndRender();
@@ -60,7 +60,7 @@ describe('UIConstructor suit test', () => {
             throw new Error("Something doesn't work!");
         };
 
-        const uiConstructor = new UIConstructor(document, 'ciccio', () => {}, cmpButtonBuildUIAndRenderCallback);
+        const uiConstructor = new UIConstructor(document, 'solo-cmp-dom-id', () => {}, cmpButtonBuildUIAndRenderCallback);
 
         const buildUIAndRenderError = function () {
             uiConstructor.buildOpenCmpButtonAndRender();

@@ -118,7 +118,7 @@ describe('Orchestrator suit test', () => {
         const tcStringService = getTCStringService();
 
         sinon.stub(tcStringService, 'retrieveTCString').callsFake(function fakeMakeRequest() {
-            return 'something';
+            return 'Somethings!';
         });
 
         const acStringService = getACStringService();
