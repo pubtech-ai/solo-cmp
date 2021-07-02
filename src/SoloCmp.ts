@@ -22,6 +22,7 @@ import ConsentsPersistSubscriber from './EventSubscriber/ConsentsPersistSubscrib
 import ConsentsGeneratorSubscriber from './EventSubscriber/ConsentsGeneratorSubscriber';
 import CmpCallbackSubscriber from './EventSubscriber/CmpCallbackSubscriber';
 import CmpApiSubscriber from './EventSubscriber/CmpApiSubscriber';
+import * as cmpstub from '@iabtcf/stub';
 
 /**
  * SoloCmp.
@@ -92,6 +93,7 @@ class SoloCmp {
 
         this.registerServices();
         this.registerSubscribers();
+        cmpstub();
 
     }
 
