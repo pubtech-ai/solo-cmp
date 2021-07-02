@@ -1,4 +1,3 @@
-import UIChoicesParser from '../UIChoicesBridge/UIChoicesParser';
 import UIChoicesBridgeDtoBuilder from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 import EventDispatcher from '../EventDispatcher/EventDispatcher';
 import ACModel from '../Entity/ACModel';
@@ -8,7 +7,8 @@ import ConsentRequiredEvent from '../Event/ConsentRequiredEvent';
 import TCModelService from './TCModelService';
 import ACModelService from './ACModelService';
 import LoggerService from './LoggerService';
-import SoloCmpApi from '../SoloCmpApi';
+import SoloCmpDataBundle from '../SoloCmpDataBundle';
+import UIChoicesBridgeDto from '../UIChoicesBridge/UIChoicesBridgeDto';
 
 /**
  * CmpPreparatoryService.
@@ -52,44 +52,56 @@ class CmpPreparatoryService {
      *
      * @param {string} tcString
      * @param {string} acString
+     *
+     * @return {Promise}
      */
-    prepareAndRender(tcString: string, acString: string): void {
+    public async prepareAndRender(tcString: string, acString: string): Promise<SoloCmpDataBundle> {
 
-        Promise.all([
-            this.acModelService.fetchDataAndBuildACModel(acString),
-            this.tcModelService.fetchDataAndBuildTCModel(tcString),
-        ])
-            .then((result) => {
+        return await new Promise((resolve, reject) => {
 
-                const acModel: ACModel = result[0];
-                const checkACModel: boolean = typeof acModel === 'object' && acModel !== null;
+            Promise.all([
+                this.acModelService.fetchDataAndBuildACModel(acString),
+                this.tcModelService.fetchDataAndBuildTCModel(tcString),
+            ])
+                .then((result) => {
 
-                const tcModel: TCModel = result[1];
-                const checkTCModel: boolean = typeof tcModel === 'object' && tcModel !== null;
+                    const acModel: ACModel = result[0];
+                    const checkACModel: boolean = typeof acModel === 'object' && acModel !== null;
 
-                if (!checkACModel || !checkTCModel) {
+                    const tcModel: TCModel = result[1];
+                    const checkTCModel: boolean = typeof tcModel === 'object' && tcModel !== null;
 
-                    throw new Error('Something went wrong when checking ACModel and TCModel');
+                    if (!checkACModel || !checkTCModel) {
 
-                }
+                        throw new Error('Something went wrong when checking ACModel and TCModel');
 
-                SoloCmpApi.getInstance().uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
-                    tcModel,
-                    acModel,
-                ).createUIChoicesBridgeDto();
+                    }
 
-                UIChoicesParser.getInstance(tcModel, acModel);
+                    const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
+                        tcModel,
+                        acModel,
+                    ).createUIChoicesBridgeDto();
 
-                this.uiConstructor.buildUIAndRender();
+                    const soloCmpApi = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
 
-                this.eventDispatcher.dispatch(new ConsentRequiredEvent());
+                    this.uiConstructor.buildUIAndRender(soloCmpApi);
 
-            })
-            .catch((error) => {
+                    this.eventDispatcher.dispatch(new ConsentRequiredEvent());
 
-                this.loggerService.error('CmpPreparatoryService, something went wrong in preparing the data!', error);
+                    resolve(soloCmpApi);
 
-            });
+                })
+                .catch((error) => {
+
+                    this.loggerService.error(
+                        'CmpPreparatoryService, something went wrong in preparing the data!',
+                        error,
+                    );
+                    reject(error);
+
+                });
+
+        });
 
     }
 

@@ -42,7 +42,7 @@ class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
      */
     public onApplyConsent(event: ApplyConsentEvent): void {
 
-        this.consentGeneratorService.generateAndPersistConsent(event.uiChoicesBridgeDto);
+        this.consentGeneratorService.generateAndPersistConsent(event.uiChoicesBridgeDto, event.soloCmpDataBundle);
 
     }
 
@@ -55,7 +55,7 @@ class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
      */
     public onAcceptAll(event: AcceptAllEvent): void {
 
-        this.consentGeneratorService.generateAndPersistConsentWithAllEnabled();
+        this.consentGeneratorService.generateAndPersistConsentWithAllEnabled(event.soloCmpDataBundle);
 
     }
 

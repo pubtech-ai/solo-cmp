@@ -9,8 +9,6 @@ import UIChoicesBridgeDto from './UIChoicesBridgeDto';
  */
 class UIChoicesParser {
 
-    private static instance: UIChoicesParser;
-
     private readonly _tcModel: TCModel;
     private readonly _acModel: ACModel;
 
@@ -21,47 +19,11 @@ class UIChoicesParser {
      * @param {ACModel} acModel
      * @private
      */
-    private constructor(tcModel: TCModel, acModel: ACModel) {
+    constructor(tcModel: TCModel, acModel: ACModel) {
 
         this._tcModel = tcModel.clone();
         this._tcModel.unsetAll();
         this._acModel = acModel;
-
-    }
-
-    /**
-     * Retrieve the instance or build it if is not instantiated.
-     *
-     * @param {TCModel} tcModel
-     * @param {ACModel} acModel
-     *
-     * @return {UIChoicesParser}
-     */
-    public static getInstance(tcModel: TCModel | null = null, acModel: ACModel | null = null): UIChoicesParser {
-
-        if (!UIChoicesParser.instance && tcModel === null) {
-
-            throw new Error('UIChoicesParser, you must provide the TCModel.');
-
-        }
-
-        if (!UIChoicesParser.instance && acModel === null) {
-
-            throw new Error('UIChoicesParser, you must provide the ACModel.');
-
-        }
-
-        if (!UIChoicesParser.instance) {
-
-            if (tcModel && acModel) {
-
-                UIChoicesParser.instance = new UIChoicesParser(tcModel, acModel);
-
-            }
-
-        }
-
-        return UIChoicesParser.instance;
 
     }
 

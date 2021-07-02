@@ -5,6 +5,7 @@ import EventDispatcher from '../EventDispatcher/EventDispatcher';
 import TCStringService from './TCStringService';
 import ACStringService from './ACStringService';
 import UIChoicesBridgeDto from '../UIChoicesBridge/UIChoicesBridgeDto';
+import SoloCmpDataBundle from '../SoloCmpDataBundle';
 
 /**
  * ConsentGeneratorService.
@@ -35,10 +36,11 @@ class ConsentGeneratorService {
      * parse the choices and dispatch ready and persist events.
      *
      * @param {UIChoicesBridgeDto} uiChoicesBridgeDto
+     * @param {SoloCmpDataBundle} soloCmpApi
      */
-    public generateAndPersistConsent(uiChoicesBridgeDto: UIChoicesBridgeDto): void {
+    public generateAndPersistConsent(uiChoicesBridgeDto: UIChoicesBridgeDto, soloCmpApi: SoloCmpDataBundle): void {
 
-        const choicesParser = ChoicesParser.getInstance();
+        const choicesParser = new ChoicesParser(soloCmpApi.tcModel, soloCmpApi.acModel);
 
         const tcModel = choicesParser.parseTCModel(uiChoicesBridgeDto);
         const acModel = choicesParser.parseACModel(uiChoicesBridgeDto);
@@ -53,13 +55,13 @@ class ConsentGeneratorService {
     /**
      * Generate the consent strings with all consents enabled
      * and dispatch ready and persist events.
+     *
+     * @param {SoloCmpDataBundle} soloCmpApi
      */
-    public generateAndPersistConsentWithAllEnabled(): void {
+    public generateAndPersistConsentWithAllEnabled(soloCmpApi: SoloCmpDataBundle): void {
 
-        const choicesParser = ChoicesParser.getInstance();
-
-        const tcString = this.tcStringService.buildTCStringAllEnabled(choicesParser.tcModel);
-        const acString = this.acStringService.buildACStringAllEnabled(choicesParser.acModel);
+        const tcString = this.tcStringService.buildTCStringAllEnabled(soloCmpApi.tcModel);
+        const acString = this.acStringService.buildACStringAllEnabled(soloCmpApi.acModel);
 
         this.dispatchReadyAndPersistEvents(tcString, acString);
 

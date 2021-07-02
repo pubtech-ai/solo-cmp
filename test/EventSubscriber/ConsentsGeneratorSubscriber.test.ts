@@ -13,6 +13,7 @@ import ConsentsGeneratorSubscriber from '../../src/EventSubscriber/ConsentsGener
 import { TCModelFactory } from '@iabtcf/testing';
 import ACModel from '../../src/Entity/ACModel';
 import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
+import SoloCmpDataBundle from '../../src/SoloCmpDataBundle';
 
 describe('ConsentsGeneratorSubscriber suit test', () => {
     const loggerService: LoggerService = new LoggerService(false);
@@ -65,13 +66,17 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
 
-        const applyConsentEvent = new ApplyConsentEvent(uiChoicesBridgeDto);
+        const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
+
+        const applyConsentEvent = new ApplyConsentEvent(uiChoicesBridgeDto, soloCmpDataBundle);
 
         const consentGeneratorService = getConsentsGeneratorService();
 
         const mock = sinon.mock(consentGeneratorService);
 
-        mock.expects('generateAndPersistConsent').once().withArgs(applyConsentEvent.uiChoicesBridgeDto);
+        mock.expects('generateAndPersistConsent')
+            .once()
+            .withArgs(applyConsentEvent.uiChoicesBridgeDto, soloCmpDataBundle);
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 
@@ -83,13 +88,20 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
     });
 
     it('ConsentsGeneratorSubscriber AcceptAllEvent call ConsentGeneratorService generate consents with all enabled test', () => {
-        const acceptAllEvent = new AcceptAllEvent();
+        const tcModel = TCModelFactory.withGVL();
+        const acModel = new ACModel([]);
+
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+
+        const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
+
+        const acceptAllEvent = new AcceptAllEvent(soloCmpDataBundle);
 
         const consentGeneratorService = getConsentsGeneratorService();
 
         const mock = sinon.mock(consentGeneratorService);
 
-        mock.expects('generateAndPersistConsentWithAllEnabled').once();
+        mock.expects('generateAndPersistConsentWithAllEnabled').once().withArgs(soloCmpDataBundle);
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 

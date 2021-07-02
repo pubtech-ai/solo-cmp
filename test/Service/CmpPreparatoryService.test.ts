@@ -12,6 +12,8 @@ import TCStringService from '../../src/Service/TCStringService';
 import CookieService from '../../src/Service/CookieService';
 import { TCModelFactory } from '@iabtcf/testing';
 import ConsentRequiredEvent from '../../src/Event/ConsentRequiredEvent';
+import SoloCmpDataBundle from '../../src/SoloCmpDataBundle';
+import { expect } from 'chai';
 const sinon = require('sinon');
 
 describe('CmpPreparatoryService suit test', () => {
@@ -217,7 +219,7 @@ describe('CmpPreparatoryService suit test', () => {
 
         const eventDispatcher = EventDispatcher.getInstance();
 
-        eventDispatcher.subscribe('SubscriberTest', ConsentRequiredEvent.name, subscriber.method);
+        const subscription = eventDispatcher.subscribe('SubscriberTest', ConsentRequiredEvent.name, subscriber.method);
 
         const cmpPreparatoryService = new CmpPreparatoryService(
             tcModelService,
@@ -227,6 +229,8 @@ describe('CmpPreparatoryService suit test', () => {
             loggerService,
         );
 
-        cmpPreparatoryService.prepareAndRender('', '');
+        cmpPreparatoryService.prepareAndRender('', '').then(() => {
+            subscription.unsubscribe();
+        });
     });
 });
