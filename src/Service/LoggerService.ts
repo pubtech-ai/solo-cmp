@@ -3,7 +3,7 @@
  */
 class LoggerService {
 
-    private isDebug: boolean;
+    private readonly isDebug: boolean;
     public static readonly debugStyle: string = 'color: #b1c800; font-size: 12px; padding: 10px;';
     public static readonly errorStyle: string = 'color: #b42d2d; font-size: 12px; padding: 10px;';
 

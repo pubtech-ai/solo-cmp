@@ -10,7 +10,7 @@ class TCModelService {
     private readonly cmpId: number;
     private readonly cmpVersion: number;
     private readonly isServiceSpecific: boolean;
-    private globalVendorList: GVL;
+    private readonly globalVendorList: GVL;
     private tcStringService: TCStringService;
     private cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
 

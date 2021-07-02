@@ -8,7 +8,7 @@ class CookieService {
     public static readonly milliSecondsInADay: number = 86400000;
 
     private logger: LoggerService;
-    private hostName: string;
+    private readonly hostName: string;
     private document: HTMLDocument;
 
     /**

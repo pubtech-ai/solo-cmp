@@ -17,6 +17,11 @@ import UIConstructor from './UIConstructor';
 import CmpPreparatoryService from './Service/CmpPreparatoryService';
 import ConsentGeneratorService from './Service/ConsentGeneratorService';
 import AmpSubscriber from './EventSubscriber/AmpSubscriber';
+import OpenCmpUISubscriber from './EventSubscriber/OpenCmpUISubscriber';
+import ConsentsPersistSubscriber from './EventSubscriber/ConsentsPersistSubscriber';
+import ConsentsGeneratorSubscriber from './EventSubscriber/ConsentsGeneratorSubscriber';
+import CmpCallbackSubscriber from './EventSubscriber/CmpCallbackSubscriber';
+import CmpApiSubscriber from './EventSubscriber/CmpApiSubscriber';
 
 /**
  * SoloCmp.
@@ -222,18 +227,44 @@ class SoloCmp {
      */
     registerSubscribers(): void {
 
-        this._DependencyInjectionManager.addEventSubscriberProvider(AmpSubscriber.name, (container: IContainer) => {
+        this._DependencyInjectionManager
+            .addEventSubscriberProvider(OpenCmpUISubscriber.name, (container: IContainer) => {
 
-            const cmpConfigurationProvider: CmpConfigurationProvider = container[CmpConfigurationProvider.name];
+                return new OpenCmpUISubscriber(container[CmpPreparatoryService.name]);
 
-            return new AmpSubscriber(
-                cmpConfigurationProvider.cmpConfiguration.isAmp,
-                window,
-                this.initialHeightAmpCmpUi,
-                this.enableBorderAmpCmpUi,
-            );
+            })
+            .addEventSubscriberProvider(ConsentsPersistSubscriber.name, (container: IContainer) => {
 
-        });
+                return new ConsentsPersistSubscriber(container[TCStringService.name], container[ACStringService.name]);
+
+            })
+            .addEventSubscriberProvider(ConsentsGeneratorSubscriber.name, (container: IContainer) => {
+
+                return new ConsentsGeneratorSubscriber(container[ConsentGeneratorService.name]);
+
+            })
+            .addEventSubscriberProvider(CmpCallbackSubscriber.name, (container: IContainer) => {
+
+                return new CmpCallbackSubscriber(container[CmpConfigurationProvider.name]);
+
+            })
+            .addEventSubscriberProvider(CmpApiSubscriber.name, (container: IContainer) => {
+
+                return new CmpApiSubscriber(container[CmpApiProvider.name]);
+
+            })
+            .addEventSubscriberProvider(AmpSubscriber.name, (container: IContainer) => {
+
+                const cmpConfigurationProvider: CmpConfigurationProvider = container[CmpConfigurationProvider.name];
+
+                return new AmpSubscriber(
+                    cmpConfigurationProvider.cmpConfiguration.isAmp,
+                    window,
+                    this.initialHeightAmpCmpUi,
+                    this.enableBorderAmpCmpUi,
+                );
+
+            });
 
     }
 
@@ -252,7 +283,9 @@ class SoloCmp {
      * Call the Orchestrator.initCmp() method.
      */
     init(): void {
+
         this._DependencyInjectionManager.getService(Orchestrator.name).initCmp();
+
     }
 
 }

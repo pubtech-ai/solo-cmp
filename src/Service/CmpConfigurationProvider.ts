@@ -6,7 +6,7 @@ import ConfigurationInterface from './CmpConfiguration/ConfigurationInteface';
  */
 class CmpConfigurationProvider {
 
-    private _cmpConfiguration: CmpConfiguration;
+    private readonly _cmpConfiguration: CmpConfiguration;
 
     /**
      * Constructor.

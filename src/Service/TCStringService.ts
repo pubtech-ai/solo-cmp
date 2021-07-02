@@ -10,10 +10,10 @@ class TCStringService {
 
     private cookieService: CookieService;
     private loggerService: LoggerService;
-    private cmpVersion: number;
-    private cmpVendorListVersion: number;
-    private cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
-    private tcStringCookieName: string;
+    private readonly cmpVersion: number;
+    private readonly cmpVendorListVersion: number;
+    private readonly cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
+    private readonly tcStringCookieName: string;
 
     /**
      * Constructor.
