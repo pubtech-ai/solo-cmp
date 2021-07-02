@@ -248,6 +248,13 @@ class SoloCmp {
 
     }
 
+    /**
+     * Call the Orchestrator.initCmp() method.
+     */
+    init(): void {
+        this._DependencyInjectionManager.getService(Orchestrator.name).initCmp();
+    }
+
 }
 
 export default SoloCmp;

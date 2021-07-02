@@ -26,21 +26,6 @@ describe('ACModelService suit test', () => {
 
     const mockLocalStorage = sinon.mock(localStorage);
 
-    const getGoogleVendorOption = function () {
-        const id: number = Math.floor(Math.random() * 10);
-
-        const googleVendorOption: GoogleVendorOption = {
-            id: id,
-            name: `vendorName${id}`,
-            state: false,
-            policyUrl: 'fakeUrl',
-            domains: 'fakeDomains',
-            expanded: false,
-        };
-
-        return googleVendorOption;
-    };
-
     it('ACModelService construction fail test', () => {
         const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
 

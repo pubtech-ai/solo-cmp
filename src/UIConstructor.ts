@@ -1,3 +1,5 @@
+import SoloCmpDataBundle from './SoloCmpDataBundle';
+
 /**
  * UIConstructor.
  */
@@ -42,20 +44,22 @@ class UIConstructor {
     /**
      * When the DOM is ready it will build and render
      * the CMP with provided callback.
+     *
+     * @param {SoloCmpDataBundle} soloCmpDataBundle
      */
-    public buildUIAndRender(): void {
+    public buildUIAndRender(soloCmpDataBundle: SoloCmpDataBundle): void {
 
         if (this.isDOMDocumentReady()) {
 
             this.document.addEventListener('DOMContentLoaded', () => {
 
-                this.renderCmpUI();
+                this.renderCmpUI(soloCmpDataBundle);
 
             });
 
         } else {
 
-            this.renderCmpUI();
+            this.renderCmpUI(soloCmpDataBundle);
 
         }
 
@@ -86,13 +90,14 @@ class UIConstructor {
     /**
      * Call renderOpenCmpButtonCallback with the root element.
      *
+     * @param {SoloCmpDataBundle} soloCmpDataBundle
      * @private
      */
-    private renderCmpUI(): void {
+    private renderCmpUI(soloCmpDataBundle: SoloCmpDataBundle): void {
 
         try {
 
-            this.renderCmpCallback(this.prepareRootDOMElement());
+            this.renderCmpCallback(this.prepareRootDOMElement(), soloCmpDataBundle);
 
         } catch (e) {
 
