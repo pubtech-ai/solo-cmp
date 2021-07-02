@@ -5,14 +5,14 @@ import ACStringService from '../../src/Service/ACStringService';
 import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import LoggerService from '../../src/Service/LoggerService';
 import CookieService from '../../src/Service/CookieService';
-import ConsentGeneratorService from "../../src/Service/ConsentGeneratorService";
-import EventDispatcher from "../../src/EventDispatcher/EventDispatcher";
-import ApplyConsentEvent from "../../src/Event/ApplyConsentEvent";
-import AcceptAllEvent from "../../src/Event/AcceptAllEvent";
-import ConsentsGeneratorSubscriber from "../../src/EventSubscriber/ConsentsGeneratorSubscriber";
-import {TCModelFactory} from "@iabtcf/testing";
-import ACModel from "../../src/Entity/ACModel";
-import UIChoicesBridgeDtoBuilder from "../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder";
+import ConsentGeneratorService from '../../src/Service/ConsentGeneratorService';
+import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
+import ApplyConsentEvent from '../../src/Event/ApplyConsentEvent';
+import AcceptAllEvent from '../../src/Event/AcceptAllEvent';
+import ConsentsGeneratorSubscriber from '../../src/EventSubscriber/ConsentsGeneratorSubscriber';
+import { TCModelFactory } from '@iabtcf/testing';
+import ACModel from '../../src/Entity/ACModel';
+import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 
 describe('ConsentsGeneratorSubscriber suit test', () => {
     const loggerService: LoggerService = new LoggerService(false);
@@ -50,7 +50,7 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
         );
 
         return new ConsentGeneratorService(tcStringService, acStringService, EventDispatcher.getInstance());
-    }
+    };
 
     it('ConsentsGeneratorSubscriber getSubscribedEvents registered for ApplyConsentEvent and AcceptAllEvent test', () => {
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(getConsentsGeneratorService());
@@ -75,7 +75,9 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 
-        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[ApplyConsentEvent.name]](applyConsentEvent);
+        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[ApplyConsentEvent.name]](
+            applyConsentEvent,
+        );
 
         mock.verify();
     });
@@ -91,7 +93,9 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 
-        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[AcceptAllEvent.name]](acceptAllEvent);
+        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[AcceptAllEvent.name]](
+            acceptAllEvent,
+        );
 
         mock.verify();
     });

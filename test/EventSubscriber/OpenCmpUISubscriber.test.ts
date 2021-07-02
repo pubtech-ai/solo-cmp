@@ -5,19 +5,18 @@ import ACStringService from '../../src/Service/ACStringService';
 import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import LoggerService from '../../src/Service/LoggerService';
 import CookieService from '../../src/Service/CookieService';
-import EventDispatcher from "../../src/EventDispatcher/EventDispatcher";
-import {TCModelFactory} from "@iabtcf/testing";
-import OpenCmpUIEvent from "../../src/Event/OpenCmpUIEvent";
-import HttpRequestService from "../../src/Service/HttpRequestService";
-import ACModelService from "../../src/Service/ACModelService";
-import {TCModel} from "@iabtcf/core";
-import TCModelService from "../../src/Service/TCModelService";
-import UIConstructor from "../../src/UIConstructor";
-import CmpPreparatoryService from "../../src/Service/CmpPreparatoryService";
-import OpenCmpUISubscriber from "../../src/EventSubscriber/OpenCmpUISubscriber";
+import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
+import { TCModelFactory } from '@iabtcf/testing';
+import OpenCmpUIEvent from '../../src/Event/OpenCmpUIEvent';
+import HttpRequestService from '../../src/Service/HttpRequestService';
+import ACModelService from '../../src/Service/ACModelService';
+import { TCModel } from '@iabtcf/core';
+import TCModelService from '../../src/Service/TCModelService';
+import UIConstructor from '../../src/UIConstructor';
+import CmpPreparatoryService from '../../src/Service/CmpPreparatoryService';
+import OpenCmpUISubscriber from '../../src/EventSubscriber/OpenCmpUISubscriber';
 
 describe('OpenCmpUISubscriber suit test', () => {
-
     const getCmpPreparatoryService = function () {
         const localStorage: Storage = {
             length: 0,
@@ -118,14 +117,8 @@ describe('OpenCmpUISubscriber suit test', () => {
 
         const eventDispatcher = EventDispatcher.getInstance();
 
-        return new CmpPreparatoryService(
-            tcModelService,
-            acModelService,
-            uiConstructor,
-            eventDispatcher,
-            loggerService,
-        );
-    }
+        return new CmpPreparatoryService(tcModelService, acModelService, uiConstructor, eventDispatcher, loggerService);
+    };
 
     it('OpenCmpUISubscriber getSubscribedEvents registered for OpenCmpUIEvent test', () => {
         const openCmpUISubscriber = new OpenCmpUISubscriber(getCmpPreparatoryService());
