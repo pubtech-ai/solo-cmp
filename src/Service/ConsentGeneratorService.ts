@@ -38,7 +38,10 @@ class ConsentGeneratorService {
      * @param {UIChoicesBridgeDto} uiChoicesBridgeDto
      * @param {SoloCmpDataBundle} soloCmpDataBundle
      */
-    public generateAndPersistConsent(uiChoicesBridgeDto: UIChoicesBridgeDto, soloCmpDataBundle: SoloCmpDataBundle): void {
+    public generateAndPersistConsent(
+        uiChoicesBridgeDto: UIChoicesBridgeDto,
+        soloCmpDataBundle: SoloCmpDataBundle,
+    ): void {
 
         const choicesParser = new ChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
 
