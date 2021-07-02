@@ -5,7 +5,7 @@ describe('EventDispatcher suit test', () => {
     it('EventDispatcher execute function on dispatch', () => {
         const subscriber = {
             method: function (eventObject) {
-                console.log('Event provided!');
+                //Do somethings!
             },
         };
 
