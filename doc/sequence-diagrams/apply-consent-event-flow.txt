@@ -1,0 +1,19 @@
+@startuml
+ApplyConsentEvent -> EventDispatcher: Dispatch
+EventDispatcher -> ConsentsGeneratorSubscriber : onApplyConsent(event)
+ConsentsGeneratorSubscriber -> ConsentsGeneratorService : generateAndPersistConsent(UIChoicesBridgeDto, SoloCmpDataBundle)
+ConsentsGeneratorService -> ChoicesParser : new(SoloCmpDataBundle.TCModel, SoloCmpDataBundle.ACModel)
+ConsentsGeneratorService -> ChoicesParser : parseTCModel(UIChoicesBridgeDto)
+ConsentsGeneratorService -> ChoicesParser : parseACModel(UIChoicesBridgeDto)
+ConsentsGeneratorService -> TCStringService : buildTCString(tcModel)
+ConsentsGeneratorService -> ACStringService : buildACString(acModel)
+ConsentsGeneratorService -> EventDispatcher : dispatch(ConsentReadyEvent)
+EventDispatcher -> CmpCallbackSubscriber : onConsentReady(event)
+CmpCallbackSubscriber -> CmpConfigurationProvider : onConsentAdsCallBack(event)
+EventDispatcher -> CmpApiSubscriber : onConsentReady(event)
+CmpApiSubscriber -> CmpApiProvider : cmpApi.update(tcString, false)
+ConsentsGeneratorService -> EventDispatcher : dispatch(ConsentPersistEvent)
+EventDispatcher -> ConsentsPersistSubscriber : onConsentPersist(event)
+ConsentsPersistSubscriber -> TCStringService : persistTCString(tcString)
+ConsentsPersistSubscriber -> ACStringService : persistACString(acString)
+@enduml
