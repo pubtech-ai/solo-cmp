@@ -30,7 +30,7 @@ class ConsentsPersistSubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [ConsentPersistEvent.name]: 'onConsentPersist',
+            [ConsentPersistEvent.EVENT_NAME]: 'onConsentPersist',
         };
 
     }
@@ -45,6 +45,12 @@ class ConsentsPersistSubscriber implements EventSubscriberInterface {
 
         this.tcStringService.persistTCString(event.getTcString());
         this.acStringService.persistACString(event.getAcString());
+
+    }
+
+    static getClassName(): string {
+
+        return 'ConsentsPersistSubscriber';
 
     }
 

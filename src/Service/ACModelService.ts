@@ -185,6 +185,12 @@ class ACModelService {
 
     }
 
+    static getClassName(): string {
+
+        return 'ACModelService';
+
+    }
+
 }
 
 export default ACModelService;

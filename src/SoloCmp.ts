@@ -22,7 +22,6 @@ import ConsentsPersistSubscriber from './EventSubscriber/ConsentsPersistSubscrib
 import ConsentsGeneratorSubscriber from './EventSubscriber/ConsentsGeneratorSubscriber';
 import CmpCallbackSubscriber from './EventSubscriber/CmpCallbackSubscriber';
 import CmpApiSubscriber from './EventSubscriber/CmpApiSubscriber';
-import * as cmpstub from '@iabtcf/stub';
 
 /**
  * SoloCmp.
@@ -93,7 +92,6 @@ class SoloCmp {
 
         this.registerServices();
         this.registerSubscribers();
-        cmpstub();
 
     }
 
@@ -103,47 +101,47 @@ class SoloCmp {
     registerServices(): void {
 
         this._DependencyInjectionManager
-            .addServiceProvider(LoggerService.name, () => {
+            .addServiceProvider(LoggerService.getClassName(), () => {
 
                 return new LoggerService(this.isDebugEnabled);
 
             })
-            .addServiceProvider(CookieService.name, (container: IContainer) => {
+            .addServiceProvider(CookieService.getClassName(), (container: IContainer) => {
 
-                return new CookieService(container[LoggerService.name], window.location.hostname, document);
+                return new CookieService(container[LoggerService.getClassName()], window.location.hostname, document);
 
             })
-            .addServiceProvider(CmpConfigurationProvider.name, () => {
+            .addServiceProvider(CmpConfigurationProvider.getClassName(), () => {
 
                 return new CmpConfigurationProvider(this.cmpConfig);
 
             })
-            .addServiceProvider(CmpSupportedLanguageProvider.name, () => {
+            .addServiceProvider(CmpSupportedLanguageProvider.getClassName(), () => {
 
                 return new CmpSupportedLanguageProvider(this.supportedLanguages, navigator.language);
 
             })
-            .addServiceProvider(TCStringService.name, (container: IContainer) => {
+            .addServiceProvider(TCStringService.getClassName(), (container: IContainer) => {
 
                 return new TCStringService(
-                    container[CookieService.name],
-                    container[LoggerService.name],
-                    container[CmpSupportedLanguageProvider.name],
+                    container[CookieService.getClassName()],
+                    container[LoggerService.getClassName()],
+                    container[CmpSupportedLanguageProvider.getClassName()],
                     this.cmpVersion,
                     this.cmpVendorListVersion,
                     this.tcStringCookieName,
                 );
 
             })
-            .addServiceProvider(TCModelService.name, (container: IContainer) => {
+            .addServiceProvider(TCModelService.getClassName(), (container: IContainer) => {
 
                 GVL.baseUrl = this.baseUrlVendorList;
 
                 const gvl: GVL = new GVL();
 
                 return new TCModelService(
-                    container[TCStringService.name],
-                    container[CmpSupportedLanguageProvider.name],
+                    container[TCStringService.getClassName()],
+                    container[CmpSupportedLanguageProvider.getClassName()],
                     this.cmpId,
                     this.cmpVersion,
                     this.isServiceSpecific,
@@ -151,73 +149,73 @@ class SoloCmp {
                 );
 
             })
-            .addServiceProvider(ACStringService.name, (container: IContainer) => {
+            .addServiceProvider(ACStringService.getClassName(), (container: IContainer) => {
 
                 return new ACStringService(
                     this.cmpVersion,
                     this.acStringLocalStorageName,
-                    container[LoggerService.name],
+                    container[LoggerService.getClassName()],
                     localStorage,
                 );
 
             })
-            .addServiceProvider(ACModelService.name, (container: IContainer) => {
+            .addServiceProvider(ACModelService.getClassName(), (container: IContainer) => {
 
                 return new ACModelService(
                     this.baseUrlVendorList,
-                    container[ACStringService.name],
-                    container[HttpRequestService.name],
-                    container[LoggerService.name],
+                    container[ACStringService.getClassName()],
+                    container[HttpRequestService.getClassName()],
+                    container[LoggerService.getClassName()],
                 );
 
             })
-            .addServiceProvider(HttpRequestService.name, (container: IContainer) => {
+            .addServiceProvider(HttpRequestService.getClassName(), (container: IContainer) => {
 
                 return new HttpRequestService();
 
             })
-            .addServiceProvider(CmpApiProvider.name, (container: IContainer) => {
+            .addServiceProvider(CmpApiProvider.getClassName(), (container: IContainer) => {
 
                 return new CmpApiProvider(
                     this.cmpId,
                     this.cmpVersion,
                     this.isServiceSpecific,
-                    container[ACStringService.name],
+                    container[ACStringService.getClassName()],
                 );
 
             })
-            .addServiceProvider(EventDispatcher.name, () => {
+            .addServiceProvider(EventDispatcher.getClassName(), () => {
 
                 return EventDispatcher.getInstance();
 
             })
-            .addServiceProvider(Orchestrator.name, (container: IContainer) => {
+            .addServiceProvider(Orchestrator.getClassName(), (container: IContainer) => {
 
                 return new Orchestrator(
-                    container[TCStringService.name],
-                    container[ACStringService.name],
+                    container[TCStringService.getClassName()],
+                    container[ACStringService.getClassName()],
                     this.uiConstructor,
-                    container[EventDispatcher.name],
+                    container[EventDispatcher.getClassName()],
                 );
 
             })
-            .addServiceProvider(CmpPreparatoryService.name, (container: IContainer) => {
+            .addServiceProvider(CmpPreparatoryService.getClassName(), (container: IContainer) => {
 
                 return new CmpPreparatoryService(
-                    container[TCModelService.name],
-                    container[ACModelService.name],
+                    container[TCModelService.getClassName()],
+                    container[ACModelService.getClassName()],
                     this.uiConstructor,
-                    container[EventDispatcher.name],
-                    container[LoggerService.name],
+                    container[EventDispatcher.getClassName()],
+                    container[LoggerService.getClassName()],
                 );
 
             })
-            .addServiceProvider(ConsentGeneratorService.name, (container: IContainer) => {
+            .addServiceProvider(ConsentGeneratorService.getClassName(), (container: IContainer) => {
 
                 return new ConsentGeneratorService(
-                    container[TCStringService.name],
-                    container[ACStringService.name],
-                    container[EventDispatcher.name],
+                    container[TCStringService.getClassName()],
+                    container[ACStringService.getClassName()],
+                    container[EventDispatcher.getClassName()],
                 );
 
             });
@@ -230,34 +228,38 @@ class SoloCmp {
     registerSubscribers(): void {
 
         this._DependencyInjectionManager
-            .addEventSubscriberProvider(OpenCmpUISubscriber.name, (container: IContainer) => {
+            .addEventSubscriberProvider(OpenCmpUISubscriber.getClassName(), (container: IContainer) => {
 
-                return new OpenCmpUISubscriber(container[CmpPreparatoryService.name]);
-
-            })
-            .addEventSubscriberProvider(ConsentsPersistSubscriber.name, (container: IContainer) => {
-
-                return new ConsentsPersistSubscriber(container[TCStringService.name], container[ACStringService.name]);
+                return new OpenCmpUISubscriber(container[CmpPreparatoryService.getClassName()]);
 
             })
-            .addEventSubscriberProvider(ConsentsGeneratorSubscriber.name, (container: IContainer) => {
+            .addEventSubscriberProvider(ConsentsPersistSubscriber.getClassName(), (container: IContainer) => {
 
-                return new ConsentsGeneratorSubscriber(container[ConsentGeneratorService.name]);
-
-            })
-            .addEventSubscriberProvider(CmpCallbackSubscriber.name, (container: IContainer) => {
-
-                return new CmpCallbackSubscriber(container[CmpConfigurationProvider.name]);
+                return new ConsentsPersistSubscriber(
+                    container[TCStringService.getClassName()],
+                    container[ACStringService.getClassName()],
+                );
 
             })
-            .addEventSubscriberProvider(CmpApiSubscriber.name, (container: IContainer) => {
+            .addEventSubscriberProvider(ConsentsGeneratorSubscriber.getClassName(), (container: IContainer) => {
 
-                return new CmpApiSubscriber(container[CmpApiProvider.name]);
+                return new ConsentsGeneratorSubscriber(container[ConsentGeneratorService.getClassName()]);
 
             })
-            .addEventSubscriberProvider(AmpSubscriber.name, (container: IContainer) => {
+            .addEventSubscriberProvider(CmpCallbackSubscriber.getClassName(), (container: IContainer) => {
 
-                const cmpConfigurationProvider: CmpConfigurationProvider = container[CmpConfigurationProvider.name];
+                return new CmpCallbackSubscriber(container[CmpConfigurationProvider.getClassName()]);
+
+            })
+            .addEventSubscriberProvider(CmpApiSubscriber.getClassName(), (container: IContainer) => {
+
+                return new CmpApiSubscriber(container[CmpApiProvider.getClassName()]);
+
+            })
+            .addEventSubscriberProvider(AmpSubscriber.getClassName(), (container: IContainer) => {
+
+                const cmpConfigurationProvider: CmpConfigurationProvider =
+                    container[CmpConfigurationProvider.getClassName()];
 
                 return new AmpSubscriber(
                     cmpConfigurationProvider.cmpConfiguration.isAmp,
@@ -286,7 +288,7 @@ class SoloCmp {
      */
     init(): void {
 
-        this._DependencyInjectionManager.getService(Orchestrator.name).initCmp();
+        this._DependencyInjectionManager.getService(Orchestrator.getClassName()).initCmp();
 
     }
 

@@ -97,6 +97,12 @@ class TCModelService {
 
     }
 
+    static getClassName(): string {
+
+        return 'TCModelService';
+
+    }
+
 }
 
 export default TCModelService;

@@ -145,6 +145,12 @@ class CookieService {
 
     }
 
+    static getClassName(): string {
+
+        return 'CookieService';
+
+    }
+
 }
 
 export default CookieService;

@@ -215,6 +215,12 @@ class ACStringService {
 
     }
 
+    static getClassName(): string {
+
+        return 'ACStringService';
+
+    }
+
 }
 
 export default ACStringService;

@@ -60,8 +60,8 @@ class AmpSubscriber implements EventSubscriberInterface {
         }
 
         return {
-            [ConsentRequiredEvent.name]: 'onConsentRequired',
-            [MoreChoicesEvent.name]: 'onMoreChoices',
+            [ConsentRequiredEvent.EVENT_NAME]: 'onConsentRequired',
+            [MoreChoicesEvent.EVENT_NAME]: 'onMoreChoices',
         };
 
     }
@@ -101,6 +101,12 @@ class AmpSubscriber implements EventSubscriberInterface {
             },
             '*',
         );
+
+    }
+
+    static getClassName(): string {
+
+        return 'AmpSubscriber';
 
     }
 

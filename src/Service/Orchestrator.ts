@@ -86,6 +86,12 @@ class Orchestrator {
 
     }
 
+    static getClassName(): string {
+
+        return 'Orchestrator';
+
+    }
+
 }
 
 export default Orchestrator;

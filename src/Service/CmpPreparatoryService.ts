@@ -105,6 +105,12 @@ class CmpPreparatoryService {
 
     }
 
+    static getClassName(): string {
+
+        return 'CmpPreparatoryService';
+
+    }
+
 }
 
 export default CmpPreparatoryService;

@@ -27,7 +27,7 @@ class CmpCallbackSubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [ConsentReadyEvent.name]: 'onConsentReady',
+            [ConsentReadyEvent.EVENT_NAME]: 'onConsentReady',
         };
 
     }
@@ -43,6 +43,12 @@ class CmpCallbackSubscriber implements EventSubscriberInterface {
         const cmpConfiguration: CmpConfiguration = this.cmpConfigurationProvider.cmpConfiguration;
 
         cmpConfiguration.onConsentAdsCallBack(event);
+
+    }
+
+    static getClassName(): string {
+
+        return 'CmpCallbackSubscriber';
 
     }
 

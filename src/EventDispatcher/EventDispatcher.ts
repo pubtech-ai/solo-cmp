@@ -81,13 +81,15 @@ class EventDispatcher {
      */
     public dispatch(event: BaseEvent): void {
 
-        if (!this.subscriptions[event.constructor.name]) return;
+        const eventName = event.EVENT_NAME;
 
-        Object.keys(this.subscriptions[event.constructor.name]).forEach((key) => {
+        if (!this.subscriptions[eventName]) return;
+
+        Object.keys(this.subscriptions[eventName]).forEach((key) => {
 
             try {
 
-                this.subscriptions[event.constructor.name][key](event);
+                this.subscriptions[eventName][key](event);
 
             } catch (error) {
 
@@ -124,6 +126,12 @@ class EventDispatcher {
             return lastId;
 
         };
+
+    }
+
+    static getClassName(): string {
+
+        return 'EventDispatcher';
 
     }
 

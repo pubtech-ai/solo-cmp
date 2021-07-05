@@ -7,6 +7,9 @@ import SoloCmpDataBundle from '../SoloCmpDataBundle';
  */
 class ApplyConsentEvent implements BaseEvent {
 
+    readonly EVENT_NAME = 'ApplyConsentEvent';
+    static readonly EVENT_NAME = 'ApplyConsentEvent';
+
     private readonly _uiChoicesBridgeDto: UIChoicesBridgeDto;
     private readonly _soloCmpDataBundle: SoloCmpDataBundle;
 

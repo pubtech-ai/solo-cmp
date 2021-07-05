@@ -5,6 +5,9 @@ import BaseEvent from '../EventDispatcher/BaseEvent';
  */
 class OpenCmpUIEvent implements BaseEvent {
 
+    readonly EVENT_NAME = 'OpenCmpUIEvent';
+    static readonly EVENT_NAME = 'OpenCmpUIEvent';
+
     private readonly _tcString: string;
     private readonly _acString: string;
 

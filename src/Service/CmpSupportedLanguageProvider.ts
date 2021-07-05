@@ -65,6 +65,12 @@ class CmpSupportedLanguageProvider {
 
     }
 
+    static getClassName(): string {
+
+        return 'CmpSupportedLanguageProvider';
+
+    }
+
 }
 
 export default CmpSupportedLanguageProvider;

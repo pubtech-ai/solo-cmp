@@ -27,8 +27,8 @@ class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [ApplyConsentEvent.name]: 'onApplyConsent',
-            [AcceptAllEvent.name]: 'onAcceptAll',
+            [ApplyConsentEvent.EVENT_NAME]: 'onApplyConsent',
+            [AcceptAllEvent.EVENT_NAME]: 'onAcceptAll',
         };
 
     }
@@ -56,6 +56,12 @@ class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
     public onAcceptAll(event: AcceptAllEvent): void {
 
         this.consentGeneratorService.generateAndPersistConsentWithAllEnabled(event.soloCmpDataBundle);
+
+    }
+
+    static getClassName(): string {
+
+        return 'ConsentsGeneratorSubscriber';
 
     }
 

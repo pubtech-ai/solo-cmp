@@ -27,8 +27,8 @@ class CmpApiSubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [ConsentReadyEvent.name]: 'onConsentReady',
-            [ConsentRequiredEvent.name]: 'onConsentRequired',
+            [ConsentReadyEvent.EVENT_NAME]: 'onConsentReady',
+            [ConsentRequiredEvent.EVENT_NAME]: 'onConsentRequired',
         };
 
     }
@@ -53,6 +53,12 @@ class CmpApiSubscriber implements EventSubscriberInterface {
     public onConsentRequired(event: ConsentRequiredEvent): void {
 
         this.cmpApiProvider.cmpApi.update('', true);
+
+    }
+
+    static getClassName(): string {
+
+        return 'CmpApiSubscriber';
 
     }
 

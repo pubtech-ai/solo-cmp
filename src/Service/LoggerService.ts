@@ -52,6 +52,12 @@ class LoggerService {
         console.trace('%c SOLO-CMP ERROR: ' + message, LoggerService.errorStyle, '\n', ...errors);
     }
 
+    static getClassName(): string {
+
+        return 'LoggerService';
+
+    }
+
 }
 
 export default LoggerService;

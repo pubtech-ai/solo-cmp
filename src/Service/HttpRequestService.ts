@@ -51,6 +51,12 @@ class HttpRequestService {
 
     }
 
+    static getClassName(): string {
+
+        return 'HttpRequestService';
+
+    }
+
 }
 
 export default HttpRequestService;

@@ -5,6 +5,9 @@ import BaseEvent from '../EventDispatcher/BaseEvent';
  */
 class ConsentPersistEvent implements BaseEvent {
 
+    readonly EVENT_NAME = 'ConsentPersistEvent';
+    static readonly EVENT_NAME = 'ConsentPersistEvent';
+
     private readonly tcString: string;
     private readonly acString: string;
 

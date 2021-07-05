@@ -40,6 +40,12 @@ class CmpApiProvider {
 
     }
 
+    static getClassName(): string {
+
+        return 'CmpApiProvider';
+
+    }
+
 }
 
 export default CmpApiProvider;

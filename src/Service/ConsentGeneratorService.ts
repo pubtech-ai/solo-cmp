@@ -85,6 +85,12 @@ class ConsentGeneratorService {
 
     }
 
+    static getClassName(): string {
+
+        return 'ConsentGeneratorService';
+
+    }
+
 }
 
 export default ConsentGeneratorService;

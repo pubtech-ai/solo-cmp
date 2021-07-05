@@ -26,7 +26,7 @@ class OpenCmpUISubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [OpenCmpUIEvent.name]: 'onOpenCmpUI',
+            [OpenCmpUIEvent.EVENT_NAME]: 'onOpenCmpUI',
         };
 
     }
@@ -41,6 +41,12 @@ class OpenCmpUISubscriber implements EventSubscriberInterface {
     public onOpenCmpUI(event: OpenCmpUIEvent): void {
 
         this.cmpPreparatoryService.prepareAndRender(event.tcString, event.acString);
+
+    }
+
+    static getClassName(): string {
+
+        return 'OpenCmpUISubscriber';
 
     }
 

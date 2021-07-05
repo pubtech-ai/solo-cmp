@@ -41,6 +41,12 @@ class CmpConfiguration {
 
     }
 
+    static getClassName(): string {
+
+        return 'CmpConfiguration';
+
+    }
+
 }
 
 export default CmpConfiguration;

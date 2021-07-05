@@ -6,6 +6,9 @@ import SoloCmpDataBundle from '../SoloCmpDataBundle';
  */
 class AcceptAllEvent implements BaseEvent {
 
+    readonly EVENT_NAME = 'AcceptAllEvent';
+    static readonly EVENT_NAME = 'AcceptAllEvent';
+
     private readonly _soloCmpDataBundle: SoloCmpDataBundle;
 
     /**

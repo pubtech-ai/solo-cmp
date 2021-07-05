@@ -188,6 +188,12 @@ class TCStringService {
 
     }
 
+    static getClassName(): string {
+
+        return 'TCStringService';
+
+    }
+
 }
 
 export default TCStringService;
