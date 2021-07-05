@@ -1,9 +1,9 @@
-import BaseEvent from './BaseEvent';
+import {BaseEvent} from './BaseEvent';
 
 /**
  * EventDispatcher.
  */
-class EventDispatcher {
+export class EventDispatcher {
 
     private static instance: EventDispatcher;
 
@@ -136,5 +136,3 @@ class EventDispatcher {
     }
 
 }
-
-export default EventDispatcher;

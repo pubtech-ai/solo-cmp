@@ -1,11 +1,11 @@
-import BaseEvent from '../EventDispatcher/BaseEvent';
-import UIChoicesBridgeDto from '../UIChoicesBridge/UIChoicesBridgeDto';
-import SoloCmpDataBundle from '../SoloCmpDataBundle';
+import {BaseEvent} from '../EventDispatcher';
+import {UIChoicesBridgeDto} from '../UIChoicesBridge';
+import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
 
 /**
  * ApplyConsentEvent.
  */
-class ApplyConsentEvent implements BaseEvent {
+export class ApplyConsentEvent implements BaseEvent {
 
     readonly EVENT_NAME = 'ApplyConsentEvent';
     static readonly EVENT_NAME = 'ApplyConsentEvent';
@@ -39,5 +39,3 @@ class ApplyConsentEvent implements BaseEvent {
     }
 
 }
-
-export default ApplyConsentEvent;

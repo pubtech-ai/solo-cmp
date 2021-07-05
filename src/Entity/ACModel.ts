@@ -1,9 +1,9 @@
-import GoogleVendorOption from './GoogleVendorOption';
+import {GoogleVendorOption} from './GoogleVendorOption';
 
 /**
  * ACModel.
  */
-class ACModel {
+export class ACModel {
 
     private _googleVendorOptions: GoogleVendorOption[] = [];
 
@@ -41,5 +41,3 @@ class ACModel {
     }
 
 }
-
-export default ACModel;

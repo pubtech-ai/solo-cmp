@@ -1,11 +1,11 @@
 import {GVL, TCModel, TCString} from '@iabtcf/core';
-import TCStringService from './TCStringService';
-import CmpSupportedLanguageProvider from './CmpSupportedLanguageProvider';
+import {TCStringService} from './TCStringService';
+import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
 
 /**
  * TCModelService.
  */
-class TCModelService {
+export class TCModelService {
 
     private readonly cmpId: number;
     private readonly cmpVersion: number;
@@ -104,5 +104,3 @@ class TCModelService {
     }
 
 }
-
-export default TCModelService;

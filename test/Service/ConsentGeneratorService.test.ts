@@ -1,21 +1,21 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
 import { TCModel } from '@iabtcf/core';
-import LoggerService from '../../src/Service/LoggerService';
-import ACStringService from '../../src/Service/ACStringService';
-import CookieService from '../../src/Service/CookieService';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
-import TCStringService from '../../src/Service/TCStringService';
-import ConsentGeneratorService from '../../src/Service/ConsentGeneratorService';
-import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
-import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
-import ACModel from '../../src/Entity/ACModel';
-import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
-import ConsentPersistEvent from '../../src/Event/ConsentPersistEvent';
-import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 //@ts-ignore
 import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
-import SoloCmpDataBundle from '../../src/SoloCmpDataBundle';
+import {
+    ACStringService,
+    CmpSupportedLanguageProvider,
+    ConsentGeneratorService,
+    CookieService,
+    LoggerService,
+    TCStringService,
+} from '../../src/Service';
+import { ACModel } from '../../src/Entity';
+import { EventDispatcher } from '../../src/EventDispatcher';
+import { ConsentPersistEvent, ConsentReadyEvent } from '../../src/Event';
+import { UIChoicesBridgeDtoBuilder } from '../../src/UIChoicesBridge';
+import { SoloCmpDataBundle } from '../../src';
 
 describe('ConsentGeneratorService suit test', () => {
     const localStorage: Storage = {

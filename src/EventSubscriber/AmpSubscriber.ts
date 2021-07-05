@@ -1,11 +1,10 @@
-import ConsentRequiredEvent from '../Event/ConsentRequiredEvent';
-import MoreChoicesEvent from '../Event/MoreChoicesEvent';
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
+import {ConsentRequiredEvent, MoreChoicesEvent} from '../Event';
+import {EventSubscriberInterface} from '../EventDispatcher';
 
 /**
  * AmpSubscriber.
  */
-class AmpSubscriber implements EventSubscriberInterface {
+export class AmpSubscriber implements EventSubscriberInterface {
 
     private window: Window;
     private readonly ampEnabled: boolean;
@@ -111,5 +110,3 @@ class AmpSubscriber implements EventSubscriberInterface {
     }
 
 }
-
-export default AmpSubscriber;

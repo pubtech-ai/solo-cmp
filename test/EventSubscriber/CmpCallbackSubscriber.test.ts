@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
-import CmpConfigurationProvider from '../../src/Service/CmpConfigurationProvider';
-import CmpCallbackSubscriber from '../../src/EventSubscriber/CmpCallbackSubscriber';
+import { ConsentReadyEvent, CmpConfigurationProvider, CmpCallbackSubscriber } from '../../src';
 
 describe('CmpCallbackSubscriber suit test', () => {
     it('CmpCallbackSubscriber getSubscribedEvents registered for ConsentReadyEvent test', () => {

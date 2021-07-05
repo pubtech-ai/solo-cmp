@@ -1,15 +1,14 @@
-import ConsentReadyEvent from '../Event/ConsentReadyEvent';
-import OpenCmpUIEvent from '../Event/OpenCmpUIEvent';
-import UIConstructor from '../UIConstructor';
-import TCStringService from './TCStringService';
-import ACStringService from './ACStringService';
-import EventDispatcher from '../EventDispatcher/EventDispatcher';
-import LoggerService from './LoggerService';
+import {ConsentReadyEvent, OpenCmpUIEvent} from '../Event';
+import {UIConstructor} from '../UIConstructor';
+import {EventDispatcher} from '../EventDispatcher';
+import {LoggerService} from './LoggerService';
+import {ACStringService} from './ACStringService';
+import {TCStringService} from './TCStringService';
 
 /**
  * Orchestrator.
  */
-class Orchestrator {
+export class Orchestrator {
 
     private tcStringService: TCStringService;
     private acStringService: ACStringService;
@@ -100,5 +99,3 @@ class Orchestrator {
     }
 
 }
-
-export default Orchestrator;

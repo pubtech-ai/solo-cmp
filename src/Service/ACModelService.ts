@@ -1,13 +1,12 @@
-import HttpRequestService from './HttpRequestService';
-import ACModel from '../Entity/ACModel';
-import ACStringService from './ACStringService';
-import GoogleVendorOption from '../Entity/GoogleVendorOption';
-import LoggerService from './LoggerService';
+import {HttpRequestService} from './HttpRequestService';
+import {ACModel, GoogleVendorOption} from '../Entity';
+import {ACStringService} from './ACStringService';
+import {LoggerService} from './LoggerService';
 
 /**
  * ACModelService.
  */
-class ACModelService {
+export class ACModelService {
 
     private static readonly googleVendorListFileName = 'google-vendor-list.json';
 
@@ -192,5 +191,3 @@ class ACModelService {
     }
 
 }
-
-export default ACModelService;

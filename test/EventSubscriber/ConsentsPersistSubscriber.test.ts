@@ -1,12 +1,14 @@
 import { expect } from 'chai';
+import {
+    ACStringService,
+    CmpSupportedLanguageProvider,
+    CookieService,
+    LoggerService,
+    TCStringService,
+} from '../../src/Service';
+import { ConsentsPersistSubscriber } from '../../src/EventSubscriber';
+import { ConsentPersistEvent } from '../../src/Event';
 const sinon = require('sinon');
-import TCStringService from '../../src/Service/TCStringService';
-import ACStringService from '../../src/Service/ACStringService';
-import ConsentsPersistSubscriber from '../../src/EventSubscriber/ConsentsPersistSubscriber';
-import ConsentPersistEvent from '../../src/Event/ConsentPersistEvent';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
-import LoggerService from '../../src/Service/LoggerService';
-import CookieService from '../../src/Service/CookieService';
 
 describe('ConsentsPersistSubscriber suit test', () => {
     const loggerService: LoggerService = new LoggerService(false);

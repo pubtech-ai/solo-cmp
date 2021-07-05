@@ -1,9 +1,9 @@
-import BaseEvent from '../EventDispatcher/BaseEvent';
+import {BaseEvent} from '../EventDispatcher';
 
 /**
  * OpenCmpUIEvent.
  */
-class OpenCmpUIEvent implements BaseEvent {
+export class OpenCmpUIEvent implements BaseEvent {
 
     readonly EVENT_NAME = 'OpenCmpUIEvent';
     static readonly EVENT_NAME = 'OpenCmpUIEvent';
@@ -37,5 +37,3 @@ class OpenCmpUIEvent implements BaseEvent {
     }
 
 }
-
-export default OpenCmpUIEvent;

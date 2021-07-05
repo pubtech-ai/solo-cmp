@@ -1,12 +1,12 @@
 import {TCModel, TCString} from '@iabtcf/core';
-import CookieService from './CookieService';
-import LoggerService from './LoggerService';
-import CmpSupportedLanguageProvider from './CmpSupportedLanguageProvider';
+import {CookieService} from './CookieService';
+import {LoggerService} from './LoggerService';
+import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
 
 /**
  * TCStringService.
  */
-class TCStringService {
+export class TCStringService {
 
     private cookieService: CookieService;
     private loggerService: LoggerService;
@@ -201,5 +201,3 @@ class TCStringService {
     }
 
 }
-
-export default TCStringService;

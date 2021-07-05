@@ -1,11 +1,8 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import CookieService from '../../src/Service/CookieService';
-import LoggerService from '../../src/Service/LoggerService';
-import TCStringService from '../../src/Service/TCStringService';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import { GVL, TCModel, TCString } from '@iabtcf/core';
 import { TCModelFactory } from '@iabtcf/testing';
+import { CmpSupportedLanguageProvider, CookieService, LoggerService, TCStringService } from '../../src/Service';
 
 describe('TCStringService suit test', () => {
     const loggerService: LoggerService = new LoggerService(false);

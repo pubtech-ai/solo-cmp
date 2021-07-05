@@ -1,5 +1,5 @@
 const sinon = require('sinon');
-import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
+import { EventDispatcher } from '../../src/EventDispatcher/';
 
 describe('EventDispatcher suit test', () => {
     it('EventDispatcher execute function on dispatch', () => {

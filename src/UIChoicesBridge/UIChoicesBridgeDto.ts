@@ -1,11 +1,9 @@
-import PurposeOption from '../Entity/PurposeOption';
-import VendorOption from '../Entity/VendorOption';
-import GoogleVendorOption from '../Entity/GoogleVendorOption';
+import {PurposeOption, VendorOption, GoogleVendorOption} from '../Entity';
 
 /**
  * UIChoicesBridgeDto.
  */
-class UIChoicesBridgeDto {
+export class UIChoicesBridgeDto {
 
     private readonly _UIPurposeChoices: PurposeOption[] = [];
     private readonly _UIVendorChoices: VendorOption[] = [];
@@ -69,5 +67,3 @@ class UIChoicesBridgeDto {
     }
 
 }
-
-export default UIChoicesBridgeDto;

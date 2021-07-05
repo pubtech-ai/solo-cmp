@@ -1,7 +1,7 @@
 /**
  * HttpRequestService.
  */
-class HttpRequestService {
+export class HttpRequestService {
 
     /**
      * Make a request by the provided method and url.
@@ -58,5 +58,3 @@ class HttpRequestService {
     }
 
 }
-
-export default HttpRequestService;

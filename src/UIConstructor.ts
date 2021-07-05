@@ -1,9 +1,9 @@
-import SoloCmpDataBundle from './SoloCmpDataBundle';
+import {SoloCmpDataBundle} from './SoloCmpDataBundle';
 
 /**
  * UIConstructor.
  */
-class UIConstructor {
+export class UIConstructor {
 
     private readonly renderCmpCallback: CallableFunction;
     private readonly renderOpenCmpButtonCallback: CallableFunction;
@@ -168,5 +168,3 @@ class UIConstructor {
     }
 
 }
-
-export default UIConstructor;

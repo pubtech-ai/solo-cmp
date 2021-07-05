@@ -1,10 +1,10 @@
 import {CmpApi} from '@iabtcf/cmpapi';
-import ACStringService from './ACStringService';
+import {ACStringService} from './ACStringService';
 
 /**
  * CmpApiProvider.
  */
-class CmpApiProvider {
+export class CmpApiProvider {
 
     private readonly _cmpApi: CmpApi;
 
@@ -47,5 +47,3 @@ class CmpApiProvider {
     }
 
 }
-
-export default CmpApiProvider;

@@ -1,32 +1,38 @@
 import {GVL} from '@iabtcf/core';
 import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
-import EventDispatcher from './EventDispatcher/EventDispatcher';
-import LoggerService from './Service/LoggerService';
-import CookieService from './Service/CookieService';
-import CmpConfigurationProvider from './Service/CmpConfigurationProvider';
-import CmpSupportedLanguageProvider from './Service/CmpSupportedLanguageProvider';
-import TCStringService from './Service/TCStringService';
-import TCModelService from './Service/TCModelService';
-import ACStringService from './Service/ACStringService';
-import ACModelService from './Service/ACModelService';
-import HttpRequestService from './Service/HttpRequestService';
-import CmpApiProvider from './Service/CmpApiProvider';
-import Orchestrator from './Service/Orchestrator';
-import UIConstructor from './UIConstructor';
-import CmpPreparatoryService from './Service/CmpPreparatoryService';
-import ConsentGeneratorService from './Service/ConsentGeneratorService';
-import AmpSubscriber from './EventSubscriber/AmpSubscriber';
-import OpenCmpUISubscriber from './EventSubscriber/OpenCmpUISubscriber';
-import ConsentsPersistSubscriber from './EventSubscriber/ConsentsPersistSubscriber';
-import ConsentsGeneratorSubscriber from './EventSubscriber/ConsentsGeneratorSubscriber';
-import CmpCallbackSubscriber from './EventSubscriber/CmpCallbackSubscriber';
-import CmpApiSubscriber from './EventSubscriber/CmpApiSubscriber';
+import {EventDispatcher} from './EventDispatcher';
+import {UIConstructor} from './UIConstructor';
+
+import {
+    AmpSubscriber,
+    OpenCmpUISubscriber,
+    ConsentsPersistSubscriber,
+    ConsentsGeneratorSubscriber,
+    CmpCallbackSubscriber,
+    CmpApiSubscriber,
+} from './EventSubscriber';
+
+import {
+    LoggerService,
+    CookieService,
+    CmpConfigurationProvider,
+    CmpSupportedLanguageProvider,
+    TCStringService,
+    TCModelService,
+    ACStringService,
+    ACModelService,
+    HttpRequestService,
+    CmpApiProvider,
+    CmpPreparatoryService,
+    ConsentGeneratorService,
+    Orchestrator,
+} from './Service';
 
 /**
  * SoloCmp.
  */
-class SoloCmp {
+export class SoloCmp {
 
     private _DependencyInjectionManager = DependencyInjectionManager;
     private readonly uiConstructor: UIConstructor;
@@ -294,5 +300,3 @@ class SoloCmp {
     }
 
 }
-
-export default SoloCmp;

@@ -1,12 +1,11 @@
-import ConsentReadyEvent from '../Event/ConsentReadyEvent';
-import ConsentRequiredEvent from '../Event/ConsentRequiredEvent';
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
-import CmpApiProvider from '../Service/CmpApiProvider';
+import {ConsentReadyEvent, ConsentRequiredEvent} from '../Event';
+import {EventSubscriberInterface} from '../EventDispatcher';
+import {CmpApiProvider} from '../Service';
 
 /**
  * CmpApiSubscriber.
  */
-class CmpApiSubscriber implements EventSubscriberInterface {
+export class CmpApiSubscriber implements EventSubscriberInterface {
 
     private cmpApiProvider: CmpApiProvider;
 

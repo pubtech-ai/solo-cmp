@@ -1,7 +1,7 @@
 /**
  * LoggerService.
  */
-class LoggerService {
+export class LoggerService {
 
     private readonly isDebug: boolean;
     public static readonly debugStyle: string = 'color: #b1c800; font-size: 12px; padding: 10px;';
@@ -59,5 +59,3 @@ class LoggerService {
     }
 
 }
-
-export default LoggerService;

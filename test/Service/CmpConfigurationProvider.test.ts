@@ -1,6 +1,5 @@
 import { expect } from 'chai';
-import CmpConfigurationProvider from '../../src/Service/CmpConfigurationProvider';
-import CmpConfiguration from '../../src/Service/CmpConfiguration/CmpConfiguration';
+import { CmpConfigurationProvider, CmpConfiguration } from '../../src/Service';
 
 describe('CmpConfigurationProvider suit test', () => {
     it('CmpConfigurationProvider construction test', () => {

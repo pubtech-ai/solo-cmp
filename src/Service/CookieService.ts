@@ -1,9 +1,9 @@
-import LoggerService from './LoggerService';
+import {LoggerService} from './LoggerService';
 
 /**
  * CookieService.
  */
-class CookieService {
+export class CookieService {
 
     public static readonly milliSecondsInADay: number = 86400000;
 
@@ -152,5 +152,3 @@ class CookieService {
     }
 
 }
-
-export default CookieService;

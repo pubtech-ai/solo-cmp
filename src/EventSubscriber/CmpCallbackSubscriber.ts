@@ -1,12 +1,11 @@
-import ConsentReadyEvent from '../Event/ConsentReadyEvent';
-import CmpConfiguration from '../Service/CmpConfiguration/CmpConfiguration';
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
-import CmpConfigurationProvider from '../Service/CmpConfigurationProvider';
+import {ConsentReadyEvent} from '../Event';
+import {EventSubscriberInterface} from '../EventDispatcher';
+import {CmpConfigurationProvider, CmpConfiguration} from '../Service';
 
 /**
  * CmpCallbackSubscriber.
  */
-class CmpCallbackSubscriber implements EventSubscriberInterface {
+export class CmpCallbackSubscriber implements EventSubscriberInterface {
 
     private cmpConfigurationProvider: CmpConfigurationProvider;
 
@@ -53,5 +52,3 @@ class CmpCallbackSubscriber implements EventSubscriberInterface {
     }
 
 }
-
-export default CmpCallbackSubscriber;

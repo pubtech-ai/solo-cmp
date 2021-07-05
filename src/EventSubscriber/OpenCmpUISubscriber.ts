@@ -1,11 +1,11 @@
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
-import OpenCmpUIEvent from '../Event/OpenCmpUIEvent';
-import CmpPreparatoryService from '../Service/CmpPreparatoryService';
+import {EventSubscriberInterface} from '../EventDispatcher';
+import {OpenCmpUIEvent} from '../Event';
+import {CmpPreparatoryService} from '../Service';
 
 /**
  * OpenCmpUISubscriber.
  */
-class OpenCmpUISubscriber implements EventSubscriberInterface {
+export class OpenCmpUISubscriber implements EventSubscriberInterface {
 
     private cmpPreparatoryService: CmpPreparatoryService;
 
@@ -51,5 +51,3 @@ class OpenCmpUISubscriber implements EventSubscriberInterface {
     }
 
 }
-
-export default OpenCmpUISubscriber;

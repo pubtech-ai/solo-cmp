@@ -1,9 +1,9 @@
-import BaseEvent from '../EventDispatcher/BaseEvent';
+import {BaseEvent} from '../EventDispatcher';
 
 /**
  * ConsentReadyEvent.
  */
-class ConsentReadyEvent implements BaseEvent {
+export class ConsentReadyEvent implements BaseEvent {
 
     readonly EVENT_NAME = 'ConsentReadyEvent';
     static readonly EVENT_NAME = 'ConsentReadyEvent';
@@ -37,5 +37,3 @@ class ConsentReadyEvent implements BaseEvent {
     }
 
 }
-
-export default ConsentReadyEvent;

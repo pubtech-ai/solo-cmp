@@ -1,11 +1,11 @@
-import UIChoicesBridgeDto from './UIChoicesBridge/UIChoicesBridgeDto';
+import {UIChoicesBridgeDto} from './UIChoicesBridge';
 import {TCModel} from '@iabtcf/core';
-import ACModel from './Entity/ACModel';
+import {ACModel} from './Entity';
 
 /**
  * SoloCmpDataBundle.
  */
-class SoloCmpDataBundle {
+export class SoloCmpDataBundle {
 
     private readonly _tcModel: TCModel;
     private readonly _acModel: ACModel;
@@ -46,5 +46,3 @@ class SoloCmpDataBundle {
     }
 
 }
-
-export default SoloCmpDataBundle;

@@ -1,19 +1,18 @@
-import UIChoicesBridgeDtoBuilder from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder';
-import EventDispatcher from '../EventDispatcher/EventDispatcher';
-import ACModel from '../Entity/ACModel';
+import {EventDispatcher} from '../EventDispatcher';
+import {ACModel} from '../Entity';
 import {TCModel} from '@iabtcf/core';
-import UIConstructor from '../UIConstructor';
-import ConsentRequiredEvent from '../Event/ConsentRequiredEvent';
-import TCModelService from './TCModelService';
-import ACModelService from './ACModelService';
-import LoggerService from './LoggerService';
-import SoloCmpDataBundle from '../SoloCmpDataBundle';
-import UIChoicesBridgeDto from '../UIChoicesBridge/UIChoicesBridgeDto';
+import {UIConstructor} from '../UIConstructor';
+import {ConsentRequiredEvent} from '../Event';
+import {TCModelService} from './TCModelService';
+import {ACModelService} from './ACModelService';
+import {LoggerService} from './LoggerService';
+import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
+import {UIChoicesBridgeDto, UIChoicesBridgeDtoBuilder} from '../UIChoicesBridge';
 
 /**
  * CmpPreparatoryService.
  */
-class CmpPreparatoryService {
+export class CmpPreparatoryService {
 
     private tcModelService: TCModelService;
     private acModelService: ACModelService;
@@ -112,5 +111,3 @@ class CmpPreparatoryService {
     }
 
 }
-
-export default CmpPreparatoryService;
