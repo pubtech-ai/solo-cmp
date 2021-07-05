@@ -167,6 +167,8 @@ class TCStringService {
 
         } catch (e) {
 
+            this.loggerService.debug(`Checking if TCString is valid: the tcstring is not decodable.`);
+
             return false;
 
         }
