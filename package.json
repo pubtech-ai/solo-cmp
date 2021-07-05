@@ -6,8 +6,8 @@
   "license": "Apache-2.0",
   "main": "index.ts",
   "scripts": {
-    "test": "ts-mocha -p tsconfig.json test/**/*.test.ts -r jsdom-global/register",
-    "test-parallel": "ts-mocha -p tsconfig.json test/**/*.test.ts -r jsdom-global/register  --parallel",
+    "test": "ts-mocha -p tsconfig.commonjs.json test/**/*.test.ts -r jsdom-global/register",
+    "test-parallel": "ts-mocha -p tsconfig.commonjs.json test/**/*.test.ts -r jsdom-global/register  --parallel",
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet --fix",
