@@ -137,7 +137,7 @@ class ACModelService {
      */
     private addGoogleVendorOptionToList(googleVendorListElement: any, state: boolean): void {
 
-        if (typeof googleVendorListElement.provider_id !== 'number' || isNaN(googleVendorListElement.provider_id)) {
+        if (typeof googleVendorListElement.provider_id !== 'number' && isNaN(googleVendorListElement.provider_id)) {
 
             throw new Error('Google Vendor Schema, provider_id must be a valid number.');
 
@@ -162,7 +162,7 @@ class ACModelService {
         }
 
         const googleVendorOption: GoogleVendorOption = {
-            id: googleVendorListElement.provider_id,
+            id: Number(googleVendorListElement.provider_id),
             name: googleVendorListElement.provider_name,
             state: state,
             policyUrl: googleVendorListElement.policy_url,

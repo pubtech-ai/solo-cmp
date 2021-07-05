@@ -184,6 +184,10 @@ class TCStringService {
 
         }
 
+        this.loggerService.debug(
+            `Checking if TCString is valid: localeCheck: ${localeCheck} | cmpVersionCheck: ${cmpVersionCheck} | cmpVendorListVersionCheck ${cmpVendorListVersionCheck}`,
+        );
+
         return localeCheck && cmpVersionCheck && cmpVendorListVersionCheck;
 
     }
