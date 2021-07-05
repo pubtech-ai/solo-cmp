@@ -196,7 +196,7 @@ class SoloCmp {
                     container[ACStringService.getClassName()],
                     this.uiConstructor,
                     container[EventDispatcher.getClassName()],
-                    container[LoggerService.getClassName()]
+                    container[LoggerService.getClassName()],
                 );
 
             })
