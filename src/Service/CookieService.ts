@@ -1,14 +1,14 @@
-import LoggerService from './LoggerService';
+import {LoggerService} from './LoggerService';
 
 /**
  * CookieService.
  */
-class CookieService {
+export class CookieService {
 
     public static readonly milliSecondsInADay: number = 86400000;
 
     private logger: LoggerService;
-    private hostName: string;
+    private readonly hostName: string;
     private document: HTMLDocument;
 
     /**
@@ -145,6 +145,10 @@ class CookieService {
 
     }
 
-}
+    static getClassName(): string {
 
-export default CookieService;
+        return 'CookieService';
+
+    }
+
+}

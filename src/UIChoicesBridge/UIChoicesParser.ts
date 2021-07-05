@@ -1,13 +1,11 @@
 import {TCModel} from '@iabtcf/core';
-import ACModel from '../Entity/ACModel';
-import PurposeOption from '../Entity/PurposeOption';
-import VendorOption from '../Entity/VendorOption';
-import UIChoicesBridgeDto from './UIChoicesBridgeDto';
+import {ACModel, PurposeOption, VendorOption} from '../Entity';
+import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 
 /**
  * UIChoicesParser.
  */
-class UIChoicesParser {
+export class UIChoicesParser {
 
     private readonly _tcModel: TCModel;
     private readonly _acModel: ACModel;
@@ -97,5 +95,3 @@ class UIChoicesParser {
     }
 
 }
-
-export default UIChoicesParser;

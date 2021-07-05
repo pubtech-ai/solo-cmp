@@ -1,16 +1,14 @@
-import ChoicesParser from '../UIChoicesBridge/UIChoicesParser';
-import ConsentReadyEvent from '../Event/ConsentReadyEvent';
-import ConsentPersistEvent from '../Event/ConsentPersistEvent';
-import EventDispatcher from '../EventDispatcher/EventDispatcher';
-import TCStringService from './TCStringService';
-import ACStringService from './ACStringService';
-import UIChoicesBridgeDto from '../UIChoicesBridge/UIChoicesBridgeDto';
-import SoloCmpDataBundle from '../SoloCmpDataBundle';
+import {UIChoicesParser, UIChoicesBridgeDto} from '../UIChoicesBridge/';
+import {ConsentReadyEvent, ConsentPersistEvent} from '../Event';
+import {EventDispatcher} from '../EventDispatcher';
+import {TCStringService} from './TCStringService';
+import {ACStringService} from './ACStringService';
+import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
 
 /**
  * ConsentGeneratorService.
  */
-class ConsentGeneratorService {
+export class ConsentGeneratorService {
 
     private tcStringService: TCStringService;
     private acStringService: ACStringService;
@@ -43,7 +41,7 @@ class ConsentGeneratorService {
         soloCmpDataBundle: SoloCmpDataBundle,
     ): void {
 
-        const choicesParser = new ChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
+        const choicesParser = new UIChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
 
         const tcModel = choicesParser.parseTCModel(uiChoicesBridgeDto);
         const acModel = choicesParser.parseACModel(uiChoicesBridgeDto);
@@ -85,6 +83,10 @@ class ConsentGeneratorService {
 
     }
 
-}
+    static getClassName(): string {
 
-export default ConsentGeneratorService;
+        return 'ConsentGeneratorService';
+
+    }
+
+}

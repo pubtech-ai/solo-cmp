@@ -1,6 +1,5 @@
 import Bottle, {IContainer} from 'bottlejs';
-import EventDispatcher from '../EventDispatcher/EventDispatcher';
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
+import {EventDispatcher, EventSubscriberInterface} from '../EventDispatcher';
 
 /**
  * DependencyInjectionManager.

@@ -1,19 +1,20 @@
-import ConsentReadyEvent from '../Event/ConsentReadyEvent';
-import OpenCmpUIEvent from '../Event/OpenCmpUIEvent';
-import UIConstructor from '../UIConstructor';
-import TCStringService from './TCStringService';
-import ACStringService from './ACStringService';
-import EventDispatcher from '../EventDispatcher/EventDispatcher';
+import {ConsentReadyEvent, OpenCmpUIEvent} from '../Event';
+import {UIConstructor} from '../UIConstructor';
+import {EventDispatcher} from '../EventDispatcher';
+import {LoggerService} from './LoggerService';
+import {ACStringService} from './ACStringService';
+import {TCStringService} from './TCStringService';
 
 /**
  * Orchestrator.
  */
-class Orchestrator {
+export class Orchestrator {
 
     private tcStringService: TCStringService;
     private acStringService: ACStringService;
     private uiConstructor: UIConstructor;
     private eventDispatcher: EventDispatcher;
+    private loggerService: LoggerService;
 
     /**
      * Constructor.
@@ -22,18 +23,21 @@ class Orchestrator {
      * @param {ACStringService} acStringService
      * @param {UIConstructor} uiConstructor
      * @param {EventDispatcher} eventDispatcher
+     * @param {LoggerService} loggerService
      */
     constructor(
         tcStringService: TCStringService,
         acStringService: ACStringService,
         uiConstructor: UIConstructor,
         eventDispatcher: EventDispatcher,
+        loggerService: LoggerService,
     ) {
 
         this.tcStringService = tcStringService;
         this.acStringService = acStringService;
         this.uiConstructor = uiConstructor;
         this.eventDispatcher = eventDispatcher;
+        this.loggerService = loggerService;
 
     }
 
@@ -51,6 +55,8 @@ class Orchestrator {
         if (this.checkIfConsentsAreValid(tcStringFetched, acStringFetched)) {
 
             const consentReadyEvent = new ConsentReadyEvent(tcStringFetched, acStringFetched);
+
+            this.loggerService.debug('Orchestrator, consents are valid. ConsentReadyEvent dispatched.');
 
             this.eventDispatcher.dispatch(consentReadyEvent);
 
@@ -86,6 +92,10 @@ class Orchestrator {
 
     }
 
-}
+    static getClassName(): string {
 
-export default Orchestrator;
+        return 'Orchestrator';
+
+    }
+
+}

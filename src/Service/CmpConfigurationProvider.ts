@@ -1,12 +1,12 @@
-import CmpConfiguration from './CmpConfiguration/CmpConfiguration';
-import ConfigurationInterface from './CmpConfiguration/ConfigurationInteface';
+import {CmpConfiguration} from './CmpConfiguration/';
+import {ConfigurationInterface} from './CmpConfiguration/';
 
 /**
  * CmpConfigurationProvider.
  */
-class CmpConfigurationProvider {
+export class CmpConfigurationProvider {
 
-    private _cmpConfiguration: CmpConfiguration;
+    private readonly _cmpConfiguration: CmpConfiguration;
 
     /**
      * Constructor.
@@ -62,6 +62,10 @@ class CmpConfigurationProvider {
 
     }
 
-}
+    static getClassName(): string {
 
-export default CmpConfigurationProvider;
+        return 'CmpConfigurationProvider';
+
+    }
+
+}

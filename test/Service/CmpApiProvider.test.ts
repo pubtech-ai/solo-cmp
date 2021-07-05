@@ -2,9 +2,7 @@ import { expect } from 'chai';
 import { API_KEY, TCData, TCFCommand } from '@iabtcf/cmpapi';
 import { TCStringFactory } from '@iabtcf/testing';
 const sinon = require('sinon');
-import CmpApiProvider from '../../src/Service/CmpApiProvider';
-import ACStringService from '../../src/Service/ACStringService';
-import LoggerService from '../../src/Service/LoggerService';
+import { CmpApiProvider, ACStringService, LoggerService } from '../../src/Service';
 import * as stub from '@iabtcf/stub';
 
 const getCmpApiProvider = (isServiceSpecific = false): CmpApiProvider => {

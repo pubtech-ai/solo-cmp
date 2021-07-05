@@ -1,9 +1,8 @@
-import CmpApiProvider from '../../src/Service/CmpApiProvider';
+import { CmpApiProvider } from '../../src/Service';
 import { expect } from 'chai';
 const sinon = require('sinon');
-import CmpApiSubscriber from '../../src/EventSubscriber/CmpApiSubscriber';
-import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
-import ConsentRequiredEvent from '../../src/Event/ConsentRequiredEvent';
+import { CmpApiSubscriber } from '../../src/EventSubscriber';
+import { ConsentReadyEvent, ConsentRequiredEvent } from '../../src/Event';
 //@ts-ignore
 import { getCmpApiProvider } from '../Service/CmpApiProvider.test';
 

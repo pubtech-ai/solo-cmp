@@ -1,5 +1,7 @@
 import { expect } from 'chai';
-import UIConstructor from '../../src/UIConstructor';
+import { SoloCmpDataBundle, UIChoicesBridgeDto, UIConstructor } from '../../src';
+// @ts-ignore
+import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
 const sinon = require('sinon');
 
 describe('UIConstructor suit test', () => {
@@ -26,7 +28,13 @@ describe('UIConstructor suit test', () => {
 
         const uiConstructor = new UIConstructor(document, 'solo-cmp-dom-id', cmpBuildUIAndRenderCallback, () => {});
 
-        uiConstructor.buildUIAndRender();
+        uiConstructor.buildUIAndRender(
+            new SoloCmpDataBundle(
+                new UIChoicesBridgeDto([], [], [], [], []),
+                getTCModelByFixture(),
+                getACModelByFixture(),
+            ),
+        );
     });
 
     it('UIConstructor build and render CMP open button UI test', (done) => {
@@ -52,7 +60,13 @@ describe('UIConstructor suit test', () => {
         const uiConstructor = new UIConstructor(document, 'solo-cmp-dom-id', cmpBuildUIAndRenderCallback, () => {});
 
         const buildUIAndRenderError = function () {
-            uiConstructor.buildUIAndRender();
+            uiConstructor.buildUIAndRender(
+                new SoloCmpDataBundle(
+                    new UIChoicesBridgeDto([], [], [], [], []),
+                    getTCModelByFixture(),
+                    getACModelByFixture(),
+                ),
+            );
         };
 
         expect(buildUIAndRenderError).to.throw(

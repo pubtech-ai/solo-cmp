@@ -1,17 +1,12 @@
 import {Feature, Purpose, TCModel, Vendor} from '@iabtcf/core';
 import {IntMap} from '@iabtcf/core/lib/model';
-import ACModel from '../Entity/ACModel';
-import PurposeOption from '../Entity/PurposeOption';
-import VendorFeature from '../Entity/VendorFeature';
-import VendorPurpose from '../Entity/VendorPurpose';
-import VendorOption from '../Entity/VendorOption';
-import GoogleVendorOption from '../Entity/GoogleVendorOption';
-import UIChoicesBridgeDto from './UIChoicesBridgeDto';
+import {ACModel, PurposeOption, VendorFeature, VendorPurpose, VendorOption, GoogleVendorOption} from '../Entity';
+import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 
 /**
  * UIChoicesBridgeDtoBuilder.
  */
-class UIChoicesBridgeDtoBuilder {
+export class UIChoicesBridgeDtoBuilder {
 
     private _UIPurposeChoices: PurposeOption[] = [];
     private _UIVendorChoices: VendorOption[] = [];
@@ -333,5 +328,3 @@ class UIChoicesBridgeDtoBuilder {
     }
 
 }
-
-export default UIChoicesBridgeDtoBuilder;

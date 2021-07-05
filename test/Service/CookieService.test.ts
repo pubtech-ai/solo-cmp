@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import CookieService from '../../src/Service/CookieService';
-import LoggerService from '../../src/Service/LoggerService';
+import { CookieService, LoggerService } from '../../src/Service';
 
 describe('Cookie suit test', () => {
     let cookieService: CookieService;

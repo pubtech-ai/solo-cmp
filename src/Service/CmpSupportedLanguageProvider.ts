@@ -1,7 +1,7 @@
 /**
  * CmpSupportedLanguageProvider.
  */
-class CmpSupportedLanguageProvider {
+export class CmpSupportedLanguageProvider {
 
     public static readonly defaultLanguage: string = 'en';
     private readonly language: string;
@@ -65,6 +65,10 @@ class CmpSupportedLanguageProvider {
 
     }
 
-}
+    static getClassName(): string {
 
-export default CmpSupportedLanguageProvider;
+        return 'CmpSupportedLanguageProvider';
+
+    }
+
+}

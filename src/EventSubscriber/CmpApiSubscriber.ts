@@ -1,12 +1,11 @@
-import ConsentReadyEvent from '../Event/ConsentReadyEvent';
-import ConsentRequiredEvent from '../Event/ConsentRequiredEvent';
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
-import CmpApiProvider from '../Service/CmpApiProvider';
+import {ConsentReadyEvent, ConsentRequiredEvent} from '../Event';
+import {EventSubscriberInterface} from '../EventDispatcher';
+import {CmpApiProvider} from '../Service';
 
 /**
  * CmpApiSubscriber.
  */
-class CmpApiSubscriber implements EventSubscriberInterface {
+export class CmpApiSubscriber implements EventSubscriberInterface {
 
     private cmpApiProvider: CmpApiProvider;
 
@@ -27,8 +26,8 @@ class CmpApiSubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [ConsentReadyEvent.name]: 'onConsentReady',
-            [ConsentRequiredEvent.name]: 'onConsentRequired',
+            [ConsentReadyEvent.EVENT_NAME]: 'onConsentReady',
+            [ConsentRequiredEvent.EVENT_NAME]: 'onConsentRequired',
         };
 
     }
@@ -53,6 +52,12 @@ class CmpApiSubscriber implements EventSubscriberInterface {
     public onConsentRequired(event: ConsentRequiredEvent): void {
 
         this.cmpApiProvider.cmpApi.update('', true);
+
+    }
+
+    static getClassName(): string {
+
+        return 'CmpApiSubscriber';
 
     }
 

@@ -1,11 +1,10 @@
-import ConsentRequiredEvent from '../Event/ConsentRequiredEvent';
-import MoreChoicesEvent from '../Event/MoreChoicesEvent';
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
+import {ConsentRequiredEvent, MoreChoicesEvent} from '../Event';
+import {EventSubscriberInterface} from '../EventDispatcher';
 
 /**
  * AmpSubscriber.
  */
-class AmpSubscriber implements EventSubscriberInterface {
+export class AmpSubscriber implements EventSubscriberInterface {
 
     private window: Window;
     private readonly ampEnabled: boolean;
@@ -60,8 +59,8 @@ class AmpSubscriber implements EventSubscriberInterface {
         }
 
         return {
-            [ConsentRequiredEvent.name]: 'onConsentRequired',
-            [MoreChoicesEvent.name]: 'onMoreChoices',
+            [ConsentRequiredEvent.EVENT_NAME]: 'onConsentRequired',
+            [MoreChoicesEvent.EVENT_NAME]: 'onMoreChoices',
         };
 
     }
@@ -104,6 +103,10 @@ class AmpSubscriber implements EventSubscriberInterface {
 
     }
 
-}
+    static getClassName(): string {
 
-export default AmpSubscriber;
+        return 'AmpSubscriber';
+
+    }
+
+}

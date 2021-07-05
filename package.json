@@ -1,13 +1,14 @@
 {
-  "name": "solo-cmp",
+  "name": "@pubtech/solo-cmp",
   "version": "1.0.0",
   "description": "Wrapper of IAB module that make simple to made a CMP",
   "author": "Marco Prontera <https://github.com/Marco-Prontera>",
   "license": "Apache-2.0",
-  "main": "index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "test": "ts-mocha -p tsconfig.json test/**/*.test.ts -r jsdom-global/register",
-    "test-parallel": "ts-mocha -p tsconfig.json test/**/*.test.ts -r jsdom-global/register  --parallel",
+    "test": "ts-mocha -p tsconfig.commonjs.json test/**/*.test.ts -r jsdom-global/register",
+    "test-parallel": "ts-mocha -p tsconfig.commonjs.json test/**/*.test.ts -r jsdom-global/register  --parallel",
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet --fix",
@@ -49,6 +50,6 @@
     "typescript": "^4.1.5"
   },
   "files": [
-    "lib"
+    "lib/**/*"
   ]
 }

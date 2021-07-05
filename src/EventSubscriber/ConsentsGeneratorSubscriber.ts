@@ -1,12 +1,11 @@
-import ApplyConsentEvent from '../Event/ApplyConsentEvent';
-import AcceptAllEvent from '../Event/AcceptAllEvent';
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
-import ConsentGeneratorService from '../Service/ConsentGeneratorService';
+import {AcceptAllEvent, ApplyConsentEvent} from '../Event';
+import {EventSubscriberInterface} from '../EventDispatcher';
+import {ConsentGeneratorService} from '../Service';
 
 /**
  * ConsentsGeneratorSubscriber.
  */
-class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
+export class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
 
     private consentGeneratorService: ConsentGeneratorService;
 
@@ -27,8 +26,8 @@ class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [ApplyConsentEvent.name]: 'onApplyConsent',
-            [AcceptAllEvent.name]: 'onAcceptAll',
+            [ApplyConsentEvent.EVENT_NAME]: 'onApplyConsent',
+            [AcceptAllEvent.EVENT_NAME]: 'onAcceptAll',
         };
 
     }
@@ -59,6 +58,10 @@ class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
 
     }
 
-}
+    static getClassName(): string {
 
-export default ConsentsGeneratorSubscriber;
+        return 'ConsentsGeneratorSubscriber';
+
+    }
+
+}

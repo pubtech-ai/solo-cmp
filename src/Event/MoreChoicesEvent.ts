@@ -1,8 +1,11 @@
-import BaseEvent from '../EventDispatcher/BaseEvent';
+import {BaseEvent} from '../EventDispatcher';
 
 /**
  * MoreChoicesEvent.
  */
-class MoreChoicesEvent implements BaseEvent {}
+export class MoreChoicesEvent implements BaseEvent {
 
-export default MoreChoicesEvent;
+    readonly EVENT_NAME = 'MoreChoicesEvent';
+    static readonly EVENT_NAME = 'MoreChoicesEvent';
+
+}

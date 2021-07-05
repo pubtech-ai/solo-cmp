@@ -1,16 +1,16 @@
 import {GVL, TCModel, TCString} from '@iabtcf/core';
-import TCStringService from './TCStringService';
-import CmpSupportedLanguageProvider from './CmpSupportedLanguageProvider';
+import {TCStringService} from './TCStringService';
+import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
 
 /**
  * TCModelService.
  */
-class TCModelService {
+export class TCModelService {
 
     private readonly cmpId: number;
     private readonly cmpVersion: number;
     private readonly isServiceSpecific: boolean;
-    private globalVendorList: GVL;
+    private readonly globalVendorList: GVL;
     private tcStringService: TCStringService;
     private cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
 
@@ -97,6 +97,10 @@ class TCModelService {
 
     }
 
-}
+    static getClassName(): string {
 
-export default TCModelService;
+        return 'TCModelService';
+
+    }
+
+}

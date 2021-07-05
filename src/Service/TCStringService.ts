@@ -1,19 +1,19 @@
 import {TCModel, TCString} from '@iabtcf/core';
-import CookieService from './CookieService';
-import LoggerService from './LoggerService';
-import CmpSupportedLanguageProvider from './CmpSupportedLanguageProvider';
+import {CookieService} from './CookieService';
+import {LoggerService} from './LoggerService';
+import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
 
 /**
  * TCStringService.
  */
-class TCStringService {
+export class TCStringService {
 
     private cookieService: CookieService;
     private loggerService: LoggerService;
-    private cmpVersion: number;
-    private cmpVendorListVersion: number;
-    private cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
-    private tcStringCookieName: string;
+    private readonly cmpVersion: number;
+    private readonly cmpVendorListVersion: number;
+    private readonly cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
+    private readonly tcStringCookieName: string;
 
     /**
      * Constructor.
@@ -167,6 +167,8 @@ class TCStringService {
 
         } catch (e) {
 
+            this.loggerService.debug(`Checking if TCString is valid: the tcstring is not decodable.`);
+
             return false;
 
         }
@@ -184,10 +186,18 @@ class TCStringService {
 
         }
 
+        this.loggerService.debug(
+            `Checking if TCString is valid: localeCheck: ${localeCheck} | cmpVersionCheck: ${cmpVersionCheck} | cmpVendorListVersionCheck ${cmpVendorListVersionCheck}`,
+        );
+
         return localeCheck && cmpVersionCheck && cmpVendorListVersionCheck;
 
     }
 
-}
+    static getClassName(): string {
 
-export default TCStringService;
+        return 'TCStringService';
+
+    }
+
+}

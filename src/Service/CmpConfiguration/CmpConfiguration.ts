@@ -1,10 +1,10 @@
-import ConfigurationInterface from './ConfigurationInteface';
-import ConsentReadyEvent from '../../Event/ConsentReadyEvent';
+import {ConfigurationInterface} from './ConfigurationInteface';
+import {ConsentReadyEvent} from '../../Event';
 
 /**
  * CmpConfiguration.
  */
-class CmpConfiguration {
+export class CmpConfiguration {
 
     private readonly _isAmp: boolean;
     private readonly _onConsentAdsCallBack: (event: ConsentReadyEvent) => void;
@@ -41,6 +41,10 @@ class CmpConfiguration {
 
     }
 
-}
+    static getClassName(): string {
 
-export default CmpConfiguration;
+        return 'CmpConfiguration';
+
+    }
+
+}

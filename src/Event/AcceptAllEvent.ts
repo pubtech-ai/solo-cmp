@@ -1,10 +1,13 @@
-import BaseEvent from '../EventDispatcher/BaseEvent';
-import SoloCmpDataBundle from '../SoloCmpDataBundle';
+import {BaseEvent} from '../EventDispatcher';
+import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
 
 /**
  * AcceptAllEvent.
  */
-class AcceptAllEvent implements BaseEvent {
+export class AcceptAllEvent implements BaseEvent {
+
+    readonly EVENT_NAME = 'AcceptAllEvent';
+    static readonly EVENT_NAME = 'AcceptAllEvent';
 
     private readonly _soloCmpDataBundle: SoloCmpDataBundle;
 
@@ -26,5 +29,3 @@ class AcceptAllEvent implements BaseEvent {
     }
 
 }
-
-export default AcceptAllEvent;

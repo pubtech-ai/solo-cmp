@@ -1,16 +1,16 @@
+import {
+    ACStringService,
+    CmpSupportedLanguageProvider,
+    CookieService,
+    LoggerService,
+    Orchestrator,
+    TCStringService,
+} from '../../src/Service';
+
 const sinon = require('sinon');
 import { TCModel, TCString } from '@iabtcf/core';
 import { TCModelFactory } from '@iabtcf/testing';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
-import TCStringService from '../../src/Service/TCStringService';
-import LoggerService from '../../src/Service/LoggerService';
-import CookieService from '../../src/Service/CookieService';
-import ACStringService from '../../src/Service/ACStringService';
-import Orchestrator from '../../src/Service/Orchestrator';
-import UIConstructor from '../../src/UIConstructor';
-import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
-import OpenCmpUIEvent from '../../src/Event/OpenCmpUIEvent';
-import ConsentReadyEvent from '../../src/Event/ConsentReadyEvent';
+import { ConsentReadyEvent, EventDispatcher, OpenCmpUIEvent, UIConstructor } from '../../src';
 
 describe('Orchestrator suit test', () => {
     const tcModel = (TCModelFactory.withGVL() as unknown) as TCModel;
@@ -77,7 +77,15 @@ describe('Orchestrator suit test', () => {
             .once()
             .withExactArgs(new ConsentReadyEvent(TCString.encode(tcModel), `${tcModel.cmpVersion}~`));
 
-        const orchestrator = new Orchestrator(tcStringService, acStringService, uiConstructor, eventDispatcher);
+        const loggerService: LoggerService = new LoggerService(false);
+
+        const orchestrator = new Orchestrator(
+            tcStringService,
+            acStringService,
+            uiConstructor,
+            eventDispatcher,
+            loggerService,
+        );
 
         orchestrator.initCmp();
         mock.verify();
@@ -108,7 +116,15 @@ describe('Orchestrator suit test', () => {
         var mock = sinon.mock(eventDispatcher);
         mock.expects('dispatch').once().withExactArgs(new OpenCmpUIEvent());
 
-        const orchestrator = new Orchestrator(tcStringService, acStringService, uiConstructor, eventDispatcher);
+        const loggerService: LoggerService = new LoggerService(false);
+
+        const orchestrator = new Orchestrator(
+            tcStringService,
+            acStringService,
+            uiConstructor,
+            eventDispatcher,
+            loggerService,
+        );
 
         orchestrator.initCmp();
         mock.verify();
@@ -139,11 +155,14 @@ describe('Orchestrator suit test', () => {
         var mockACStringService = sinon.mock(acStringService);
         mockACStringService.expects('removeACString').once();
 
+        const loggerService: LoggerService = new LoggerService(false);
+
         const orchestrator = new Orchestrator(
             tcStringService,
             acStringService,
             uiConstructor,
             EventDispatcher.getInstance(),
+            loggerService,
         );
 
         orchestrator.initCmp();

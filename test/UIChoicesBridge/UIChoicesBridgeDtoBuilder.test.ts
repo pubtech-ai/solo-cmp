@@ -1,9 +1,8 @@
-import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 import { expect } from 'chai';
 import { GVL, TCModel } from '@iabtcf/core';
-import ACModel from '../../src/Entity/ACModel';
 import vendorList from '../Fixtures/vendor-list';
-import UIChoicesBridgeDto from '../../src/UIChoicesBridge/UIChoicesBridgeDto';
+import { ACModel } from '../../src/Entity';
+import { UIChoicesBridgeDto, UIChoicesBridgeDtoBuilder } from '../../src/UIChoicesBridge';
 
 const getTCModelByFixture = function () {
     // @ts-ignore

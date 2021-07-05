@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import LoggerService from '../../src/Service/LoggerService';
+import { LoggerService } from '../../src/Service';
 
 describe('Logger suit test', () => {
     before(() => {

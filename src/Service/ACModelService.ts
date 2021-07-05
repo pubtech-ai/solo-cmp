@@ -1,13 +1,12 @@
-import HttpRequestService from './HttpRequestService';
-import ACModel from '../Entity/ACModel';
-import ACStringService from './ACStringService';
-import GoogleVendorOption from '../Entity/GoogleVendorOption';
-import LoggerService from './LoggerService';
+import {HttpRequestService} from './HttpRequestService';
+import {ACModel, GoogleVendorOption} from '../Entity';
+import {ACStringService} from './ACStringService';
+import {LoggerService} from './LoggerService';
 
 /**
  * ACModelService.
  */
-class ACModelService {
+export class ACModelService {
 
     private static readonly googleVendorListFileName = 'google-vendor-list.json';
 
@@ -137,7 +136,7 @@ class ACModelService {
      */
     private addGoogleVendorOptionToList(googleVendorListElement: any, state: boolean): void {
 
-        if (typeof googleVendorListElement.provider_id !== 'number' || isNaN(googleVendorListElement.provider_id)) {
+        if (typeof googleVendorListElement.provider_id !== 'number' && isNaN(googleVendorListElement.provider_id)) {
 
             throw new Error('Google Vendor Schema, provider_id must be a valid number.');
 
@@ -162,7 +161,7 @@ class ACModelService {
         }
 
         const googleVendorOption: GoogleVendorOption = {
-            id: googleVendorListElement.provider_id,
+            id: Number(googleVendorListElement.provider_id),
             name: googleVendorListElement.provider_name,
             state: state,
             policyUrl: googleVendorListElement.policy_url,
@@ -185,6 +184,10 @@ class ACModelService {
 
     }
 
-}
+    static getClassName(): string {
 
-export default ACModelService;
+        return 'ACModelService';
+
+    }
+
+}

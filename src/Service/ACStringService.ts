@@ -1,11 +1,10 @@
-import ACModel from '../Entity/ACModel';
-import GoogleVendorOption from '../Entity/GoogleVendorOption';
-import LoggerService from './LoggerService';
+import {ACModel, GoogleVendorOption} from '../Entity';
+import {LoggerService} from './LoggerService';
 
 /**
  * ACStringService.
  */
-class ACStringService {
+export class ACStringService {
 
     private static readonly acStringIdSeparator = '~';
 
@@ -215,6 +214,10 @@ class ACStringService {
 
     }
 
-}
+    static getClassName(): string {
 
-export default ACStringService;
+        return 'ACStringService';
+
+    }
+
+}

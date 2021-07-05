@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
+import { CmpSupportedLanguageProvider } from '../../src/Service';
 
 describe('CmpSupportedLanguageProvider suit test', () => {
     it('CmpSupportedLanguageProvider construction test', () => {

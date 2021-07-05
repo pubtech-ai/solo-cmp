@@ -1,19 +1,20 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import TCStringService from '../../src/Service/TCStringService';
-import ACStringService from '../../src/Service/ACStringService';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
-import LoggerService from '../../src/Service/LoggerService';
-import CookieService from '../../src/Service/CookieService';
-import ConsentGeneratorService from '../../src/Service/ConsentGeneratorService';
-import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
-import ApplyConsentEvent from '../../src/Event/ApplyConsentEvent';
-import AcceptAllEvent from '../../src/Event/AcceptAllEvent';
-import ConsentsGeneratorSubscriber from '../../src/EventSubscriber/ConsentsGeneratorSubscriber';
 import { TCModelFactory } from '@iabtcf/testing';
-import ACModel from '../../src/Entity/ACModel';
-import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
-import SoloCmpDataBundle from '../../src/SoloCmpDataBundle';
+import {
+    ACStringService,
+    CmpSupportedLanguageProvider,
+    ConsentGeneratorService,
+    CookieService,
+    LoggerService,
+    TCStringService,
+} from '../../src/Service';
+import { EventDispatcher } from '../../src/EventDispatcher';
+import { ConsentsGeneratorSubscriber } from '../../src/EventSubscriber';
+import { AcceptAllEvent, ApplyConsentEvent } from '../../src/Event';
+import { ACModel } from '../../src/Entity';
+import { UIChoicesBridgeDtoBuilder } from '../../src/UIChoicesBridge';
+import { SoloCmpDataBundle } from '../../src';
 
 describe('ConsentsGeneratorSubscriber suit test', () => {
     const loggerService: LoggerService = new LoggerService(false);

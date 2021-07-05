@@ -1,10 +1,9 @@
 import { expect } from 'chai';
-import UIChoicesParser from '../../src/UIChoicesBridge/UIChoicesParser';
-import UIChoicesBridgeDtoBuilder from '../../src/UIChoicesBridge/UIChoicesBridgeDtoBuilder';
 //@ts-ignore
 import { getACModelByFixture, getTCModelByFixture } from './UIChoicesBridgeDtoBuilder.test';
-import ACModel from '../../src/Entity/ACModel';
 import { TCModel } from '@iabtcf/core';
+import { ACModel } from '../../src/Entity';
+import { UIChoicesBridgeDtoBuilder, UIChoicesParser } from '../../src/UIChoicesBridge';
 
 describe('UIChoicesParser suit test', () => {
     it('UIChoicesParser parsing logic validation test', () => {

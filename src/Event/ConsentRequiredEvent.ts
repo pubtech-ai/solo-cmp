@@ -1,8 +1,11 @@
-import BaseEvent from '../EventDispatcher/BaseEvent';
+import {BaseEvent} from '../EventDispatcher';
 
 /**
  * ConsentRequiredEvent.
  */
-class ConsentRequiredEvent implements BaseEvent {}
+export class ConsentRequiredEvent implements BaseEvent {
 
-export default ConsentRequiredEvent;
+    readonly EVENT_NAME = 'ConsentRequiredEvent';
+    static readonly EVENT_NAME = 'ConsentRequiredEvent';
+
+}

@@ -1,5 +1,5 @@
 const sinon = require('sinon');
-import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
+import { EventDispatcher } from '../../src/EventDispatcher/';
 
 describe('EventDispatcher suit test', () => {
     it('EventDispatcher execute function on dispatch', () => {
@@ -12,16 +12,14 @@ describe('EventDispatcher suit test', () => {
         const mock = sinon.mock(subscriber);
 
         const testEvent = {
-            constructor: {
-                name: 'TestEvent',
-            },
+            EVENT_NAME: 'TestEvent',
         };
 
         mock.expects('method').once().withArgs(testEvent);
 
         const eventDispatcher = EventDispatcher.getInstance();
 
-        eventDispatcher.subscribe('SubscriberTest', testEvent.constructor.name, subscriber.method);
+        eventDispatcher.subscribe('SubscriberTest', testEvent.EVENT_NAME, subscriber.method);
 
         eventDispatcher.dispatch(testEvent);
 

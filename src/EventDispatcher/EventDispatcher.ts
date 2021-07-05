@@ -1,9 +1,9 @@
-import BaseEvent from './BaseEvent';
+import {BaseEvent} from './BaseEvent';
 
 /**
  * EventDispatcher.
  */
-class EventDispatcher {
+export class EventDispatcher {
 
     private static instance: EventDispatcher;
 
@@ -81,13 +81,15 @@ class EventDispatcher {
      */
     public dispatch(event: BaseEvent): void {
 
-        if (!this.subscriptions[event.constructor.name]) return;
+        const eventName = event.EVENT_NAME;
 
-        Object.keys(this.subscriptions[event.constructor.name]).forEach((key) => {
+        if (!this.subscriptions[eventName]) return;
+
+        Object.keys(this.subscriptions[eventName]).forEach((key) => {
 
             try {
 
-                this.subscriptions[event.constructor.name][key](event);
+                this.subscriptions[eventName][key](event);
 
             } catch (error) {
 
@@ -127,6 +129,10 @@ class EventDispatcher {
 
     }
 
-}
+    static getClassName(): string {
 
-export default EventDispatcher;
+        return 'EventDispatcher';
+
+    }
+
+}

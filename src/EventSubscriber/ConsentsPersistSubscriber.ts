@@ -1,12 +1,11 @@
-import EventSubscriberInterface from '../EventDispatcher/EventSubscriberInterface';
-import ConsentPersistEvent from '../Event/ConsentPersistEvent';
-import TCStringService from '../Service/TCStringService';
-import ACStringService from '../Service/ACStringService';
+import {EventSubscriberInterface} from '../EventDispatcher';
+import {ConsentPersistEvent} from '../Event';
+import {TCStringService, ACStringService} from '../Service';
 
 /**
  * ConsentsPersistSubscriber.
  */
-class ConsentsPersistSubscriber implements EventSubscriberInterface {
+export class ConsentsPersistSubscriber implements EventSubscriberInterface {
 
     private tcStringService: TCStringService;
     private acStringService: ACStringService;
@@ -30,7 +29,7 @@ class ConsentsPersistSubscriber implements EventSubscriberInterface {
     public getSubscribedEvents(): Record<string, string> {
 
         return {
-            [ConsentPersistEvent.name]: 'onConsentPersist',
+            [ConsentPersistEvent.EVENT_NAME]: 'onConsentPersist',
         };
 
     }
@@ -48,6 +47,10 @@ class ConsentsPersistSubscriber implements EventSubscriberInterface {
 
     }
 
-}
+    static getClassName(): string {
 
-export default ConsentsPersistSubscriber;
+        return 'ConsentsPersistSubscriber';
+
+    }
+
+}

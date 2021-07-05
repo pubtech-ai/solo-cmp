@@ -1,19 +1,17 @@
-import ACModelService from '../../src/Service/ACModelService';
-import TCModelService from '../../src/Service/TCModelService';
-import UIConstructor from '../../src/UIConstructor';
-import LoggerService from '../../src/Service/LoggerService';
-import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
-import CmpPreparatoryService from '../../src/Service/CmpPreparatoryService';
-import HttpRequestService from '../../src/Service/HttpRequestService';
-import ACStringService from '../../src/Service/ACStringService';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
 import { TCModel } from '@iabtcf/core';
-import TCStringService from '../../src/Service/TCStringService';
-import CookieService from '../../src/Service/CookieService';
 import { TCModelFactory } from '@iabtcf/testing';
-import ConsentRequiredEvent from '../../src/Event/ConsentRequiredEvent';
-import SoloCmpDataBundle from '../../src/SoloCmpDataBundle';
-import { expect } from 'chai';
+import {
+    ACModelService,
+    ACStringService,
+    CmpPreparatoryService,
+    CmpSupportedLanguageProvider,
+    CookieService,
+    HttpRequestService,
+    LoggerService,
+    TCModelService,
+    TCStringService,
+} from '../../src/Service';
+import { ConsentRequiredEvent, EventDispatcher, UIConstructor } from '../../src';
 const sinon = require('sinon');
 
 describe('CmpPreparatoryService suit test', () => {

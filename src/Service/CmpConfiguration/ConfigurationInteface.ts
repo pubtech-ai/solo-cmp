@@ -1,12 +1,10 @@
-import ConsentReadyEvent from '../../Event/ConsentReadyEvent';
+import {ConsentReadyEvent} from '../../Event';
 
 /**
  * ConfigurationInterface.
  */
-interface ConfigurationInterface {
+export interface ConfigurationInterface {
     isAmp: boolean;
     onConsentAds: (event: ConsentReadyEvent) => void;
     debug: boolean;
 }
-
-export default ConfigurationInterface;

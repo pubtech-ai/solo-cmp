@@ -1,20 +1,19 @@
 import { expect } from 'chai';
 const sinon = require('sinon');
-import TCStringService from '../../src/Service/TCStringService';
-import ACStringService from '../../src/Service/ACStringService';
-import CmpSupportedLanguageProvider from '../../src/Service/CmpSupportedLanguageProvider';
-import LoggerService from '../../src/Service/LoggerService';
-import CookieService from '../../src/Service/CookieService';
-import EventDispatcher from '../../src/EventDispatcher/EventDispatcher';
 import { TCModelFactory } from '@iabtcf/testing';
-import OpenCmpUIEvent from '../../src/Event/OpenCmpUIEvent';
-import HttpRequestService from '../../src/Service/HttpRequestService';
-import ACModelService from '../../src/Service/ACModelService';
 import { TCModel } from '@iabtcf/core';
-import TCModelService from '../../src/Service/TCModelService';
-import UIConstructor from '../../src/UIConstructor';
-import CmpPreparatoryService from '../../src/Service/CmpPreparatoryService';
-import OpenCmpUISubscriber from '../../src/EventSubscriber/OpenCmpUISubscriber';
+import {
+    ACModelService,
+    ACStringService,
+    CmpPreparatoryService,
+    CmpSupportedLanguageProvider,
+    CookieService,
+    HttpRequestService,
+    LoggerService,
+    TCModelService,
+    TCStringService,
+} from '../../src/Service';
+import { EventDispatcher, OpenCmpUIEvent, OpenCmpUISubscriber, UIConstructor } from '../../src';
 
 describe('OpenCmpUISubscriber suit test', () => {
     const getCmpPreparatoryService = function () {
