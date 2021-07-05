@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { SoloCmpDataBundle, UIChoicesBridgeDto, UIConstructor } from '../../src';
+// @ts-ignore
 import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
 const sinon = require('sinon');
 
@@ -59,7 +60,13 @@ describe('UIConstructor suit test', () => {
         const uiConstructor = new UIConstructor(document, 'solo-cmp-dom-id', cmpBuildUIAndRenderCallback, () => {});
 
         const buildUIAndRenderError = function () {
-            uiConstructor.buildUIAndRender();
+            uiConstructor.buildUIAndRender(
+                new SoloCmpDataBundle(
+                    new UIChoicesBridgeDto([], [], [], [], []),
+                    getTCModelByFixture(),
+                    getACModelByFixture(),
+                ),
+            );
         };
 
         expect(buildUIAndRenderError).to.throw(
