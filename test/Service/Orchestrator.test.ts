@@ -1,3 +1,5 @@
+import {log} from "util";
+
 const sinon = require('sinon');
 import { TCModel, TCString } from '@iabtcf/core';
 import { TCModelFactory } from '@iabtcf/testing';
@@ -77,7 +79,9 @@ describe('Orchestrator suit test', () => {
             .once()
             .withExactArgs(new ConsentReadyEvent(TCString.encode(tcModel), `${tcModel.cmpVersion}~`));
 
-        const orchestrator = new Orchestrator(tcStringService, acStringService, uiConstructor, eventDispatcher);
+        const loggerService: LoggerService = new LoggerService(false);
+
+        const orchestrator = new Orchestrator(tcStringService, acStringService, uiConstructor, eventDispatcher, loggerService);
 
         orchestrator.initCmp();
         mock.verify();
@@ -108,7 +112,9 @@ describe('Orchestrator suit test', () => {
         var mock = sinon.mock(eventDispatcher);
         mock.expects('dispatch').once().withExactArgs(new OpenCmpUIEvent());
 
-        const orchestrator = new Orchestrator(tcStringService, acStringService, uiConstructor, eventDispatcher);
+        const loggerService: LoggerService = new LoggerService(false);
+
+        const orchestrator = new Orchestrator(tcStringService, acStringService, uiConstructor, eventDispatcher, loggerService);
 
         orchestrator.initCmp();
         mock.verify();
@@ -139,11 +145,14 @@ describe('Orchestrator suit test', () => {
         var mockACStringService = sinon.mock(acStringService);
         mockACStringService.expects('removeACString').once();
 
+        const loggerService: LoggerService = new LoggerService(false);
+
         const orchestrator = new Orchestrator(
             tcStringService,
             acStringService,
             uiConstructor,
             EventDispatcher.getInstance(),
+            loggerService
         );
 
         orchestrator.initCmp();
