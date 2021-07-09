@@ -67,7 +67,6 @@ export class UIChoicesBridgeDtoBuilder {
             const purpose: Purpose = purposes[purposeId];
             purposeOptions.push({
                 state: tcModel.purposeConsents.has(purpose.id),
-                expanded: false,
                 id: Number(purpose.id),
                 title: purpose.name,
                 description: purpose.description,
@@ -111,7 +110,6 @@ export class UIChoicesBridgeDtoBuilder {
 
             vendorOption.push({
                 state: tcModel.vendorConsents.has(vendor.id),
-                expanded: false,
                 features: UIChoicesBridgeDtoBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
@@ -180,7 +178,6 @@ export class UIChoicesBridgeDtoBuilder {
 
                 legitimateInterestsPurposesOptions.push({
                     state: tcModel.purposeLegitimateInterests.has(purpose.id),
-                    expanded: false,
                     id: Number(purpose.id),
                     title: purpose.name,
                     description: purpose.description,
@@ -232,7 +229,6 @@ export class UIChoicesBridgeDtoBuilder {
 
             legitimateInterestsVendorOption.push({
                 state: tcModel.vendorLegitimateInterests.has(vendor.id),
-                expanded: false,
                 features: UIChoicesBridgeDtoBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),

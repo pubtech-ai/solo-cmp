@@ -166,7 +166,6 @@ export class ACModelService {
             state: state,
             policyUrl: googleVendorListElement.policy_url,
             domains: googleVendorListElement.domains,
-            expanded: false,
         };
 
         this.googleVendorOptions.push(googleVendorOption);
