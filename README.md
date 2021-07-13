@@ -1,4 +1,4 @@
-# solo-cmpsa
+# solo-cmp
 
 This library is a wrapper of the [IAB's Transparency and Consent Framework (TCF)](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework) library with the intention of simplifying and adding more ways of customization of the whole flow that starts from the view of the CMP banner at the release of the user's consent. This library is completely framework agnostic, so feel free to implement your CMP with any framework such as Vue, React and others.
 So what you have to do is only the graphical implementation and if necessary add plugins to execute logic based on the event flows mapped by the library.
