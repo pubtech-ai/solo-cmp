@@ -1,3 +1,4 @@
+import {SoloCmpDto} from './Dto/SoloCmpDto';
 import {GVL} from '@iabtcf/core';
 import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
@@ -52,49 +53,23 @@ export class SoloCmp {
     /**
      * Constructor.
      *
-     * @param {UIConstructor} uiConstructor
-     * @param {boolean} isDebugEnabled
-     * @param {object} cmpConfig
-     * @param {string[]} supportedLanguages
-     * @param {number} cmpVersion
-     * @param {number} cmpVendorListVersion
-     * @param {string} tcStringCookieName
-     * @param {string} acStringLocalStorageName
-     * @param {number} cmpId
-     * @param {boolean} isServiceSpecific
-     * @param {string} baseUrlVendorList
-     * @param {string|null} initialHeightAmpCmpUi
-     * @param {boolean|null} enableBorderAmpCmpUi
+     * @param {SoloCmpDto} soloCmpDto
      */
-    constructor(
-        uiConstructor: UIConstructor,
-        isDebugEnabled: boolean,
-        cmpConfig: any,
-        supportedLanguages: string[],
-        cmpVersion: number,
-        cmpVendorListVersion: number,
-        tcStringCookieName: string,
-        acStringLocalStorageName: string,
-        cmpId: number,
-        isServiceSpecific: boolean,
-        baseUrlVendorList: string,
-        initialHeightAmpCmpUi: string | null = null,
-        enableBorderAmpCmpUi: boolean | null = null,
-    ) {
+    constructor(soloCmpDto : SoloCmpDto) {
 
-        this.uiConstructor = uiConstructor;
-        this.isDebugEnabled = isDebugEnabled;
-        this.cmpConfig = cmpConfig;
-        this.supportedLanguages = supportedLanguages;
-        this.cmpVersion = cmpVersion;
-        this.cmpVendorListVersion = cmpVendorListVersion;
-        this.tcStringCookieName = tcStringCookieName;
-        this.acStringLocalStorageName = acStringLocalStorageName;
-        this.cmpId = cmpId;
-        this.isServiceSpecific = isServiceSpecific;
-        this.baseUrlVendorList = baseUrlVendorList;
-        this.initialHeightAmpCmpUi = initialHeightAmpCmpUi;
-        this.enableBorderAmpCmpUi = enableBorderAmpCmpUi;
+        this.uiConstructor = soloCmpDto.uiConstructor;
+        this.isDebugEnabled = soloCmpDto.isDebugEnabled;
+        this.cmpConfig = soloCmpDto.cmpConfig;
+        this.supportedLanguages = soloCmpDto.supportedLanguages;
+        this.cmpVersion = soloCmpDto.cmpVersion;
+        this.cmpVendorListVersion = soloCmpDto.cmpVendorListVersion;
+        this.tcStringCookieName = soloCmpDto.tcStringCookieName;
+        this.acStringLocalStorageName = soloCmpDto.acStringLocalStorageName;
+        this.cmpId = soloCmpDto.cmpId;
+        this.isServiceSpecific = soloCmpDto.isServiceSpecific;
+        this.baseUrlVendorList = soloCmpDto.baseUrlVendorList;
+        this.initialHeightAmpCmpUi = soloCmpDto.initialHeightAmpCmpUi;
+        this.enableBorderAmpCmpUi = soloCmpDto.enableBorderAmpCmpUi;
 
         this.registerServices();
         this.registerSubscribers();
