@@ -1,4 +1,4 @@
-import {SoloCmpDto} from './Dto/SoloCmpDto';
+import {SoloCmpDto} from './Dto';
 import {GVL} from '@iabtcf/core';
 import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
