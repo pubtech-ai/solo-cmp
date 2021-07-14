@@ -11,7 +11,7 @@ So what you have to do is only the graphical implementation and if necessary add
 
 npm
 ```
-npm install @pubtech/solo-cmp --save
+npm install @pubtech-ai/solo-cmp --save
 ```
 
 #### Using
@@ -29,9 +29,9 @@ import {
     EventDispatcher,
     TCStringService,
     ACStringService
-} from "@pubtech/solo-cmp";
+} from "@pubtech-ai/solo-cmp";
 
-import DependencyInjectionManager from "@pubtech/solo-cmp/lib/DependencyInjection/DependencyInjectionManager";
+import DependencyInjectionManager from "@pubtech-ai/solo-cmp/lib/DependencyInjection/DependencyInjectionManager";
 
 /**
 As you can see in the render functions, a 'rootElement' parameter is provided, this is the HTMLElement 
@@ -114,7 +114,7 @@ import {
     ApplyConsentEvent,
     EventDispatcher,
     MoreChoicesEvent,
-} from "@pubtech/solo-cmp-try";
+} from "@pubtech-ai/solo-cmp";
 
 
 /** MoreChoicesEvent
