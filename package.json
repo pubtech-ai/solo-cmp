@@ -51,5 +51,32 @@
   },
   "files": [
     "lib/**/*"
+  ],
+  "keywords": [
+    "solocmp",
+    "interactive",
+    "advertising",
+    "bureau",
+    "iab",
+    "transparency",
+    "consent",
+    "consentstring",
+    "tcstring",
+    "gvl",
+    "vendor",
+    "framework",
+    "tcf",
+    "lib",
+    "library",
+    "cmp",
+    "2.0",
+    "v2.0",
+    "v2",
+    "software",
+    "development",
+    "api",
+    "kit",
+    "sdk",
+    "gdpr"
   ]
 }
