@@ -36,7 +36,7 @@ import DependencyInjectionManager from "@pubtech/solo-cmp/lib/DependencyInjectio
 /**
 As you can see in the render functions, a 'rootElement' parameter is provided, this is the HTMLElement 
 that corresponds to the id provided, this allows the library to check whether or not the HTMLElement with 
-that id exists, if not existed creates it for you and places it inside the body of the site.
+that id exists, if not exists then it creates it for you placing it inside the body of the site.
 **/
 const uiConstructor = new UIConstructor(document, 'your-cmp-html-element-id-container', (rootElement, soloCmpDataBundle) => {
     
