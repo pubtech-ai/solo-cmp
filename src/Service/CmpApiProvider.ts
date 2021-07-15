@@ -29,9 +29,9 @@ export class CmpApiProvider {
                     tcData.reallyImportantExtraProperty = true;
                     tcData.addtlConsent = acStringService.retrieveACString();
 
-                }
+                    next(tcData, success);
 
-                next(tcData, success);
+                }
 
             },
         });
