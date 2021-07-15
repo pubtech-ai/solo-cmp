@@ -120,14 +120,9 @@ export class SoloCmp {
 
                 const gvl: GVL = new GVL();
 
-                const cmpSupportedLanguageProvider: CmpSupportedLanguageProvider =
-                    container[CmpSupportedLanguageProvider.getClassName()];
-
-                gvl.changeLanguage(cmpSupportedLanguageProvider.getCurrentLanguageForCmp());
-
                 return new TCModelService(
                     container[TCStringService.getClassName()],
-                    cmpSupportedLanguageProvider,
+                    container[CmpSupportedLanguageProvider.getClassName()],
                     this.cmpId,
                     this.cmpVersion,
                     this.isServiceSpecific,
