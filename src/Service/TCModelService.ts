@@ -84,10 +84,12 @@ export class TCModelService {
                 tcModel.cmpVersion = this.cmpVersion;
                 tcModel.isServiceSpecific = this.isServiceSpecific;
 
-                tcModel.gvl.changeLanguage(this.cmpSupportedLanguageProvider.getCurrentLanguageForCmp());
-
             })
             .then(() => {
+
+                return tcModel.gvl.changeLanguage(this.cmpSupportedLanguageProvider.getCurrentLanguageForCmp());
+
+            }).then(() => {
 
                 return tcModel;
 
