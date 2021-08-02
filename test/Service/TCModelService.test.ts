@@ -84,7 +84,10 @@ describe('TCModelService suit test', () => {
     it('TCModelService buildTCModel test', async () => {
         const tcModel: TCModel = getTCModel();
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], tcModel.consentLanguage + '-LN');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(
+            ['it', 'fr', 'en'],
+            tcModel.consentLanguage + '-LN',
+        );
 
         const tcStringService = new TCStringService(
             cookieService,
