@@ -89,7 +89,8 @@ export class TCModelService {
 
                 return tcModel.gvl.changeLanguage(this.cmpSupportedLanguageProvider.getCurrentLanguageForCmp());
 
-            }).then(() => {
+            })
+            .then(() => {
 
                 return tcModel;
 
