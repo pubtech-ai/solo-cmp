@@ -14,8 +14,9 @@ describe('UIChoicesParser suit test', () => {
 
         const choicesStateHandler = new UIChoicesBridgeDtoBuilder(tcModelInit, acModelInit).createUIChoicesBridgeDto();
 
-        //Simulate User choices changes
+        // Simulate User choices changes
         choicesStateHandler.UIPurposeChoices.forEach((purposeChoice) => (purposeChoice.state = true));
+        choicesStateHandler.UILegitimateInterestsPurposeChoices[0].state = true;
 
         expect(
             [...uiChoicesParser.tcModel.purposeConsents.values()].length,
@@ -27,6 +28,16 @@ describe('UIChoicesParser suit test', () => {
         ).to.equal(2);
 
         const tcModel = uiChoicesParser.parseTCModel(choicesStateHandler);
+
+        expect(
+            [...tcModel.publisherConsents.values()].length,
+            '[...tcModel.publisherConsents.values()].length',
+        ).to.equal(10);
+
+        expect(
+            [...tcModel.publisherLegitimateInterests.values()].length,
+            '[...tcModel.publisherLegitimateInterests.values()].length',
+        ).to.equal(1);
 
         expect([...tcModel.purposeConsents.values()].length, '[...tcModel.purposeConsents.values()].length').to.equal(
             10,
