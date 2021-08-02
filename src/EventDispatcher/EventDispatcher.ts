@@ -96,9 +96,9 @@ export class EventDispatcher {
                 // eslint-disable-next-line
                 console.error(
                     'Something went wrong in ' +
-                        this.subscriptionsInfo[event.constructor.name][key] +
+                        this.subscriptionsInfo[event.EVENT_NAME][key] +
                         ', subscribed to the event: \'' +
-                        event.constructor.name +
+                        event.EVENT_NAME +
                         '\'',
                     'SOLO-CMP',
                     [error],
