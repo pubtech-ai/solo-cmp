@@ -1,5 +1,5 @@
-import {TCModel} from '@iabtcf/core';
-import {ACModel, PurposeOption, VendorOption} from '../Entity';
+import {PurposeRestriction, RestrictionType, TCModel} from '@iabtcf/core';
+import {ACModel, PurposeLegitimateInterestOption, PurposeOption, VendorOption} from '../Entity';
 import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 
 /**
@@ -35,9 +35,51 @@ export class UIChoicesParser {
      */
     public parseTCModel(uiChoicesBridgeDto: UIChoicesBridgeDto): TCModel {
 
-        this._tcModel.purposeConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices));
-        this._tcModel.vendorConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIVendorChoices));
+        const acceptedPurposeIds = this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices);
+
+        const acceptedVendorIds: number[] = [];
+        acceptedPurposeIds.forEach((id) => {
+
+            const vendorsIds = Object.values(this._tcModel.gvl.getVendorsWithConsentPurpose(id)).map((vendor) => {
+
+                return Number(vendor.id);
+
+            });
+
+            acceptedVendorIds.push(...vendorsIds);
+
+        });
+
+        // Set all purposeConsents enabled.
+        this._tcModel.purposeConsents.set(acceptedPurposeIds);
+        // Set all vendor that have the purposeConsent enabled.
+        this._tcModel.vendorConsents.set(acceptedVendorIds);
+
+        // Add restrictions to vendors
+        uiChoicesBridgeDto.UIPurposeChoices.forEach((purposeOption) => {
+
+            const restrictionVendors = purposeOption.vendorsRestriction;
+
+            const purposeRestriction = new PurposeRestriction(purposeOption.id, RestrictionType.NOT_ALLOWED);
+
+            restrictionVendors.forEach((restrictionVendor) => {
+
+                if (restrictionVendor.state) {
+
+                    this._tcModel.publisherRestrictions.add(restrictionVendor.id, purposeRestriction);
+
+                } else {
+
+                    this._tcModel.publisherRestrictions.remove(restrictionVendor.id, purposeRestriction);
+
+                }
+
+            });
+
+        });
+
         this._tcModel.specialFeatureOptins.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UISpecialFeatureChoices));
+
         this._tcModel.purposeLegitimateInterests.set(
             this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices),
         );
@@ -73,12 +115,14 @@ export class UIChoicesParser {
     /**
      * Return the enabled choices id.
      *
-     * @param {PurposeOption[] | VendorOption[]} choices
+     * @param {PurposeOption[] | VendorOption[] | PurposeLegitimateInterestOption[]} choices
      * @private
      *
      * @return {number[]}
      */
-    private filterEnabledChoicesId(choices: PurposeOption[] | VendorOption[]): number[] {
+    private filterEnabledChoicesId(
+        choices: PurposeOption[] | VendorOption[] | PurposeLegitimateInterestOption[],
+    ): number[] {
 
         const allChoices = [...choices];
 
