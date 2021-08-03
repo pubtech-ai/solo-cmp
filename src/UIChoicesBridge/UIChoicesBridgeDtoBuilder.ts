@@ -1,5 +1,6 @@
-import {Feature, Purpose, TCModel, Vendor} from '@iabtcf/core';
+import {Feature, Purpose, PurposeRestriction, RestrictionType, TCModel, Vendor} from '@iabtcf/core';
 import {IntMap} from '@iabtcf/core/lib/model';
+import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 import {
     ACModel,
     PurposeOption,
@@ -8,8 +9,9 @@ import {
     VendorOption,
     GoogleVendorOption,
     SpecialFeatureOption,
+    PurposeVendorRestrictionOption,
+    PurposeLegitimateInterestOption,
 } from '../Entity';
-import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 
 /**
  * UIChoicesBridgeDtoBuilder.
@@ -18,8 +20,7 @@ export class UIChoicesBridgeDtoBuilder {
 
     private _UIPurposeChoices: PurposeOption[] = [];
     private _UISpecialFeatureOptInsChoices: SpecialFeatureOption[] = [];
-    private _UIVendorChoices: VendorOption[] = [];
-    private _UILegitimateInterestsPurposeChoices: PurposeOption[] = [];
+    private _UILegitimateInterestsPurposeChoices: PurposeLegitimateInterestOption[] = [];
     private _UILegitimateInterestsVendorChoices: VendorOption[] = [];
     private _UIGoogleVendorOptions: GoogleVendorOption[] = [];
 
@@ -37,7 +38,6 @@ export class UIChoicesBridgeDtoBuilder {
 
         this.buildUIPurposeChoices(tcModel);
         this.buildUISpecialFeatureOptInsChoices(tcModel);
-        this.buildUIVendorChoices(tcModel);
         this.buildUILegitimateInterestsChoices(tcModel);
         this.buildUIGoogleVendorOptions(acModel);
 
@@ -55,7 +55,6 @@ export class UIChoicesBridgeDtoBuilder {
         return new UIChoicesBridgeDto(
             this._UIPurposeChoices,
             this._UISpecialFeatureOptInsChoices,
-            this._UIVendorChoices,
             this._UILegitimateInterestsPurposeChoices,
             this._UILegitimateInterestsVendorChoices,
             this._UIGoogleVendorOptions,
@@ -81,13 +80,22 @@ export class UIChoicesBridgeDtoBuilder {
         purposesIds.forEach((purposeId) => {
 
             const purpose: Purpose = purposes[purposeId];
+
             purposeOptions.push({
                 state: tcModel.purposeConsents.has(purpose.id),
                 id: Number(purpose.id),
                 title: purpose.name,
                 description: purpose.description,
                 legalDescription: purpose.descriptionLegal,
-                vendors: tcModel.gvl.getVendorsWithConsentPurpose(purpose.id),
+                vendorsRestriction: this.buildUIPurposeVendorRestrictionChoices(
+                    tcModel,
+                    Object.values(tcModel.gvl.getVendorsWithConsentPurpose(purpose.id)).map((vendor) => {
+
+                        return Number(vendor.id);
+
+                    }),
+                    Number(purpose.id),
+                ),
             });
 
         });
@@ -130,19 +138,24 @@ export class UIChoicesBridgeDtoBuilder {
     }
 
     /**
-     * Build the UIVendorChoices with the provided TCModel and set
+     * Build the UIPurposeVendorRestrictionChoices with the provided TCModel and set
      * status in base of the consent enabled in it.
      *
      * @param {TCModel} tcModel
+     * @param {number[]} vendorIds
+     * @param {number} purposeId
      * @private
+     * @return {PurposeVendorRestrictionOption[]}
      */
-    private buildUIVendorChoices(tcModel: TCModel): void {
+    private buildUIPurposeVendorRestrictionChoices(
+        tcModel: TCModel,
+        vendorIds: number[],
+        purposeId: number,
+    ): PurposeVendorRestrictionOption[] {
 
         const vendors = tcModel.gvl.vendors;
 
-        const vendorIds: string[] = Object.keys(vendors);
-
-        const vendorOption: VendorOption[] = [];
+        const purposeVendorRestrictionOption: PurposeVendorRestrictionOption[] = [];
 
         vendorIds.forEach((vendorId) => {
 
@@ -157,8 +170,13 @@ export class UIChoicesBridgeDtoBuilder {
 
             }
 
-            vendorOption.push({
-                state: tcModel.vendorConsents.has(vendor.id),
+            const purposeRestriction = new PurposeRestriction(purposeId, RestrictionType.NOT_ALLOWED);
+            const state = this.firstTimeConsentRequest ?
+                false :
+                tcModel.publisherRestrictions.vendorHasRestriction(vendor.id, purposeRestriction);
+
+            purposeVendorRestrictionOption.push({
+                state: state,
                 features: UIChoicesBridgeDtoBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
@@ -179,7 +197,7 @@ export class UIChoicesBridgeDtoBuilder {
 
         });
 
-        this._UIVendorChoices = vendorOption;
+        return purposeVendorRestrictionOption;
 
     }
 
@@ -216,7 +234,7 @@ export class UIChoicesBridgeDtoBuilder {
 
         let allVendorsWithLegitimateInterests = {};
 
-        const legitimateInterestsPurposesOptions: PurposeOption[] = [];
+        const legitimateInterestsPurposesOptions: PurposeLegitimateInterestOption[] = [];
 
         purposeIds.forEach((purposeId) => {
 
