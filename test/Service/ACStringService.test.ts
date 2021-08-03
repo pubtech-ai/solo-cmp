@@ -32,7 +32,6 @@ describe('ACStringService suit test', () => {
             state: false,
             policyUrl: 'fakeUrl',
             domains: 'fakeDomains',
-            expanded: false,
         };
 
         return googleVendorOption;

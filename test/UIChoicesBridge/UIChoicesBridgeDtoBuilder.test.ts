@@ -24,7 +24,6 @@ const getACModelByFixture = function () {
             policyUrl: 'urlPolicy',
             domains: 'solo-cmp-ac.com',
             state: true,
-            expanded: false,
         },
         {
             id: 2,
@@ -32,7 +31,6 @@ const getACModelByFixture = function () {
             policyUrl: 'urlPolicy',
             domains: 'solo-cmp-ac.com',
             state: false,
-            expanded: false,
         },
     ]);
 };
