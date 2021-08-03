@@ -84,6 +84,12 @@ describe('UIChoicesStateHandler suit test', () => {
             [...tcModel.purposeConsents.values()].length,
         );
 
+        //Check UISpecialFeatureChoices
+        const countSpecialFeatureChoicesEnabled = uiChoicesBridgeDto.UISpecialFeatureChoices.filter(
+            (choice) => choice.state,
+        ).length;
+        expect(countSpecialFeatureChoicesEnabled, 'countSpecialFeatureChoicesEnabled').to.equal(0);
+
         //Check UIGoogleVendorOptions
         const countGoogleVendorOptionsChoicesEnabled = uiChoicesBridgeDto.UIGoogleVendorOptions.filter(
             (choice) => choice.state,
