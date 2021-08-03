@@ -1,4 +1,10 @@
-import {PurposeOption, VendorOption, GoogleVendorOption, SpecialFeatureOption} from '../Entity';
+import {
+    PurposeOption,
+    VendorOption,
+    GoogleVendorOption,
+    SpecialFeatureOption,
+    PurposeLegitimateInterestOption,
+} from '../Entity';
 
 /**
  * UIChoicesBridgeDto.
@@ -7,8 +13,7 @@ export class UIChoicesBridgeDto {
 
     private readonly _UIPurposeChoices: PurposeOption[] = [];
     private readonly _UISpecialFeatureChoices: SpecialFeatureOption[] = [];
-    private readonly _UIVendorChoices: VendorOption[] = [];
-    private readonly _UILegitimateInterestsPurposeChoices: PurposeOption[] = [];
+    private readonly _UILegitimateInterestsPurposeChoices: PurposeLegitimateInterestOption[] = [];
     private readonly _UILegitimateInterestsVendorChoices: VendorOption[] = [];
     private readonly _UIGoogleVendorOptions: GoogleVendorOption[] = [];
 
@@ -17,23 +22,20 @@ export class UIChoicesBridgeDto {
      *
      * @param {PurposeOption[]} UIPurposeChoices
      * @param {SpecialFeatureOption[]} UISpecialFeatureChoices
-     * @param {VendorOption[]} UIVendorChoices
-     * @param {PurposeOption[]} UILegitimateInterestsPurposeChoices
+     * @param {PurposeLegitimateInterestOption[]} UILegitimateInterestsPurposeChoices
      * @param {VendorOption[]} UILegitimateInterestsVendorChoices
      * @param {GoogleVendorOption[]} UIGoogleVendorOptions
      */
     constructor(
         UIPurposeChoices: PurposeOption[],
         UISpecialFeatureChoices: SpecialFeatureOption[],
-        UIVendorChoices: VendorOption[],
-        UILegitimateInterestsPurposeChoices: PurposeOption[],
+        UILegitimateInterestsPurposeChoices: PurposeLegitimateInterestOption[],
         UILegitimateInterestsVendorChoices: VendorOption[],
         UIGoogleVendorOptions: GoogleVendorOption[],
     ) {
 
         this._UIPurposeChoices = UIPurposeChoices;
         this._UISpecialFeatureChoices = UISpecialFeatureChoices;
-        this._UIVendorChoices = UIVendorChoices;
         this._UILegitimateInterestsPurposeChoices = UILegitimateInterestsPurposeChoices;
         this._UILegitimateInterestsVendorChoices = UILegitimateInterestsVendorChoices;
         this._UIGoogleVendorOptions = UIGoogleVendorOptions;
@@ -52,13 +54,7 @@ export class UIChoicesBridgeDto {
 
     }
 
-    get UIVendorChoices(): VendorOption[] {
-
-        return this._UIVendorChoices;
-
-    }
-
-    get UILegitimateInterestsPurposeChoices(): PurposeOption[] {
+    get UILegitimateInterestsPurposeChoices(): PurposeLegitimateInterestOption[] {
 
         return this._UILegitimateInterestsPurposeChoices;
 
