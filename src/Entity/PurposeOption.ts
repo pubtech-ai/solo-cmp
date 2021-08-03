@@ -1,5 +1,5 @@
-import {IntMap, Vendor} from '@iabtcf/core';
 import {UIChoice} from './UIChoice';
+import {PurposeVendorRestrictionOption} from './PurposeVendorRestrictionOption';
 
 /**
  * PurposeOption.
@@ -9,5 +9,5 @@ export interface PurposeOption extends UIChoice {
     title: string;
     description: string;
     legalDescription: string;
-    vendors: IntMap<Vendor>;
+    vendorsRestriction: PurposeVendorRestrictionOption[];
 }

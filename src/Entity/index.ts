@@ -5,4 +5,6 @@ export * from './VendorFeature';
 export * from './VendorOption';
 export * from './PurposeOption';
 export * from './SpecialFeatureOption';
+export * from './PurposeVendorRestrictionOption';
+export * from './PurposeLegitimateInterestOption';
 export * from './UIChoice';
