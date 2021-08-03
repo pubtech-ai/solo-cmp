@@ -1,4 +1,4 @@
-import {PurposeOption, VendorOption, GoogleVendorOption} from '../Entity';
+import {PurposeOption, VendorOption, GoogleVendorOption, SpecialFeatureOption} from '../Entity';
 
 /**
  * UIChoicesBridgeDto.
@@ -6,6 +6,7 @@ import {PurposeOption, VendorOption, GoogleVendorOption} from '../Entity';
 export class UIChoicesBridgeDto {
 
     private readonly _UIPurposeChoices: PurposeOption[] = [];
+    private readonly _UISpecialFeatureChoices: SpecialFeatureOption[] = [];
     private readonly _UIVendorChoices: VendorOption[] = [];
     private readonly _UILegitimateInterestsPurposeChoices: PurposeOption[] = [];
     private readonly _UILegitimateInterestsVendorChoices: VendorOption[] = [];
@@ -15,6 +16,7 @@ export class UIChoicesBridgeDto {
      * Constructor.
      *
      * @param {PurposeOption[]} UIPurposeChoices
+     * @param {SpecialFeatureOption[]} UISpecialFeatureChoices
      * @param {VendorOption[]} UIVendorChoices
      * @param {PurposeOption[]} UILegitimateInterestsPurposeChoices
      * @param {VendorOption[]} UILegitimateInterestsVendorChoices
@@ -22,6 +24,7 @@ export class UIChoicesBridgeDto {
      */
     constructor(
         UIPurposeChoices: PurposeOption[],
+        UISpecialFeatureChoices: SpecialFeatureOption[],
         UIVendorChoices: VendorOption[],
         UILegitimateInterestsPurposeChoices: PurposeOption[],
         UILegitimateInterestsVendorChoices: VendorOption[],
@@ -29,6 +32,7 @@ export class UIChoicesBridgeDto {
     ) {
 
         this._UIPurposeChoices = UIPurposeChoices;
+        this._UISpecialFeatureChoices = UISpecialFeatureChoices;
         this._UIVendorChoices = UIVendorChoices;
         this._UILegitimateInterestsPurposeChoices = UILegitimateInterestsPurposeChoices;
         this._UILegitimateInterestsVendorChoices = UILegitimateInterestsVendorChoices;
@@ -39,6 +43,12 @@ export class UIChoicesBridgeDto {
     get UIPurposeChoices(): PurposeOption[] {
 
         return this._UIPurposeChoices;
+
+    }
+
+    get UISpecialFeatureChoices(): SpecialFeatureOption[] {
+
+        return this._UISpecialFeatureChoices;
 
     }
 
