@@ -44,6 +44,11 @@ export class UIChoicesParser {
             this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsVendorChoices),
         );
 
+        this._tcModel.publisherConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices));
+        this._tcModel.publisherLegitimateInterests.set(
+            this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices),
+        );
+
         return this._tcModel;
 
     }

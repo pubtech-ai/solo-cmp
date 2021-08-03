@@ -55,7 +55,7 @@ export class SoloCmp {
      *
      * @param {SoloCmpDto} soloCmpDto
      */
-    constructor(soloCmpDto : SoloCmpDto) {
+    constructor(soloCmpDto: SoloCmpDto) {
 
         this.uiConstructor = soloCmpDto.uiConstructor;
         this.isDebugEnabled = soloCmpDto.isDebugEnabled;

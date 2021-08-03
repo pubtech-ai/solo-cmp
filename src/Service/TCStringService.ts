@@ -139,9 +139,13 @@ export class TCStringService {
 
         tcModelWithAllEnabled.setAll();
 
+        // REQUIRED UNTIL SOLVED https://github.com/InteractiveAdvertisingBureau/iabtcf-es/issues/179
+        tcModel.publisherConsents.set([...tcModel.purposeConsents.values()]);
+        tcModel.publisherLegitimateInterests.set([...tcModel.purposeLegitimateInterests.values()]);
+
         const tcString: string = TCString.encode(tcModelWithAllEnabled);
 
-        this.loggerService.debug('TCString all enabled built: ' + tcString);
+        this.loggerService.debug('TCString all enabled built fixeddd: ' + tcString);
 
         return tcString;
 
