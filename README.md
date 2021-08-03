@@ -102,8 +102,12 @@ const uiChoicesBridgeDto = soloCmpDataBundle.uiChoicesBridgeDto; //This contains
 
 //All of these are arrays containing the user's possible choices, each choice has a 'state' attribute. Your UI must change the state based on what the user chooses.
 const uiPurposes = uiChoicesBridgeDto.UIPurposeChoices;
+//Once the purpose is enabled, the related vendors are enabled. What prevents a vendor from not using a particular purpose is the restriction. 
+//Which is inside the purposes, in fact you can find the "PurposeVendorRestrictionOption" array if the value of one of the elements is true, 
+//then the restriction for that vendor and for that particular purpose will be added.
+uiPurposes[0].vendorsRestriction[0].state = true //This will add a restriction for the purpose to the vendor that not allows this specific vendor to use that purpose.
+//This particular is implemented to comply with the laws. Following the next updates, we will change this functionality and restriction accordingly.
 const uiSpecialFeatures = uiChoicesBridgeDto.UISpecialFeatureChoices;
-const uiVendors = uiChoicesBridgeDto.UIVendorChoices;
 const uiLegIntPurposes = uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices;
 const uiLegIntVendors = uiChoicesBridgeDto.UILegitimateInterestsVendorChoices;
 const uiGoogleVendors = uiChoicesBridgeDto.UIGoogleVendorOptions;
