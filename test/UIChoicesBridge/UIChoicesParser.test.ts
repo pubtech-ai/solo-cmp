@@ -17,6 +17,7 @@ describe('UIChoicesParser suit test', () => {
         // Simulate User choices changes
         choicesStateHandler.UIPurposeChoices.forEach((purposeChoice) => (purposeChoice.state = true));
         choicesStateHandler.UILegitimateInterestsPurposeChoices[0].state = true;
+        choicesStateHandler.UISpecialFeatureChoices[0].state = true;
 
         expect(
             [...uiChoicesParser.tcModel.purposeConsents.values()].length,
@@ -53,6 +54,11 @@ describe('UIChoicesParser suit test', () => {
         expect(
             [...acModel.googleVendorOptions.filter((option) => option.state)].length,
             '[...acModel.googleVendorOptions.filter(option => option.state)].length',
+        ).to.equal(1);
+
+        expect(
+            [...tcModel.specialFeatureOptins.values()].length,
+            '[...tcModel.specialFeatureOptins.values()].length',
         ).to.equal(1);
     });
 });
