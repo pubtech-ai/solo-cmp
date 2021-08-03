@@ -102,6 +102,7 @@ const uiChoicesBridgeDto = soloCmpDataBundle.uiChoicesBridgeDto; //This contains
 
 //All of these are arrays containing the user's possible choices, each choice has a 'state' attribute. Your UI must change the state based on what the user chooses.
 const uiPurposes = uiChoicesBridgeDto.UIPurposeChoices;
+const uiSpecialFeatures = uiChoicesBridgeDto.UISpecialFeatureChoices;
 const uiVendors = uiChoicesBridgeDto.UIVendorChoices;
 const uiLegIntPurposes = uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices;
 const uiLegIntVendors = uiChoicesBridgeDto.UILegitimateInterestsVendorChoices;
@@ -172,7 +173,7 @@ If those changes are accepted they will be merged by the repository maintainer.
 ## Dependencies
 
 This application is based on:
-- Node.js:14.15.4
+- Node.js: 14.15.4
 - IAB TCF Modules
 - BottleJs
 
