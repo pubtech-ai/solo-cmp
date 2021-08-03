@@ -24,7 +24,6 @@ const getACModelByFixture = function () {
             policyUrl: 'urlPolicy',
             domains: 'solo-cmp-ac.com',
             state: true,
-            expanded: false,
         },
         {
             id: 2,
@@ -32,7 +31,6 @@ const getACModelByFixture = function () {
             policyUrl: 'urlPolicy',
             domains: 'solo-cmp-ac.com',
             state: false,
-            expanded: false,
         },
     ]);
 };
@@ -85,6 +83,12 @@ describe('UIChoicesStateHandler suit test', () => {
         expect(countPurposeChoicesEnabled, 'countPurposeChoicesEnabled').to.equal(
             [...tcModel.purposeConsents.values()].length,
         );
+
+        //Check UISpecialFeatureChoices
+        const countSpecialFeatureChoicesEnabled = uiChoicesBridgeDto.UISpecialFeatureChoices.filter(
+            (choice) => choice.state,
+        ).length;
+        expect(countSpecialFeatureChoicesEnabled, 'countSpecialFeatureChoicesEnabled').to.equal(0);
 
         //Check UIGoogleVendorOptions
         const countGoogleVendorOptionsChoicesEnabled = uiChoicesBridgeDto.UIGoogleVendorOptions.filter(
