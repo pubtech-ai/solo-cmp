@@ -40,6 +40,7 @@ describe('UIChoicesStateHandler suit test', () => {
         const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
             getTCModelByFixture(),
             getACModelByFixture(),
+            true,
         ).createUIChoicesBridgeDto();
 
         const tcModel = getTCModelByFixture();

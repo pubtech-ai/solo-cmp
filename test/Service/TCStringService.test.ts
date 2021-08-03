@@ -167,7 +167,7 @@ describe('TCStringService suit test', () => {
 
         expect(tcModelWithAllEnabled.purposeLegitimateInterests.size).to.equal(9);
         expect(tcModelWithAllEnabled.purposeConsents.size).to.equal(10);
-        expect(tcModelWithAllEnabled.vendorLegitimateInterests.size).to.equal(206);
+        expect(tcModelWithAllEnabled.vendorLegitimateInterests.size).to.equal(209);
         expect(tcModelWithAllEnabled.vendorConsents.size).to.equal(467);
     });
 
