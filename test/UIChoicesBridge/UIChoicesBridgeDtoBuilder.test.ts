@@ -16,7 +16,7 @@ const getTCModelByFixture = function () {
     return tcModel;
 };
 
-const getACModelByFixture = function () {
+const getACModelByFixture = function (): ACModel {
     return new ACModel([
         {
             id: 1,
@@ -35,8 +35,8 @@ const getACModelByFixture = function () {
     ]);
 };
 
-describe('UIChoicesStateHandler suit test', () => {
-    it('UIChoicesStateHandler test entity built with getInstance singleton test', () => {
+describe('UIChoicesBridgeDtoBuilder suit test', () => {
+    it('UIChoicesBridgeDtoBuilder test entity built with getInstance singleton test', () => {
         const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
             getTCModelByFixture(),
             getACModelByFixture(),
@@ -49,8 +49,11 @@ describe('UIChoicesStateHandler suit test', () => {
         expect(uiChoicesBridgeDto.UIPurposeChoices.length, 'choicesStateHandler.UIPurposeChoices.length').to.equal(
             Object.keys(tcModel.gvl.purposes).length,
         );
-        expect(uiChoicesBridgeDto.UIVendorChoices.length, 'choicesStateHandler.UIVendorChoices.length').to.equal(
-            Object.keys(tcModel.gvl.vendors).length,
+        expect(
+            uiChoicesBridgeDto.UIPurposeChoices[0].vendorsRestriction.length,
+            'uiChoicesBridgeDto.UIPurposeChoices[0].vendorsRestriction.length',
+        ).to.equal(
+            Object.keys(tcModel.gvl.getVendorsWithConsentPurpose(uiChoicesBridgeDto.UIPurposeChoices[0].id)).length,
         );
         expect(
             uiChoicesBridgeDto.UIGoogleVendorOptions.length,
@@ -73,11 +76,13 @@ describe('UIChoicesStateHandler suit test', () => {
             [...tcModel.vendorLegitimateInterests.values()].length,
         );
 
-        //Check UIVendorChoices
-        const countVendorsChoicesEnabled = uiChoicesBridgeDto.UIVendorChoices.filter((choice) => choice.state).length;
-        expect(countVendorsChoicesEnabled, 'countVendorsChoicesEnabled').to.equal(
-            [...tcModel.vendorConsents.values()].length,
-        );
+        //Check PurposeVendorRestrictionOption
+        const countPurposeVendorRestrictionOptionEnabled = uiChoicesBridgeDto.UIPurposeChoices[0].vendorsRestriction.filter(
+            (choice) => choice.state,
+        ).length;
+        expect(countPurposeVendorRestrictionOptionEnabled, 'countPurposeVendorRestrictionOptionEnabled').to.equal(0);
+
+        console.log(tcModel.publisherRestrictions.getPurposes());
 
         //Check UIPurposeChoices
         const countPurposeChoicesEnabled = uiChoicesBridgeDto.UIPurposeChoices.filter((choice) => choice.state).length;

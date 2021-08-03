@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 //@ts-ignore
 import { getACModelByFixture, getTCModelByFixture } from './UIChoicesBridgeDtoBuilder.test';
-import { TCModel } from '@iabtcf/core';
+import { PurposeRestriction, RestrictionType, TCModel } from '@iabtcf/core';
 import { ACModel } from '../../src/Entity';
 import { UIChoicesBridgeDtoBuilder, UIChoicesParser } from '../../src/UIChoicesBridge';
 
@@ -12,10 +12,21 @@ describe('UIChoicesParser suit test', () => {
 
         const uiChoicesParser = new UIChoicesParser(tcModelInit, acModelInit);
 
-        const choicesStateHandler = new UIChoicesBridgeDtoBuilder(tcModelInit, acModelInit).createUIChoicesBridgeDto();
+        const choicesStateHandler = new UIChoicesBridgeDtoBuilder(
+            tcModelInit,
+            acModelInit,
+            true,
+        ).createUIChoicesBridgeDto();
 
         // Simulate User choices changes
         choicesStateHandler.UIPurposeChoices.forEach((purposeChoice) => (purposeChoice.state = true));
+        choicesStateHandler.UIPurposeChoices[0].vendorsRestriction.forEach((restriction) => {
+            restriction.state = true;
+        });
+        choicesStateHandler.UIPurposeChoices[1].vendorsRestriction.forEach((restriction) => {
+            restriction.state = true;
+        });
+
         choicesStateHandler.UILegitimateInterestsPurposeChoices[0].state = true;
         choicesStateHandler.UISpecialFeatureChoices[0].state = true;
 
@@ -43,11 +54,22 @@ describe('UIChoicesParser suit test', () => {
         expect([...tcModel.purposeConsents.values()].length, '[...tcModel.purposeConsents.values()].length').to.equal(
             10,
         );
-        expect([...tcModel.vendorConsents.values()].length, '[...tcModel.vendorConsents.values()].length').to.equal(2);
+        expect([...tcModel.vendorConsents.values()].length, '[...tcModel.vendorConsents.values()].length').to.equal(
+            681,
+        );
         expect(
             [...tcModel.vendorLegitimateInterests.values()].length,
             '[...tcModel.vendorLegitimateInterests.values()].length',
         ).to.equal(2);
+
+        expect(
+            tcModel.publisherRestrictions.getVendors(
+                new PurposeRestriction(choicesStateHandler.UIPurposeChoices[0].id, RestrictionType.NOT_ALLOWED),
+            ).length,
+            'tcModel.publisherRestrictions.getVendors().length',
+        ).to.equal(
+            Object.keys(tcModel.gvl.getVendorsWithConsentPurpose(choicesStateHandler.UIPurposeChoices[0].id)).length,
+        );
 
         const acModel = uiChoicesParser.parseACModel(choicesStateHandler);
 
