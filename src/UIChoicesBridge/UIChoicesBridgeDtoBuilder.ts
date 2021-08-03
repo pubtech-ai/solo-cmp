@@ -1,6 +1,14 @@
 import {Feature, Purpose, TCModel, Vendor} from '@iabtcf/core';
 import {IntMap} from '@iabtcf/core/lib/model';
-import {ACModel, PurposeOption, VendorFeature, VendorPurpose, VendorOption, GoogleVendorOption, SpecialFeatureOption} from '../Entity';
+import {
+    ACModel,
+    PurposeOption,
+    VendorFeature,
+    VendorPurpose,
+    VendorOption,
+    GoogleVendorOption,
+    SpecialFeatureOption,
+} from '../Entity';
 import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 
 /**
