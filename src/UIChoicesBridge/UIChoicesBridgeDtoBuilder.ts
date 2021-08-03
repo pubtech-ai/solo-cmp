@@ -1,6 +1,6 @@
 import {Feature, Purpose, TCModel, Vendor} from '@iabtcf/core';
 import {IntMap} from '@iabtcf/core/lib/model';
-import {ACModel, PurposeOption, VendorFeature, VendorPurpose, VendorOption, GoogleVendorOption} from '../Entity';
+import {ACModel, PurposeOption, VendorFeature, VendorPurpose, VendorOption, GoogleVendorOption, SpecialFeatureOption} from '../Entity';
 import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 
 /**
@@ -9,6 +9,7 @@ import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 export class UIChoicesBridgeDtoBuilder {
 
     private _UIPurposeChoices: PurposeOption[] = [];
+    private _UISpecialFeatureOptInsChoices: SpecialFeatureOption[] = [];
     private _UIVendorChoices: VendorOption[] = [];
     private _UILegitimateInterestsPurposeChoices: PurposeOption[] = [];
     private _UILegitimateInterestsVendorChoices: VendorOption[] = [];
@@ -24,6 +25,7 @@ export class UIChoicesBridgeDtoBuilder {
     constructor(tcModel: TCModel, acModel: ACModel) {
 
         this.buildUIPurposeChoices(tcModel);
+        this.buildUISpecialFeatureOptInsChoices(tcModel);
         this.buildUIVendorChoices(tcModel);
         this.buildUILegitimateInterestsChoices(tcModel);
         this.buildUIGoogleVendorOptions(acModel);
@@ -39,6 +41,7 @@ export class UIChoicesBridgeDtoBuilder {
 
         return new UIChoicesBridgeDto(
             this._UIPurposeChoices,
+            this._UISpecialFeatureOptInsChoices,
             this._UIVendorChoices,
             this._UILegitimateInterestsPurposeChoices,
             this._UILegitimateInterestsVendorChoices,
@@ -77,6 +80,39 @@ export class UIChoicesBridgeDtoBuilder {
         });
 
         this._UIPurposeChoices = purposeOptions;
+
+    }
+
+    /**
+     * Build the UISpecialFeatureOptInsChoices with the provided TCModel and set
+     * status in base of the consent enabled in it.
+     *
+     * @param {TCModel} tcModel
+     * @private
+     */
+    private buildUISpecialFeatureOptInsChoices(tcModel: TCModel): void {
+
+        const specialFeatures = tcModel.gvl.specialFeatures;
+
+        const specialFeaturesIds: string[] = Object.keys(specialFeatures);
+
+        const specialFeaturesOptions: SpecialFeatureOption[] = [];
+
+        specialFeaturesIds.forEach((specialFeaturesId) => {
+
+            const specialFeature: Feature = specialFeatures[specialFeaturesId];
+            specialFeaturesOptions.push({
+                state: tcModel.specialFeatureOptins.has(specialFeature.id),
+                id: Number(specialFeature.id),
+                title: specialFeature.name,
+                description: specialFeature.description,
+                legalDescription: specialFeature.descriptionLegal,
+                vendors: tcModel.gvl.getVendorsWithSpecialFeature(specialFeature.id),
+            });
+
+        });
+
+        this._UISpecialFeatureOptInsChoices = specialFeaturesOptions;
 
     }
 
