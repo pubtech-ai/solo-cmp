@@ -82,8 +82,6 @@ describe('UIChoicesBridgeDtoBuilder suit test', () => {
         ).length;
         expect(countPurposeVendorRestrictionOptionEnabled, 'countPurposeVendorRestrictionOptionEnabled').to.equal(0);
 
-        console.log(tcModel.publisherRestrictions.getPurposes());
-
         //Check UIPurposeChoices
         const countPurposeChoicesEnabled = uiChoicesBridgeDto.UIPurposeChoices.filter((choice) => choice.state).length;
         expect(countPurposeChoicesEnabled, 'countPurposeChoicesEnabled').to.equal(
