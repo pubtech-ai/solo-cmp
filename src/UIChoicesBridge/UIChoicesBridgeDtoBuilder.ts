@@ -23,14 +23,19 @@ export class UIChoicesBridgeDtoBuilder {
     private _UILegitimateInterestsVendorChoices: VendorOption[] = [];
     private _UIGoogleVendorOptions: GoogleVendorOption[] = [];
 
+    private readonly firstTimeConsentRequest: boolean;
+
     /**
      * Constructor.
      *
      * @param {TCModel} tcModel
      * @param {ACModel} acModel
+     * @param {boolean} firstTimeConsentRequest
      * @private
      */
-    constructor(tcModel: TCModel, acModel: ACModel) {
+    constructor(tcModel: TCModel, acModel: ACModel, firstTimeConsentRequest: boolean) {
+
+        this.firstTimeConsentRequest = firstTimeConsentRequest;
 
         this.buildUIPurposeChoices(tcModel);
         this.buildUISpecialFeatureOptInsChoices(tcModel);
@@ -220,8 +225,11 @@ export class UIChoicesBridgeDtoBuilder {
 
             if (Object.keys(vendors).length !== 0 && vendors.constructor === Object) {
 
+                // Legitimate interest choices are opt-out, so the default is true
+                const state = this.firstTimeConsentRequest ? true : tcModel.purposeLegitimateInterests.has(purpose.id);
+
                 legitimateInterestsPurposesOptions.push({
-                    state: tcModel.purposeLegitimateInterests.has(purpose.id),
+                    state: state,
                     id: Number(purpose.id),
                     title: purpose.name,
                     description: purpose.description,
@@ -271,8 +279,11 @@ export class UIChoicesBridgeDtoBuilder {
 
             }
 
+            // Legitimate interest choices are opt-out, so the default is true
+            const state = this.firstTimeConsentRequest ? true : tcModel.vendorLegitimateInterests.has(vendor.id);
+
             legitimateInterestsVendorOption.push({
-                state: tcModel.vendorLegitimateInterests.has(vendor.id),
+                state: state,
                 features: UIChoicesBridgeDtoBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
