@@ -36,12 +36,12 @@ export class UIChoicesBridgeDtoBuilder {
      */
     constructor(tcModel: TCModel, acModel: ACModel, firstTimeConsentRequest: boolean) {
 
+        this.firstTimeConsentRequest = firstTimeConsentRequest;
+
         this.buildUIPurposeChoices(tcModel);
         this.buildUISpecialFeatureOptInsChoices(tcModel);
         this.buildUILegitimateInterestsChoices(tcModel);
         this.buildUIGoogleVendorOptions(acModel);
-
-        this.firstTimeConsentRequest = firstTimeConsentRequest;
 
     }
 
