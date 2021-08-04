@@ -157,8 +157,11 @@ export class UIChoicesBridgeDtoBuilder {
 
             }
 
+            // Set vendors default to true, purposes lead vendors
+            const state = this.firstTimeConsentRequest ? true : tcModel.vendorConsents.has(vendor.id);
+
             vendorOption.push({
-                state: tcModel.vendorConsents.has(vendor.id),
+                state: state,
                 features: UIChoicesBridgeDtoBuilder.buildVendorFeatures(vendor.features, tcModel.gvl.features),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
