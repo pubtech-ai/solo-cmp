@@ -60,6 +60,20 @@ export class UIChoicesParser {
 
             const restrictionVendors = purposeOption.vendorsRestriction;
 
+            const enabledRestrictionVendors = restrictionVendors.filter((purposeVendorRestrictionOption) => {
+
+                return purposeVendorRestrictionOption.state;
+
+            });
+
+            // If a user disables all vendor for a purpose, we disable directly the purpose.
+            if (enabledRestrictionVendors.length == restrictionVendors.length) {
+
+                this._tcModel.purposeConsents.unset(purposeOption.id);
+                return;
+
+            }
+
             const purposeRestriction = new PurposeRestriction(purposeOption.id, RestrictionType.NOT_ALLOWED);
 
             restrictionVendors.forEach((restrictionVendor) => {
