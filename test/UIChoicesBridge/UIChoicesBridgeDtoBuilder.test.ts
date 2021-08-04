@@ -9,6 +9,7 @@ const getTCModelByFixture = function () {
     const gvl = new GVL(vendorList);
 
     const tcModel = new TCModel(gvl);
+    tcModel.isServiceSpecific = true;
     tcModel.vendorLegitimateInterests.set([8, 46]);
     tcModel.vendorConsents.set([8, 46]);
     tcModel.purposeConsents.set([1, 2]);
@@ -37,14 +38,15 @@ const getACModelByFixture = function (): ACModel {
 
 describe('UIChoicesBridgeDtoBuilder suit test', () => {
     it('UIChoicesBridgeDtoBuilder test entity built with getInstance singleton test', () => {
+        const tcModel = getTCModelByFixture();
+        const acModel = getACModelByFixture();
+
         const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
-            getTCModelByFixture(),
-            getACModelByFixture(),
+            tcModel,
+            acModel,
             true,
         ).createUIChoicesBridgeDto();
 
-        const tcModel = getTCModelByFixture();
-        const acModel = getACModelByFixture();
 
         expect(uiChoicesBridgeDto.UIPurposeChoices.length, 'choicesStateHandler.UIPurposeChoices.length').to.equal(
             Object.keys(tcModel.gvl.purposes).length,
@@ -65,7 +67,7 @@ describe('UIChoicesBridgeDtoBuilder suit test', () => {
             (choice) => choice.state,
         ).length;
         expect(countLegIntPurposeChoicesEnabled, 'countLegIntPurposeChoicesEnabled').to.equal(
-            [...tcModel.purposeLegitimateInterests.values()].length,
+            9,
         );
 
         //Check UILegitimateInterestsVendorChoices
@@ -73,7 +75,7 @@ describe('UIChoicesBridgeDtoBuilder suit test', () => {
             (choice) => choice.state,
         ).length;
         expect(countLegIntVendorsChoicesEnabled, 'countLegIntVendorsChoicesEnabled').to.equal(
-            [...tcModel.vendorLegitimateInterests.values()].length,
+            290,
         );
 
         //Check PurposeVendorRestrictionOption
