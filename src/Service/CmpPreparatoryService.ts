@@ -82,10 +82,15 @@ export class CmpPreparatoryService {
                     const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
                         tcModel,
                         acModel,
-                        firstTimeConsentRequest
+                        firstTimeConsentRequest,
                     ).createUIChoicesBridgeDto();
 
-                    const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
+                    const soloCmpDataBundle = new SoloCmpDataBundle(
+                        uiChoicesBridgeDto,
+                        tcModel,
+                        acModel,
+                        firstTimeConsentRequest,
+                    );
 
                     this.uiConstructor.buildUIAndRender(soloCmpDataBundle);
 
