@@ -76,12 +76,21 @@ export class CmpPreparatoryService {
 
                     }
 
+                    // Necessary, to know if the building process must set up some options enabled or not.
+                    const firstTimeConsentRequest = tcString == '';
+
                     const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
                         tcModel,
                         acModel,
+                        firstTimeConsentRequest,
                     ).createUIChoicesBridgeDto();
 
-                    const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
+                    const soloCmpDataBundle = new SoloCmpDataBundle(
+                        uiChoicesBridgeDto,
+                        tcModel,
+                        acModel,
+                        firstTimeConsentRequest,
+                    );
 
                     this.uiConstructor.buildUIAndRender(soloCmpDataBundle);
 
