@@ -42,7 +42,7 @@ export class CookieService {
         const expires = 'expires=' + date.toUTCString();
         const domain = CookieService.getCleanedDomain(this.hostName);
 
-        this.document.cookie = `${cookieName}=${cookieValue};${expires};path=/;domain=${domain};secure`;
+        this.document.cookie = `${cookieName}=${cookieValue};${expires};path=/;domain=${domain};SameSite=Lax;secure`;
 
     }
 
