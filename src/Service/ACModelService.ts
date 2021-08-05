@@ -13,7 +13,7 @@ export class ACModelService {
     private googleVendorList: any[] = [];
     private readonly acStringService: ACStringService;
     private readonly baseUrlVendorList: string;
-    private readonly googleVendorOptions: GoogleVendorOption[] = [];
+    private googleVendorOptions: GoogleVendorOption[] = [];
     private httpRequestService: HttpRequestService;
     private loggerService: LoggerService;
 
@@ -53,6 +53,8 @@ export class ACModelService {
      * @return {Promise<ACModel>}
      */
     public async fetchDataAndBuildACModel(acString: string): Promise<ACModel> {
+
+        this.googleVendorOptions = [];
 
         const url = `${this.baseUrlVendorList}/${ACModelService.googleVendorListFileName}`;
 

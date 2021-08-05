@@ -24,7 +24,7 @@ describe('Cookie suit test', () => {
         date.setTime(date.getTime() + 365 * CookieService.milliSecondsInADay);
 
         expect(mockDocument.cookie).to.equal(
-            `cookieTest=valueTest;expires=${date.toUTCString()};path=/;domain=.solocmp.com;secure`,
+            `cookieTest=valueTest;expires=${date.toUTCString()};path=/;domain=.solocmp.com;SameSite=Lax;secure`,
         );
     });
 
