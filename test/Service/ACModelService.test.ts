@@ -74,13 +74,13 @@ describe('ACModelService suit test', () => {
             loggerService,
         );
 
-        const acModel = await acModelService.fetchDataAndBuildACModel('');
+        const acModel = await acModelService.fetchDataAndBuildACModel('1~39');
 
         expect(acModel.googleVendorOptions[0].id).to.equal(jsonContent[0].provider_id);
         expect(acModel.googleVendorOptions[0].name).to.equal(jsonContent[0].provider_name);
         expect(acModel.googleVendorOptions[0].policyUrl).to.equal(jsonContent[0].policy_url);
         expect(acModel.googleVendorOptions[0].domains).to.equal(jsonContent[0].domains);
-        expect(acModel.googleVendorOptions[0].state).to.be.false;
+        expect(acModel.googleVendorOptions[0].state).to.be.true;
 
         expect(acModel.googleVendorOptions[1].id).to.equal(jsonContent[1].provider_id);
         expect(acModel.googleVendorOptions[1].name).to.equal(jsonContent[1].provider_name);
