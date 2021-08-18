@@ -1,4 +1,4 @@
-import {GVL, TCModel, TCString} from '@iabtcf/core';
+import {TCModel, TCString} from '@iabtcf/core';
 import {TCStringService} from './TCStringService';
 import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
 
@@ -10,7 +10,7 @@ export class TCModelService {
     private readonly cmpId: number;
     private readonly cmpVersion: number;
     private readonly isServiceSpecific: boolean;
-    private readonly globalVendorList: GVL;
+    private readonly globalVendorListCreatorFunction: CallableFunction;
     private tcStringService: TCStringService;
     private cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
 
@@ -22,7 +22,7 @@ export class TCModelService {
      * @param {number} cmpId
      * @param {number} cmpVersion
      * @param {boolean} isServiceSpecific
-     * @param {GVL} globalVendorList
+     * @param {CallableFunction} globalVendorListCreatorFunction
      */
     constructor(
         tcStringService: TCStringService,
@@ -30,7 +30,7 @@ export class TCModelService {
         cmpId: number,
         cmpVersion: number,
         isServiceSpecific: boolean,
-        globalVendorList: GVL,
+        globalVendorListCreatorFunction: CallableFunction,
     ) {
 
         if (Number.isNaN(cmpId)) {
@@ -50,7 +50,7 @@ export class TCModelService {
         this.cmpId = cmpId;
         this.cmpVersion = cmpVersion;
         this.isServiceSpecific = isServiceSpecific;
-        this.globalVendorList = globalVendorList;
+        this.globalVendorListCreatorFunction = globalVendorListCreatorFunction;
 
     }
 
@@ -66,7 +66,7 @@ export class TCModelService {
 
         const encodedString = tcString;
 
-        let tcModel = new TCModel(this.globalVendorList);
+        let tcModel = new TCModel(this.globalVendorListCreatorFunction());
 
         // Some fields will not be populated until a GVL is loaded
         const promise = tcModel.gvl.readyPromise
