@@ -95,7 +95,7 @@ describe('OpenCmpUISubscriber suit test', () => {
             Number(tcModel.cmpId),
             Number(tcModel.cmpVersion),
             true,
-            tcModel.gvl,
+            () => tcModel.gvl,
         );
 
         sinon

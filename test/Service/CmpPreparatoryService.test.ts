@@ -94,7 +94,7 @@ describe('CmpPreparatoryService suit test', () => {
             Number(tcModel.cmpId),
             Number(tcModel.cmpVersion),
             true,
-            tcModel.gvl,
+            () => tcModel.gvl,
         );
 
         sinon
@@ -190,7 +190,7 @@ describe('CmpPreparatoryService suit test', () => {
             Number(tcModel.cmpId),
             Number(tcModel.cmpVersion),
             true,
-            tcModel.gvl,
+            () => tcModel.gvl,
         );
 
         sinon
