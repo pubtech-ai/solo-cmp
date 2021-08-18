@@ -17,8 +17,6 @@ library with the intention of simplifying and adding more ways of customization 
 
 - 🚀 Optimized consent release performance
 - 🏄 Ability to add plugins in standard flow
-- 🔑 Coverage test
-- 🙏️ Commitment to keep the APIs as similar as possible
 - ⚡️ Integration with AMP
 
 #### Guidelines
