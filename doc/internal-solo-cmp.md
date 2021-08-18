@@ -15,7 +15,7 @@ may have arisen from the CMP UI which uses solo-cmp as the basis for the project
 Currently, there are explanations of not all flows, soon we will add all the necessary documentation.
 Meanwhile, you are starting to see the more "complex" flows.
 
-The hardest part!
+The hardest part! 💪
 
 ## Main events flows
 
@@ -28,9 +28,8 @@ This event can however be dispatched by the UI layer of the CMP for example when
 he has previously applied.
 
 Here is the complete flow of when the event dispatched:
-<p>
-    <img src="doc/sequence-diagrams/img/open-cmp-ui-event-flow.svg" />
-</p>
+
+![OpenCmpUIEvent diagram](https://github.com/pubtech-ai/solo-cmp/blob/main/doc/sequence-diagrams/img/open-cmp-ui-event-flow.svg?raw=true)
 
 ### ConsentRequiredEvent flow
 
@@ -38,9 +37,8 @@ This event dispatched when the consent requested from the user, this always happ
  of the cmp once all the data has been taken and it is possible to render the UI of the cmp.
 
 Here is the complete flow of when the event dispatched:
-<p>
-    <img src="doc/sequence-diagrams/img/consent-required-event-flow.svg" />
-</p>
+
+![ConsentRequiredEvent diagram](https://github.com/pubtech-ai/solo-cmp/blob/main/doc/sequence-diagrams/img/consent-required-event-flow.svg?raw=true)
 
 ### ApplyConsentEvent flow
 
@@ -49,9 +47,8 @@ to transmit the consents that the user has modified and then allow the library t
 persist and call any event subscribers that depend on ConsentReadyEvent.
 
 Here is the complete flow of when the event dispatched:
-<p>
-    <img src="doc/sequence-diagrams/img/apply-consent-event-flow.svg" />
-</p>
+
+![ApplyConsentEvent diagram](https://github.com/pubtech-ai/solo-cmp/blob/main/doc/sequence-diagrams/img/apply-consent-event-flow.svg?raw=true)
 
 
 ### AcceptAllEvent flow
@@ -64,6 +61,6 @@ Essentially a subscriber linked to that event that automatically generates and p
 with all possible choices enabled
 
 Here is the complete flow of when the event dispatched:
-<p>
-    <img src="doc/sequence-diagrams/img/accept-all-event-flow.svg" />
-</p>
+
+![AcceptAllEvent diagram](https://github.com/pubtech-ai/solo-cmp/blob/main/doc/sequence-diagrams/img/accept-all-event-flow.svg?raw=true)
+
