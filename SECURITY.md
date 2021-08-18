@@ -8,4 +8,5 @@
 
 ## Reporting a Vulnerability
 
-This project at the moment doesn't use any dependency, but if you find any vulnerability you can open an issue.
+Open an issue.
+Prefix the title of the issue with [SECURITY].
