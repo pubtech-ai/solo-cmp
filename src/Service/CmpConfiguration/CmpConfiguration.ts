@@ -1,5 +1,6 @@
 import {ConfigurationInterface} from './ConfigurationInteface';
 import {ConsentReadyEvent} from '../../Event';
+import {TCModel} from '@iabtcf/core';
 
 /**
  * CmpConfiguration.
@@ -7,7 +8,7 @@ import {ConsentReadyEvent} from '../../Event';
 export class CmpConfiguration {
 
     private readonly _isAmp: boolean;
-    private readonly _onConsentAdsCallBack: (event: ConsentReadyEvent) => void;
+    private readonly _onConsentAdsCallBack: (event: ConsentReadyEvent, tcModel: TCModel) => void;
     private readonly _debug: boolean;
 
     /**
