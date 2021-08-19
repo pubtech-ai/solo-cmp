@@ -53,7 +53,7 @@ describe('TCModelService suit test', () => {
                 NaN,
                 Number(tcModel.cmpVersion),
                 true,
-                tcModel.gvl,
+                () => tcModel.gvl,
             );
         };
 
@@ -75,7 +75,7 @@ describe('TCModelService suit test', () => {
         );
 
         const construction = () => {
-            new TCModelService(tcStringService, cmpSupportedLanguageProvider, 123, NaN, true, tcModel.gvl);
+            new TCModelService(tcStringService, cmpSupportedLanguageProvider, 123, NaN, true, () => tcModel.gvl);
         };
 
         expect(construction).to.throw('TCModelService, cmpVersion parameter must be a valid number.');
@@ -104,7 +104,7 @@ describe('TCModelService suit test', () => {
             123,
             Number(tcModel.cmpVersion),
             true,
-            tcModel.gvl,
+            () => tcModel.gvl,
         );
 
         const builtTcModel: TCModel = await tcModelService.fetchDataAndBuildTCModel(

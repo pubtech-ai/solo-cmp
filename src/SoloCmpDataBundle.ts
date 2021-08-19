@@ -21,12 +21,7 @@ export class SoloCmpDataBundle {
      * @param {boolean} isConsentRequest
      * @private
      */
-    constructor(
-        uiChoicesBridgeDto: UIChoicesBridgeDto,
-        tcModel: TCModel,
-        acModel: ACModel,
-        isConsentRequest: boolean,
-    ) {
+    constructor(uiChoicesBridgeDto: UIChoicesBridgeDto, tcModel: TCModel, acModel: ACModel, isConsentRequest: boolean) {
 
         this._uiChoicesBridgeDto = uiChoicesBridgeDto;
         this._tcModel = tcModel;

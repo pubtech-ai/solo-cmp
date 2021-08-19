@@ -116,9 +116,16 @@ export class SoloCmp {
             })
             .addServiceProvider(TCModelService.getClassName(), (container: IContainer) => {
 
-                GVL.baseUrl = this.baseUrlVendorList;
+                /**
+                 * @return {GVL}
+                 */
+                const createGVL = (): GVL => {
 
-                const gvl: GVL = new GVL();
+                    GVL.baseUrl = this.baseUrlVendorList;
+
+                    return new GVL();
+
+                };
 
                 return new TCModelService(
                     container[TCStringService.getClassName()],
@@ -126,7 +133,7 @@ export class SoloCmp {
                     this.cmpId,
                     this.cmpVersion,
                     this.isServiceSpecific,
-                    gvl,
+                    createGVL.bind(this),
                 );
 
             })

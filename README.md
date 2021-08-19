@@ -1,15 +1,33 @@
-# solo-cmp
+# SoloCmp 🎻
 
-This library is a wrapper of the [IAB's Transparency and Consent Framework (TCF)](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework) library with the intention of simplifying and adding more ways of customization of the whole flow that starts from the view of the CMP banner at the release of the user's consent. This library is completely framework agnostic, so feel free to implement your CMP with any framework such as Vue, React and others.
-So what you have to do is only the graphical implementation and if necessary add plugins to execute logic based on the event flows mapped by the library.
+[![npm version](https://badge.fury.io/js/%40pubtech-ai%2Fsolo-cmp.svg)](https://badge.fury.io/js/%40pubtech-ai%2Fsolo-cmp.svg)
+![badge build and test](https://github.com/pubtech-ai/solo-cmp/actions/workflows/build-and-test.yml/badge.svg)
+
+#### What is it for?
+- This library is a wrapper of the [IAB's Transparency and Consent Framework (TCF)](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework) 
+library with the intention of simplifying and adding more ways of customization of the whole flow that starts from the view of the CMP banner at the release of the user's consent.
+
+#### Are there any requirements?
+- This library is completely framework agnostic, so feel free to implement your CMP with any framework such as Vue, React and others.
+
+#### What do you have to do? 
+- Implement only the UI part of the CMP, everything else is handled by SoloCmp.
+
+#### Together with the easier implementation of your CMP you have:
+
+- 🚀 Optimized consent release performance
+- 🏄 Ability to add plugins in standard flow
+- ⚡️ Integration with AMP
+
+#### Guidelines
 
   - [Installation](#installation)
   - [Using](#using)
   - [Contribution](#contribution)
-
+  - [Internal Documentation](https://github.com/pubtech-ai/solo-cmp/blob/main/doc/internal-solo-cmp.md)
+  
 #### Installation
 
-npm
 ```
 npm install @pubtech-ai/solo-cmp --save
 ```
@@ -172,10 +190,8 @@ If those changes are accepted they will be merged by the repository maintainer.
 
 ## Dependencies
 
-This application is based on:
-- Node.js: 14.15.4
-- IAB TCF Modules
-- BottleJs
+- [IAB TCF Modules](https://github.com/InteractiveAdvertisingBureau/iabtcf-es)
+- [BottleJS](https://github.com/young-steveo/bottlejs)
 
 ## Development environment
 
@@ -183,20 +199,13 @@ To ease local development you have to install these tools:
 
 * [Node.js](https://nodejs.org/)
 
+Currently used version: [v14.15.4](https://nodejs.org/dist/v14.15.4/docs/api/)
+
 ### Install dependencies
 
 To install dependencies, execute these commands:
 ```sh
 npm install
-```
-
-When the process is complete, a Browser tab is automatically opened.
-
-### Compile and minify for production
-
-To create a production version, execute this command:
-```sh
-npm run build
 ```
 
 ### Test project
@@ -211,6 +220,13 @@ npm run test
 To lint the project files, execute this command:
 ```sh
 npm run lint
+```
+
+### Compile and minify for production
+
+To create a production version, execute this command:
+```sh
+npm run build
 ```
 
 ### Disclaimer
