@@ -141,7 +141,9 @@ export class TCStringService {
 
         // REQUIRED UNTIL SOLVED https://github.com/InteractiveAdvertisingBureau/iabtcf-es/issues/179
         tcModel.publisherConsents.set([...tcModel.purposeConsents.values()]);
-        tcModel.publisherLegitimateInterests.set([...tcModel.purposeLegitimateInterests.values()]);
+        const purposeLegitimateInterests =
+            [...tcModel.purposeLegitimateInterests.values()].filter((purposeId) => purposeId !== 1);
+        tcModel.publisherLegitimateInterests.set(purposeLegitimateInterests);
 
         const tcString: string = TCString.encode(tcModelWithAllEnabled);
 
