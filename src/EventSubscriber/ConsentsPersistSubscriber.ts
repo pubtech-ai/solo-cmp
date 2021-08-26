@@ -40,7 +40,7 @@ export class ConsentsPersistSubscriber implements EventSubscriberInterface {
      *
      * @param {ConsentPersistEvent} event
      */
-    public onConsentPersist(event: ConsentPersistEvent) {
+    public onConsentPersist(event: ConsentPersistEvent): void {
 
         this.tcStringService.persistTCString(event.getTcString());
         this.acStringService.persistACString(event.getAcString());

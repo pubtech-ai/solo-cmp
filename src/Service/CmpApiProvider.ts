@@ -22,9 +22,9 @@ export class CmpApiProvider {
     constructor(id: number, version: number, isServiceSpecific: boolean, acStringService: ACStringService) {
 
         this._cmpApi = new CmpApi(id, version, isServiceSpecific, {
-            getTCData: (next: any, tcData: any, success: any) => {
+            'getTCData': (next: any, tcData: any, success: any) => {
 
-                if (tcData) {
+                if (typeof tcData !== 'boolean') {
 
                     tcData.reallyImportantExtraProperty = true;
                     tcData.addtlConsent = acStringService.retrieveACString();
