@@ -9,7 +9,6 @@ export class CmpConfiguration {
 
     private readonly _isAmp: boolean;
     private readonly _onConsentAdsCallBack: (event: ConsentReadyEvent, tcModel: TCModel) => void;
-    private readonly _debug: boolean;
 
     /**
      * Constructor.
@@ -20,7 +19,6 @@ export class CmpConfiguration {
 
         this._onConsentAdsCallBack = configuration.onConsentAds;
         this._isAmp = configuration.isAmp;
-        this._debug = configuration.debug;
 
     }
 
@@ -33,12 +31,6 @@ export class CmpConfiguration {
     get onConsentAdsCallBack(): any {
 
         return this._onConsentAdsCallBack;
-
-    }
-
-    get debug(): boolean {
-
-        return this._debug;
 
     }
 

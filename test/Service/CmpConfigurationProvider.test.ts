@@ -8,14 +8,12 @@ describe('CmpConfigurationProvider suit test', () => {
             onConsentAds: (purposesAccepted) => {
                 purposesAccepted.includes(1);
             },
-            debug: true,
         };
 
         const cmpConfigurationProvider: CmpConfigurationProvider = new CmpConfigurationProvider(cmpConfig);
 
         const cmpConfiguration: CmpConfiguration = cmpConfigurationProvider.cmpConfiguration;
 
-        expect(cmpConfiguration.debug).to.be.true;
         expect(cmpConfiguration.isAmp).to.be.false;
         expect(cmpConfiguration.onConsentAdsCallBack).to.deep.equal(cmpConfig.onConsentAds);
     });
@@ -32,7 +30,6 @@ describe('CmpConfigurationProvider suit test', () => {
         const cmpConfig = {
             isAmp: 'false',
             onConsentAds: () => {},
-            debug: true,
         };
 
         const construction = function () {
@@ -54,19 +51,5 @@ describe('CmpConfigurationProvider suit test', () => {
         };
 
         expect(construction).to.throw('CmpConfig, onConsentAds parameter must be a function.');
-    });
-
-    it('CmpConfigurationProvider construction thrown if wrong debug parameter is provided test', () => {
-        const cmpConfig = {
-            isAmp: false,
-            onConsentAds: () => {},
-            debug: 'true',
-        };
-
-        const construction = function () {
-            new CmpConfigurationProvider(cmpConfig);
-        };
-
-        expect(construction).to.throw('CmpConfig, debug parameter must be a boolean.');
     });
 });
