@@ -139,11 +139,24 @@ export class SoloCmp {
             })
             .addServiceProvider(ACStringService.getClassName(), (container: IContainer) => {
 
+                let fetchedLocalStorage = {};
+
+                try {
+
+                    fetchedLocalStorage = localStorage;
+
+                } catch (e) {
+
+                    const loggerService : LoggerService = container[LoggerService.getClassName()];
+                    loggerService.debug('localStorage disabled for the current environment.', e);
+
+                }
+
                 return new ACStringService(
                     this.cmpVersion,
                     this.acStringLocalStorageName,
                     container[LoggerService.getClassName()],
-                    localStorage,
+                    fetchedLocalStorage as Storage,
                 );
 
             })
