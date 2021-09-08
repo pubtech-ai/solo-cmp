@@ -96,6 +96,7 @@ const soloCmp = new SoloCmp(
     },
     supportedLanguages: ['it', 'en'], //Here you can specify all the languages that your CMP supports and consequently the case in which a certain language is not supported will be automatically handled and there will be a fallback to 'en'
     cmpVersion: cmpVersion,
+    acStringVersion: 1, // Currently 1 is the version supported by google
     cmpVendorListVersion: cmpVendorListVersion,
     tcStringCookieName: 'euconsent-v2', //Cookie name used to save TCString in browser
     acStringLocalStorageName: 'ac_euconsent-v2', //Key name used to save ACString in browser (local storage)
