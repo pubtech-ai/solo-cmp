@@ -35,16 +35,9 @@ export class CmpConfigurationProvider {
 
         }
 
-        if (typeof cmpConfig.debug !== 'boolean') {
-
-            throw new Error('CmpConfig, debug parameter must be a boolean.');
-
-        }
-
         const configuration: ConfigurationInterface = {
             isAmp: cmpConfig.isAmp,
             onConsentAds: cmpConfig.onConsentAds,
-            debug: cmpConfig.debug,
         };
 
         this._cmpConfiguration = new CmpConfiguration(configuration);
