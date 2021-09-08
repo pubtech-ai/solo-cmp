@@ -9,6 +9,7 @@ export interface SoloCmpDto {
     cmpConfig: any;
     supportedLanguages: string[];
     cmpVersion: number;
+    acStringVersion: number;
     cmpVendorListVersion: number;
     tcStringCookieName: string;
     acStringLocalStorageName: string;

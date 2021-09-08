@@ -41,6 +41,7 @@ export class SoloCmp {
     private readonly isDebugEnabled: boolean;
     private readonly cmpVersion: number;
     private readonly cmpVendorListVersion: number;
+    private readonly acStringVersion: number;
     private readonly cmpId: number;
     private readonly isServiceSpecific: boolean;
     private readonly tcStringCookieName: string;
@@ -63,6 +64,7 @@ export class SoloCmp {
         this.supportedLanguages = soloCmpDto.supportedLanguages;
         this.cmpVersion = soloCmpDto.cmpVersion;
         this.cmpVendorListVersion = soloCmpDto.cmpVendorListVersion;
+        this.acStringVersion = soloCmpDto.acStringVersion;
         this.tcStringCookieName = soloCmpDto.tcStringCookieName;
         this.acStringLocalStorageName = soloCmpDto.acStringLocalStorageName;
         this.cmpId = soloCmpDto.cmpId;
@@ -153,7 +155,7 @@ export class SoloCmp {
                 }
 
                 return new ACStringService(
-                    this.cmpVersion,
+                    this.acStringVersion,
                     this.acStringLocalStorageName,
                     container[LoggerService.getClassName()],
                     fetchedLocalStorage as Storage,
