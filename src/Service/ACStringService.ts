@@ -8,7 +8,7 @@ export class ACStringService {
 
     private static readonly acStringIdSeparator = '~';
 
-    private readonly cmpVersion: number;
+    private readonly acStringVersion: number;
     private readonly acStringLocalStorageKey: string;
     private loggerService: LoggerService;
     private localStorage: Storage;
@@ -16,19 +16,19 @@ export class ACStringService {
     /**
      * Constructor.
      *
-     * @param {string} cmpVersion
+     * @param {string} acStringVersion
      * @param {string} acStringLocalStorageKey
      * @param {LoggerService} loggerService
      * @param {Storage} localStorage
      */
     constructor(
-        cmpVersion: number,
+        acStringVersion: number,
         acStringLocalStorageKey: string,
         loggerService: LoggerService,
         localStorage: Storage,
     ) {
 
-        if (Number.isNaN(cmpVersion)) {
+        if (Number.isNaN(acStringVersion)) {
 
             throw new Error('ACStringService, cmpVersion parameter must be a valid number.');
 
@@ -42,7 +42,7 @@ export class ACStringService {
 
         }
 
-        this.cmpVersion = cmpVersion;
+        this.acStringVersion = acStringVersion;
         this.acStringLocalStorageKey = acStringLocalStorageKey;
         this.loggerService = loggerService;
         this.localStorage = localStorage;
@@ -101,7 +101,7 @@ export class ACStringService {
      */
     private buildACStringString(enabledGoogleVendorIds: number[]): string {
 
-        return `${this.cmpVersion + ACStringService.acStringIdSeparator + enabledGoogleVendorIds.join('.')}`;
+        return `${this.acStringVersion + ACStringService.acStringIdSeparator + enabledGoogleVendorIds.join('.')}`;
 
     }
 
@@ -164,7 +164,7 @@ export class ACStringService {
         } catch (error) {
 
             this.loggerService.error('Can\'t retrieve ACString from localStorage.', error);
-            return `${this.cmpVersion + ACStringService.acStringIdSeparator}`;
+            return `${this.acStringVersion + ACStringService.acStringIdSeparator}`;
 
         }
 
@@ -204,11 +204,11 @@ export class ACStringService {
 
         }
 
-        const cmpVersionStringLength: number = String(this.cmpVersion).length;
+        const cmpVersionStringLength: number = String(this.acStringVersion).length;
 
         return (
-            acString === `${this.cmpVersion + ACStringService.acStringIdSeparator}` ||
-            (acString.includes(`${this.cmpVersion + ACStringService.acStringIdSeparator}`) &&
+            acString === `${this.acStringVersion + ACStringService.acStringIdSeparator}` ||
+            (acString.includes(`${this.acStringVersion + ACStringService.acStringIdSeparator}`) &&
                 acString.length > cmpVersionStringLength + 1)
         );
 
