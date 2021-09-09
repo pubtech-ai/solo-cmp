@@ -77,7 +77,7 @@ export class CmpPreparatoryService {
                     }
 
                     // Necessary, to know if the building process must set up some options enabled or not.
-                    const firstTimeConsentRequest = tcString == '';
+                    const firstTimeConsentRequest = tcString == '' || tcString == null;
 
                     const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
                         tcModel,
