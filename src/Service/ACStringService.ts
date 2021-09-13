@@ -144,7 +144,7 @@ export class ACStringService {
 
         } catch (error) {
 
-            this.loggerService.error('Can\'t persist ACString to localStorage.', error);
+            this.loggerService.debug('Can\'t persist ACString to localStorage.', error);
 
         }
 
@@ -163,7 +163,7 @@ export class ACStringService {
 
         } catch (error) {
 
-            this.loggerService.error('Can\'t retrieve ACString from localStorage.', error);
+            this.loggerService.debug('Can\'t retrieve ACString from localStorage.', error);
             return `${this.acStringVersion + ACStringService.acStringIdSeparator}`;
 
         }

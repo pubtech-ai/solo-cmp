@@ -145,11 +145,7 @@ export class TCStringService {
             [...tcModel.purposeLegitimateInterests.values()].filter((purposeId) => purposeId !== 1);
         tcModel.publisherLegitimateInterests.set(purposeLegitimateInterests);
 
-        const tcString: string = TCString.encode(tcModelWithAllEnabled);
-
-        this.loggerService.debug('TCString all enabled built fixeddd: ' + tcString);
-
-        return tcString;
+        return TCString.encode(tcModelWithAllEnabled);
 
     }
 
