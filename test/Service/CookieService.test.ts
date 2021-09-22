@@ -1,8 +1,9 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 const sinon = require('sinon');
-import { CookieService, LoggerService } from '../../src/Service';
+import {CookieService, LoggerService} from '../../src/Service';
 
 describe('Cookie suit test', () => {
+
     let cookieService: CookieService;
     const loggerService: LoggerService = new LoggerService(true);
 
@@ -14,10 +15,13 @@ describe('Cookie suit test', () => {
     const mockDocument = sinon.mock(document);
 
     before(() => {
+
         cookieService = new CookieService(loggerService, 'solocmp.com', mockDocument);
+
     });
 
     it('Cookie set cookie test', () => {
+
         cookieService.setCookie('cookieTest', 'valueTest', 365);
 
         const date = new Date();
@@ -26,13 +30,17 @@ describe('Cookie suit test', () => {
         expect(mockDocument.cookie).to.equal(
             `cookieTest=valueTest;expires=${date.toUTCString()};path=/;domain=.solocmp.com;SameSite=Lax;secure`,
         );
+
     });
 
     it('Cookie get cookie test', () => {
+
         expect(cookieService.getCookie('cookieTest')).to.equal('valueTest');
+
     });
 
     it('Cookie remove all cookie by specific name test', () => {
+
         mockLogger.expects('debug').thrice();
 
         cookieService.removeCookiesByName('cookieTest');
@@ -42,5 +50,7 @@ describe('Cookie suit test', () => {
         );
 
         mockLogger.verify();
+
     });
+
 });

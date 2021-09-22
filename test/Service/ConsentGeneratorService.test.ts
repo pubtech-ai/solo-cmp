@@ -1,8 +1,8 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 const sinon = require('sinon');
-import { TCModel } from '@iabtcf/core';
-//@ts-ignore
-import { getACModelByFixture, getTCModelByFixture } from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
+import {TCModel} from '@iabtcf/core';
+// @ts-ignore
+import {getACModelByFixture, getTCModelByFixture} from '../UIChoicesBridge/UIChoicesBridgeDtoBuilder.test';
 import {
     ACStringService,
     CmpSupportedLanguageProvider,
@@ -11,31 +11,39 @@ import {
     LoggerService,
     TCStringService,
 } from '../../src/Service';
-import { ACModel } from '../../src/Entity';
-import { EventDispatcher } from '../../src/EventDispatcher';
-import { ConsentPersistEvent, ConsentReadyEvent } from '../../src/Event';
-import { UIChoicesBridgeDtoBuilder } from '../../src/UIChoicesBridge';
-import { SoloCmpDataBundle } from '../../src';
+import {ACModel} from '../../src/Entity';
+import {EventDispatcher} from '../../src/EventDispatcher';
+import {ConsentPersistEvent, ConsentReadyEvent} from '../../src/Event';
+import {UIChoicesBridgeDtoBuilder} from '../../src/UIChoicesBridge';
+import {SoloCmpDataBundle} from '../../src';
 
 describe('ConsentGeneratorService suit test', () => {
+
     const localStorage: Storage = {
         length: 0,
         setItem(key, value): string {
+
             return value;
+
         },
         clear() {},
         key(index: number): string | null {
+
             return null;
+
         },
         removeItem(key: string): void {},
         getItem(key: string): string | null {
+
             return null;
+
         },
     };
 
     const mockLocalStorage = sinon.mock(localStorage);
 
     it('ConsentGeneratorService generate and persist consent strings fire ConsentReadyEvent test', (done) => {
+
         const loggerService: LoggerService = new LoggerService(false);
 
         const cookieService: CookieService = new CookieService(loggerService, 'solocmp.com', document);
@@ -59,15 +67,18 @@ describe('ConsentGeneratorService suit test', () => {
             'solo-cmp-ac-string',
             loggerService,
             mockLocalStorage,
+            false,
         );
 
         const subscriber = {
-            method: function (eventObject) {
+            method: function(eventObject) {
+
                 expect(eventObject.tcString.length > 0).to.be.true;
 
                 expect(eventObject.acString.length > 0).to.be.true;
 
                 done();
+
             },
         };
 
@@ -77,17 +88,19 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel, true).createUIChoicesBridgeDto();
 
         consentGeneratorService.generateAndPersistConsent(
             uiChoicesBridgeDto,
-            new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel),
+            new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel, true),
         );
 
         subscription.unsubscribe();
+
     });
 
     it('ConsentGeneratorService generate and persist consent strings fire ConsentPersistEvent test', (done) => {
+
         const loggerService: LoggerService = new LoggerService(false);
 
         const cookieService: CookieService = new CookieService(loggerService, 'solocmp.com', document);
@@ -111,15 +124,18 @@ describe('ConsentGeneratorService suit test', () => {
             'solo-cmp-ac-string',
             loggerService,
             mockLocalStorage,
+            false,
         );
 
         const subscriber = {
-            method: function (eventObject) {
+            method: function(eventObject) {
+
                 expect(eventObject.tcString.length > 0).to.be.true;
 
                 expect(eventObject.acString.length > 0).to.be.true;
 
                 done();
+
             },
         };
 
@@ -129,11 +145,13 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel, true).createUIChoicesBridgeDto();
 
         consentGeneratorService.generateAndPersistConsent(
             uiChoicesBridgeDto,
-            new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel),
+            new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel, true),
         );
+
     });
+
 });
