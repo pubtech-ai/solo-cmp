@@ -12,6 +12,7 @@
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet --fix",
+    "lint-test": "eslint 'test/**/*.{js,ts}' --quiet --fix",
     "prettier:format": "prettier --config .prettierrc.js 'src/**/*.ts' 'test/**/*.{js,ts}' --write",
     "clean:build": "prettier --config .prettierrc.json 'src/**/*.ts' --write && eslint 'src/**/*.{js,ts}' 'test/**/*.{js,ts}' --quiet --fix && tsc"
   },
