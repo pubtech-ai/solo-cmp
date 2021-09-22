@@ -50,6 +50,7 @@ export class SoloCmp {
     private readonly supportedLanguages: string[];
     private readonly initialHeightAmpCmpUi: string | null;
     private readonly enableBorderAmpCmpUi: boolean | null = null;
+    private readonly skipACStringCheck: boolean;
 
     /**
      * Constructor.
@@ -72,6 +73,7 @@ export class SoloCmp {
         this.baseUrlVendorList = soloCmpDto.baseUrlVendorList;
         this.initialHeightAmpCmpUi = soloCmpDto.initialHeightAmpCmpUi;
         this.enableBorderAmpCmpUi = soloCmpDto.enableBorderAmpCmpUi;
+        this.skipACStringCheck = soloCmpDto.skipACStringCheck;
 
         this.registerServices();
         this.registerSubscribers();
@@ -159,6 +161,7 @@ export class SoloCmp {
                     this.acStringLocalStorageName,
                     container[LoggerService.getClassName()],
                     fetchedLocalStorage as Storage,
+                    this.skipACStringCheck,
                 );
 
             })
