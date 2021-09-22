@@ -87,24 +87,25 @@ const cmpId = 100000; //Here you should use your cmpId provided by IAB.
 const soloCmp = new SoloCmp(
 {
     uiConstructor: uiConstructor,
-    isDebugEnabled: true, //Debug flag that enable and disable the debug method of LoggerService, this feature should help you to debug some 'bugs'.
-    cmpConfig: {//Store that object inside the CmpConfigurationProvider service that can be used by your plugin.
-           isAmp: true, //This feature is experimental it will dispatch some specific events to implement the AMP version of your CMP.
+    isDebugEnabled: true, // Debug flag that enable and disable the debug method of LoggerService, this feature should help you to debug some 'bugs'.
+    cmpConfig: {// Store that object inside the CmpConfigurationProvider service that can be used by your plugin.
+           isAmp: true, // This feature is experimental it will dispatch some specific events to implement the AMP version of your CMP.
            onConsentAds: () => {
-               //Execute some logic when the consents are already present or the user has given his consent.
+               // Execute some logic when the consents are already present or the user has given his consent.
            },
     },
-    supportedLanguages: ['it', 'en'], //Here you can specify all the languages that your CMP supports and consequently the case in which a certain language is not supported will be automatically handled and there will be a fallback to 'en'
-    cmpVersion: cmpVersion,
+    supportedLanguages: ['it', 'en'], // Here you can specify all the languages that your CMP supports and consequently the case in which a certain language is not supported will be automatically handled and there will be a fallback to 'en'
+    cmpVersion: cmpVersion, // Your CMP version
     acStringVersion: 1, // Currently 1 is the version supported by google
     cmpVendorListVersion: cmpVendorListVersion,
-    tcStringCookieName: 'euconsent-v2', //Cookie name used to save TCString in browser
-    acStringLocalStorageName: 'ac_euconsent-v2', //Key name used to save ACString in browser (local storage)
+    tcStringCookieName: 'euconsent-v2', // Cookie name used to save TCString in browser
+    acStringLocalStorageName: 'ac_euconsent-v2', // Key name used to save ACString in browser (local storage)
     cmpId: cmpId,
-    isServiceSpecific: true, //isServiceSpecific flag this should be used to configure exactly the library of IAB.
-    baseUrlVendorList: "https://url-to/vendorList", //The url where vendorlist.json if fetched and also for google-vendor-list.json (used to create an ACString).
-    initialHeightAmpCmpUi: '30vh', //Amp configuration this configure the initial height of the CMP running in an AMP environment.
-    enableBorderAmpCmpUi: false, //Amp configuration this configure the border of the CMP running in an AMP environment.
+    isServiceSpecific: true, // isServiceSpecific flag this should be used to configure exactly the library of IAB.
+    baseUrlVendorList: "https://url-to/vendorList", // The url where vendorlist.json if fetched and also for google-vendor-list.json (used to create an ACString).
+    initialHeightAmpCmpUi: '30vh', // Amp configuration this configure the initial height of the CMP running in an AMP environment.
+    enableBorderAmpCmpUi: false, // Amp configuration this configure the border of the CMP running in an AMP environment.
+    skipACStringCheck: false, // This parameter, if configured to true, allows to avoid the validation code of the ACString.
 }
 );
 
@@ -119,12 +120,12 @@ UIChoicesBridgeDto object exposed by the SoloCmpDataBundle which is injected by 
 const uiChoicesBridgeDto = soloCmpDataBundle.uiChoicesBridgeDto; //This contains all the possible choices the user can make.
 
 //All of these are arrays containing the user's possible choices, each choice has a 'state' attribute. Your UI must change the state based on what the user chooses.
-const uiPurposes = uiChoicesBridgeDto.UIPurposeChoices;
+const uiPurposes        = uiChoicesBridgeDto.UIPurposeChoices;
 const uiSpecialFeatures = uiChoicesBridgeDto.UISpecialFeatureChoices;
-const uiVendors = uiChoicesBridgeDto.UIVendorChoices;
-const uiLegIntPurposes = uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices;
-const uiLegIntVendors = uiChoicesBridgeDto.UILegitimateInterestsVendorChoices;
-const uiGoogleVendors = uiChoicesBridgeDto.UIGoogleVendorOptions;
+const uiVendors         = uiChoicesBridgeDto.UIVendorChoices;
+const uiLegIntPurposes  = uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices;
+const uiLegIntVendors   = uiChoicesBridgeDto.UILegitimateInterestsVendorChoices;
+const uiGoogleVendors   = uiChoicesBridgeDto.UIGoogleVendorOptions;
 
 //After you have correctly configured the uiChoicesBridgeDto object you can dispatch the events.
 //Mainly the events that your UI will need to dispatch will be:
