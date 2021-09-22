@@ -1,10 +1,11 @@
-import { expect } from 'chai';
-import { GVL, TCModel } from '@iabtcf/core';
+import {expect} from 'chai';
+import {GVL, TCModel} from '@iabtcf/core';
 import vendorList from '../Fixtures/vendor-list';
-import { ACModel } from '../../src/Entity';
-import { UIChoicesBridgeDto, UIChoicesBridgeDtoBuilder } from '../../src/UIChoicesBridge';
+import {ACModel} from '../../src/Entity';
+import {UIChoicesBridgeDto, UIChoicesBridgeDtoBuilder} from '../../src/UIChoicesBridge';
 
-const getTCModelByFixture = function () {
+const getTCModelByFixture = function() {
+
     // @ts-ignore
     const gvl = new GVL(vendorList);
 
@@ -14,9 +15,11 @@ const getTCModelByFixture = function () {
     tcModel.purposeConsents.set([1, 2]);
 
     return tcModel;
+
 };
 
-const getACModelByFixture = function () {
+const getACModelByFixture = function() {
+
     return new ACModel([
         {
             id: 1,
@@ -33,10 +36,13 @@ const getACModelByFixture = function () {
             state: false,
         },
     ]);
+
 };
 
 describe('UIChoicesStateHandler suit test', () => {
+
     it('UIChoicesStateHandler test entity built with getInstance singleton test', () => {
+
         const uiChoicesBridgeDto: UIChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
             getTCModelByFixture(),
             getACModelByFixture(),
@@ -56,7 +62,7 @@ describe('UIChoicesStateHandler suit test', () => {
             'choicesStateHandler.UIGoogleVendorOptions.length',
         ).to.equal(2);
 
-        //Check UILegitimateInterestsPurposeChoices
+        // Check UILegitimateInterestsPurposeChoices
         const countLegIntPurposeChoicesEnabled = uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices.filter(
             (choice) => choice.state,
         ).length;
@@ -64,7 +70,7 @@ describe('UIChoicesStateHandler suit test', () => {
             [...tcModel.purposeLegitimateInterests.values()].length,
         );
 
-        //Check UILegitimateInterestsVendorChoices
+        // Check UILegitimateInterestsVendorChoices
         const countLegIntVendorsChoicesEnabled = uiChoicesBridgeDto.UILegitimateInterestsVendorChoices.filter(
             (choice) => choice.state,
         ).length;
@@ -72,32 +78,34 @@ describe('UIChoicesStateHandler suit test', () => {
             [...tcModel.vendorLegitimateInterests.values()].length,
         );
 
-        //Check UIVendorChoices
+        // Check UIVendorChoices
         const countVendorsChoicesEnabled = uiChoicesBridgeDto.UIVendorChoices.filter((choice) => choice.state).length;
         expect(countVendorsChoicesEnabled, 'countVendorsChoicesEnabled').to.equal(
             [...tcModel.vendorConsents.values()].length,
         );
 
-        //Check UIPurposeChoices
+        // Check UIPurposeChoices
         const countPurposeChoicesEnabled = uiChoicesBridgeDto.UIPurposeChoices.filter((choice) => choice.state).length;
         expect(countPurposeChoicesEnabled, 'countPurposeChoicesEnabled').to.equal(
             [...tcModel.purposeConsents.values()].length,
         );
 
-        //Check UISpecialFeatureChoices
+        // Check UISpecialFeatureChoices
         const countSpecialFeatureChoicesEnabled = uiChoicesBridgeDto.UISpecialFeatureChoices.filter(
             (choice) => choice.state,
         ).length;
         expect(countSpecialFeatureChoicesEnabled, 'countSpecialFeatureChoicesEnabled').to.equal(0);
 
-        //Check UIGoogleVendorOptions
+        // Check UIGoogleVendorOptions
         const countGoogleVendorOptionsChoicesEnabled = uiChoicesBridgeDto.UIGoogleVendorOptions.filter(
             (choice) => choice.state,
         ).length;
         expect(countGoogleVendorOptionsChoicesEnabled, 'countGoogleVendorOptionsChoicesEnabled').to.equal(
             acModel.googleVendorOptions.filter((option) => option.state).length,
         );
+
     });
+
 });
 
-export { getTCModelByFixture, getACModelByFixture };
+export {getTCModelByFixture, getACModelByFixture};

@@ -1,11 +1,13 @@
 const sinon = require('sinon');
-import { EventDispatcher } from '../../src/EventDispatcher/';
+import {EventDispatcher} from '../../src/EventDispatcher/';
 
 describe('EventDispatcher suit test', () => {
+
     it('EventDispatcher execute function on dispatch', () => {
+
         const subscriber = {
-            method: function (eventObject) {
-                //Do somethings!
+            method: function(eventObject) {
+                // Do somethings!
             },
         };
 
@@ -24,5 +26,7 @@ describe('EventDispatcher suit test', () => {
         eventDispatcher.dispatch(testEvent);
 
         mock.verify();
+
     });
+
 });

@@ -1,7 +1,7 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 const sinon = require('sinon');
-import { TCModelFactory } from '@iabtcf/testing';
-import { TCModel } from '@iabtcf/core';
+import {TCModelFactory} from '@iabtcf/testing';
+import {TCModel} from '@iabtcf/core';
 import {
     ACModelService,
     ACStringService,
@@ -13,22 +13,30 @@ import {
     TCModelService,
     TCStringService,
 } from '../../src/Service';
-import { EventDispatcher, OpenCmpUIEvent, OpenCmpUISubscriber, UIConstructor } from '../../src';
+import {EventDispatcher, OpenCmpUIEvent, OpenCmpUISubscriber, UIConstructor} from '../../src';
 
 describe('OpenCmpUISubscriber suit test', () => {
-    const getCmpPreparatoryService = function () {
+
+    const getCmpPreparatoryService = function() {
+
         const localStorage: Storage = {
             length: 0,
             setItem(key, value): string {
+
                 return value;
+
             },
             clear() {},
             key(index: number): string | null {
+
                 return null;
+
             },
             removeItem(key: string): void {},
             getItem(key: string): string | null {
+
                 return null;
+
             },
         };
 
@@ -58,13 +66,17 @@ describe('OpenCmpUISubscriber suit test', () => {
             .stub(httpRequestService, 'makeRequest')
             .withArgs('GET', 'https://pubtech-ai-solo-cmp.com/google-vendor-list.json')
             .callsFake(function fakeMakeRequest() {
+
                 return new Promise((resolve, reject) => {
+
                     const response = {
                         responseText: JSON.stringify(jsonContent),
                     };
 
                     resolve(response);
+
                 });
+
             });
 
         const acModelService = new ACModelService(
@@ -102,9 +114,13 @@ describe('OpenCmpUISubscriber suit test', () => {
             .stub(tcModelService, 'fetchDataAndBuildTCModel')
             .withArgs('')
             .callsFake(function fakeMakeRequest() {
+
                 return new Promise((resolve, reject) => {
+
                     resolve(tcModel);
+
                 });
+
             });
 
         const uiConstructor = new UIConstructor(
@@ -117,15 +133,19 @@ describe('OpenCmpUISubscriber suit test', () => {
         const eventDispatcher = EventDispatcher.getInstance();
 
         return new CmpPreparatoryService(tcModelService, acModelService, uiConstructor, eventDispatcher, loggerService);
+
     };
 
     it('OpenCmpUISubscriber getSubscribedEvents registered for OpenCmpUIEvent test', () => {
+
         const openCmpUISubscriber = new OpenCmpUISubscriber(getCmpPreparatoryService());
 
         expect(openCmpUISubscriber.getSubscribedEvents()).to.have.own.property(OpenCmpUIEvent.name);
+
     });
 
     it('OpenCmpUISubscriber OpenCmpUIEvent call CmpPreparatoryService test', () => {
+
         const cmpPreparatoryService = getCmpPreparatoryService();
 
         const mock = sinon.mock(cmpPreparatoryService);
@@ -139,5 +159,7 @@ describe('OpenCmpUISubscriber suit test', () => {
         openCmpUISubscriber[openCmpUISubscriber.getSubscribedEvents()[OpenCmpUIEvent.name]](openCmpUIEvent);
 
         mock.verify();
+
     });
+
 });

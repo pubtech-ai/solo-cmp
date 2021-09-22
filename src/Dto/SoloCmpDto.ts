@@ -18,4 +18,5 @@ export interface SoloCmpDto {
     baseUrlVendorList: string;
     initialHeightAmpCmpUi: string | null;
     enableBorderAmpCmpUi: boolean | null;
+    skipACStringCheck: boolean;
 }

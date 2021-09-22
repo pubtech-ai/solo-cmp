@@ -1,10 +1,11 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 const sinon = require('sinon');
-import { GVL, TCModel, TCString } from '@iabtcf/core';
-import { TCModelFactory } from '@iabtcf/testing';
-import { CmpSupportedLanguageProvider, CookieService, LoggerService, TCStringService } from '../../src/Service';
+import {GVL, TCModel, TCString} from '@iabtcf/core';
+import {TCModelFactory} from '@iabtcf/testing';
+import {CmpSupportedLanguageProvider, CookieService, LoggerService, TCStringService} from '../../src/Service';
 
 describe('TCStringService suit test', () => {
+
     const loggerService: LoggerService = new LoggerService(false);
 
     const document = {
@@ -16,21 +17,29 @@ describe('TCStringService suit test', () => {
     const cookieService: CookieService = new CookieService(loggerService, 'solocmp.com', mockDocument);
 
     const getTCModel = (withoutGVL = false): TCModel => {
+
         let tcModel: TCModel;
 
         if (withoutGVL) {
+
             tcModel = (TCModelFactory.noGVL() as unknown) as TCModel;
+
         } else {
+
             tcModel = (TCModelFactory.withGVL() as unknown) as TCModel;
+
         }
 
         return tcModel;
+
     };
 
     it('TCStringService construction fail CMP version test', () => {
+
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
-        const construction = function () {
+        const construction = function() {
+
             new TCStringService(
                 cookieService,
                 loggerService,
@@ -39,15 +48,19 @@ describe('TCStringService suit test', () => {
                 1,
                 'solo-cmp-tc-string',
             );
+
         };
 
         expect(construction).to.throw('TCStringService, cmpVersion parameter must be a valid number.');
+
     });
 
     it('TCStringService construction fail CMP vendorList version test', () => {
+
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
-        const construction = function () {
+        const construction = function() {
+
             new TCStringService(
                 cookieService,
                 loggerService,
@@ -56,24 +69,31 @@ describe('TCStringService suit test', () => {
                 NaN,
                 'solo-cmp-tc-string',
             );
+
         };
 
         expect(construction).to.throw('TCStringService, cmpVendorListVersion parameter must be a valid number.');
+
     });
 
     it('TCStringService construction fail CMP invalid cookie name test', () => {
+
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
-        const construction = function () {
+        const construction = function() {
+
             new TCStringService(cookieService, loggerService, cmpSupportedLanguageProvider, 1, 1, '');
+
         };
 
         expect(construction).to.throw(
             'TCStringService, tcStringCookieName parameter must be a string with a length greater than zero.',
         );
+
     });
 
     it('TCStringService storage tcString test', () => {
+
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
         const tcStringService = new TCStringService(
@@ -93,9 +113,11 @@ describe('TCStringService suit test', () => {
         tcStringService.persistTCString(tcString);
 
         expect(tcStringService.retrieveTCString()).to.equal(tcString);
+
     });
 
     it('TCStringService build tcString test', () => {
+
         const tcString = TCString.encode(getTCModel());
 
         const tcModel: TCModel = TCString.decode(tcString);
@@ -118,9 +140,11 @@ describe('TCStringService suit test', () => {
         expect(tcStringService.buildTCString(tcModel)).to.equal(tcString);
 
         mockLoggerService.verify();
+
     });
 
     it('TCStringService build tcString with TCModel without gvl test', () => {
+
         const tcString = TCString.encode(getTCModel());
 
         const tcModel: TCModel = TCString.decode(tcString);
@@ -141,9 +165,11 @@ describe('TCStringService suit test', () => {
         expect(tcStringService.buildTCString(tcModel)).to.equal('');
 
         mockLoggerService.verify();
+
     });
 
     it('TCStringService build tcString with all consents enabled test', () => {
+
         const tcString = TCString.encode(getTCModel());
 
         const tcModel: TCModel = TCString.decode(tcString);
@@ -169,9 +195,11 @@ describe('TCStringService suit test', () => {
         expect(tcModelWithAllEnabled.purposeConsents.size).to.equal(10);
         expect(tcModelWithAllEnabled.vendorLegitimateInterests.size).to.equal(209);
         expect(tcModelWithAllEnabled.vendorConsents.size).to.equal(467);
+
     });
 
     it('TCStringService is valid tcString test', () => {
+
         const tcString = TCString.encode(getTCModel());
 
         const tcModel: TCModel = TCString.decode(tcString);
@@ -192,9 +220,11 @@ describe('TCStringService suit test', () => {
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
 
         expect(isValidTCString).to.be.true;
+
     });
 
     it('TCStringService is valid tcString with different language used test', () => {
+
         const tcString = TCString.encode(getTCModel());
 
         const tcModel: TCModel = TCString.decode(tcString);
@@ -215,9 +245,11 @@ describe('TCStringService suit test', () => {
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
 
         expect(isValidTCString).to.be.false;
+
     });
 
     it('TCStringService is valid tcString with different CMP version used test', () => {
+
         const tcModelTmp: TCModel = getTCModel();
         const tcString = TCString.encode(tcModelTmp);
 
@@ -239,9 +271,11 @@ describe('TCStringService suit test', () => {
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
 
         expect(isValidTCString).to.be.false;
+
     });
 
     it('TCStringService is valid tcString with different CMP version used test', () => {
+
         const tcString = TCString.encode(getTCModel());
 
         const tcModel: TCModel = TCString.decode(tcString);
@@ -262,5 +296,7 @@ describe('TCStringService suit test', () => {
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
 
         expect(isValidTCString).to.be.false;
+
     });
+
 });

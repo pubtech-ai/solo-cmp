@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 import {
     ACStringService,
     CmpSupportedLanguageProvider,
@@ -6,11 +6,12 @@ import {
     LoggerService,
     TCStringService,
 } from '../../src/Service';
-import { ConsentsPersistSubscriber } from '../../src/EventSubscriber';
-import { ConsentPersistEvent } from '../../src/Event';
+import {ConsentsPersistSubscriber} from '../../src/EventSubscriber';
+import {ConsentPersistEvent} from '../../src/Event';
 const sinon = require('sinon');
 
 describe('ConsentsPersistSubscriber suit test', () => {
+
     const loggerService: LoggerService = new LoggerService(false);
 
     const cookieService: CookieService = new CookieService(loggerService, 'solocmp.com', document);
@@ -18,27 +19,36 @@ describe('ConsentsPersistSubscriber suit test', () => {
     const localStorage: Storage = {
         length: 0,
         setItem(key, value): string {
+
             return value;
+
         },
         clear() {},
         key(index: number): string | null {
+
             return null;
+
         },
         removeItem(key: string): void {},
         getItem(key: string): string | null {
+
             return null;
+
         },
     };
 
     const mockLocalStorage = sinon.mock(localStorage);
 
     it('ConsentsPersistSubscriber getSubscribedEvents registered for ConsentPersistEvent test', () => {
+
         const consentsPersistSubscriber = new ConsentsPersistSubscriber(sinon.mock(), sinon.mock());
 
         expect(consentsPersistSubscriber.getSubscribedEvents()).to.have.own.property(ConsentPersistEvent.name);
+
     });
 
     it('ConsentsPersistSubscriber ConsentPersistEvent call persist for tcString and acString test', () => {
+
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
         const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
@@ -69,5 +79,7 @@ describe('ConsentsPersistSubscriber suit test', () => {
 
         mockACStringService.verify();
         mockTCStringService.verify();
+
     });
+
 });

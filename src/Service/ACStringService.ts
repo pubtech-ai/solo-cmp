@@ -12,6 +12,7 @@ export class ACStringService {
     private readonly acStringLocalStorageKey: string;
     private loggerService: LoggerService;
     private localStorage: Storage;
+    private skipACStringCheck: boolean;
 
     /**
      * Constructor.
@@ -20,12 +21,14 @@ export class ACStringService {
      * @param {string} acStringLocalStorageKey
      * @param {LoggerService} loggerService
      * @param {Storage} localStorage
+     * @param {Boolean} skipACStringCheck
      */
     constructor(
         acStringVersion: number,
         acStringLocalStorageKey: string,
         loggerService: LoggerService,
         localStorage: Storage,
+        skipACStringCheck: boolean,
     ) {
 
         if (Number.isNaN(acStringVersion)) {
@@ -46,6 +49,7 @@ export class ACStringService {
         this.acStringLocalStorageKey = acStringLocalStorageKey;
         this.loggerService = loggerService;
         this.localStorage = localStorage;
+        this.skipACStringCheck = skipACStringCheck;
 
     }
 
@@ -196,9 +200,16 @@ export class ACStringService {
      */
     public isValidACString(acString: string | null): boolean {
 
+        if (this.skipACStringCheck) {
+
+            this.loggerService.debug('Skip ACString validation check');
+            return true;
+
+        }
+
         this.loggerService.debug('Checking if ACString is valid: ' + acString);
 
-        if (acString === null) {
+        if (typeof acString != 'string') {
 
             return false;
 
@@ -207,7 +218,7 @@ export class ACStringService {
         const cmpVersionStringLength: number = String(this.acStringVersion).length;
 
         return (
-            acString === `${this.acStringVersion + ACStringService.acStringIdSeparator}` ||
+            acString == `${this.acStringVersion + ACStringService.acStringIdSeparator}` ||
             (acString.includes(`${this.acStringVersion + ACStringService.acStringIdSeparator}`) &&
                 acString.length > cmpVersionStringLength + 1)
         );

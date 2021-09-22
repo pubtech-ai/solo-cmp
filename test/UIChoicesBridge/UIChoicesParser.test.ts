@@ -1,12 +1,14 @@
-import { expect } from 'chai';
-//@ts-ignore
-import { getACModelByFixture, getTCModelByFixture } from './UIChoicesBridgeDtoBuilder.test';
-import { TCModel } from '@iabtcf/core';
-import { ACModel } from '../../src/Entity';
-import { UIChoicesBridgeDtoBuilder, UIChoicesParser } from '../../src/UIChoicesBridge';
+import {expect} from 'chai';
+// @ts-ignore
+import {getACModelByFixture, getTCModelByFixture} from './UIChoicesBridgeDtoBuilder.test';
+import {TCModel} from '@iabtcf/core';
+import {ACModel} from '../../src/Entity';
+import {UIChoicesBridgeDtoBuilder, UIChoicesParser} from '../../src/UIChoicesBridge';
 
 describe('UIChoicesParser suit test', () => {
+
     it('UIChoicesParser parsing logic validation test', () => {
+
         const tcModelInit: TCModel = getTCModelByFixture();
         const acModelInit: ACModel = getACModelByFixture();
 
@@ -66,5 +68,7 @@ describe('UIChoicesParser suit test', () => {
             [...tcModel.specialFeatureOptins.values()].length,
             '[...tcModel.specialFeatureOptins.values()].length',
         ).to.equal(1);
+
     });
+
 });
