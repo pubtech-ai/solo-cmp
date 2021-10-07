@@ -5,28 +5,35 @@ export class CmpSupportedLanguageProvider {
 
     public static readonly defaultLanguage: string = 'en';
     private readonly language: string;
-    private readonly browserLanguage: string;
+    private readonly userLanguage: string;
     private readonly cmpSupportedLanguages: string[];
 
     /**
      * Constructor.
      *
      * @param {string[]} supportedLanguages
-     * @param {string} browserLanguage
+     * @param {string} userLanguage
      */
-    constructor(supportedLanguages: string[], browserLanguage: string) {
+    constructor(supportedLanguages: string[], userLanguage: string) {
 
         let languageVendorList = CmpSupportedLanguageProvider.defaultLanguage;
-        const cleanedBrowserLanguage = browserLanguage.split('-', 2)[0];
 
-        if (supportedLanguages.includes(cleanedBrowserLanguage)) {
+        const cleanedUserLanguage = userLanguage.split('-', 2)[0];
 
-            languageVendorList = cleanedBrowserLanguage;
+        if (cleanedUserLanguage.length != 2) {
+
+            throw new Error('The UserLanguage parameter must be a 2-character string');
+
+        }
+
+        if (supportedLanguages.includes(cleanedUserLanguage)) {
+
+            languageVendorList = cleanedUserLanguage;
 
         }
 
         this.cmpSupportedLanguages = supportedLanguages;
-        this.browserLanguage = browserLanguage;
+        this.userLanguage = cleanedUserLanguage;
         this.language = languageVendorList.toLowerCase();
 
     }
@@ -44,13 +51,13 @@ export class CmpSupportedLanguageProvider {
     }
 
     /**
-     * Retrieve the current language of browser.
+     * Retrieve the current language of user.
      *
      * @return {string}
      */
-    getBrowserLanguage(): string {
+    getUserLanguage(): string {
 
-        return this.browserLanguage;
+        return this.userLanguage;
 
     }
 

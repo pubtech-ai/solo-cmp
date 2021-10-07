@@ -94,7 +94,8 @@ const soloCmp = new SoloCmp(
                // Execute some logic when the consents are already present or the user has given his consent.
            },
     },
-    supportedLanguages: ['it', 'en'], // Here you can specify all the languages that your CMP supports and consequently the case in which a certain language is not supported will be automatically handled and there will be a fallback to 'en'
+    supportedLanguages: ['it', 'en'], // Here you specify all the languages that your CMP supports and consequently the case in which a certain language is not supported will be automatically handled and there will be a fallback to 'en'
+    userLanguage: navigator.language.split('-', 2)[0], // Here you specify the user language, only 2 chars.
     cmpVersion: cmpVersion, // Your CMP version
     acStringVersion: 1, // Currently 1 is the version supported by google
     cmpVendorListVersion: cmpVendorListVersion,

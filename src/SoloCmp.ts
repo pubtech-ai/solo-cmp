@@ -48,6 +48,7 @@ export class SoloCmp {
     private readonly acStringLocalStorageName: string;
     private readonly cmpConfig: any;
     private readonly supportedLanguages: string[];
+    private readonly userLanguage: string;
     private readonly initialHeightAmpCmpUi: string | null;
     private readonly enableBorderAmpCmpUi: boolean | null = null;
     private readonly skipACStringCheck: boolean;
@@ -63,6 +64,7 @@ export class SoloCmp {
         this.isDebugEnabled = soloCmpDto.isDebugEnabled;
         this.cmpConfig = soloCmpDto.cmpConfig;
         this.supportedLanguages = soloCmpDto.supportedLanguages;
+        this.userLanguage = soloCmpDto.userLanguage;
         this.cmpVersion = soloCmpDto.cmpVersion;
         this.cmpVendorListVersion = soloCmpDto.cmpVendorListVersion;
         this.acStringVersion = soloCmpDto.acStringVersion;
@@ -103,7 +105,7 @@ export class SoloCmp {
             })
             .addServiceProvider(CmpSupportedLanguageProvider.getClassName(), () => {
 
-                return new CmpSupportedLanguageProvider(this.supportedLanguages, navigator.language);
+                return new CmpSupportedLanguageProvider(this.supportedLanguages, this.userLanguage);
 
             })
             .addServiceProvider(TCStringService.getClassName(), (container: IContainer) => {
