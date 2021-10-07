@@ -5,7 +5,7 @@ describe('CmpSupportedLanguageProvider suit test', () => {
 
     it('CmpSupportedLanguageProvider construction test', () => {
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         expect(cmpSupportedLanguageProvider.getCurrentLanguageForCmp()).to.equal('it');
 
@@ -25,7 +25,7 @@ describe('CmpSupportedLanguageProvider suit test', () => {
 
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
 
-        expect(cmpSupportedLanguageProvider.getBrowserLanguage()).to.equal('it-IT');
+        expect(cmpSupportedLanguageProvider.getUserLanguage()).to.equal('it');
 
     });
 

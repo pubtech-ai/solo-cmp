@@ -36,7 +36,7 @@ describe('TCStringService suit test', () => {
 
     it('TCStringService construction fail CMP version test', () => {
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const construction = function() {
 
@@ -57,7 +57,7 @@ describe('TCStringService suit test', () => {
 
     it('TCStringService construction fail CMP vendorList version test', () => {
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const construction = function() {
 
@@ -78,7 +78,7 @@ describe('TCStringService suit test', () => {
 
     it('TCStringService construction fail CMP invalid cookie name test', () => {
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const construction = function() {
 
@@ -94,7 +94,7 @@ describe('TCStringService suit test', () => {
 
     it('TCStringService storage tcString test', () => {
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -124,7 +124,7 @@ describe('TCStringService suit test', () => {
 
         tcModel.gvl = getTCModel().gvl;
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -149,7 +149,7 @@ describe('TCStringService suit test', () => {
 
         const tcModel: TCModel = TCString.decode(tcString);
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -176,7 +176,7 @@ describe('TCStringService suit test', () => {
 
         tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -206,7 +206,7 @@ describe('TCStringService suit test', () => {
 
         tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -231,7 +231,7 @@ describe('TCStringService suit test', () => {
 
         tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -257,7 +257,7 @@ describe('TCStringService suit test', () => {
 
         tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,
@@ -282,7 +282,7 @@ describe('TCStringService suit test', () => {
 
         tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it-IT');
+        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it');
 
         const tcStringService = new TCStringService(
             cookieService,

@@ -179,7 +179,7 @@ export class TCStringService {
         const cmpVersionCheck: boolean = tcModel.cmpVersion === this.cmpVersion;
         const cmpVendorListVersionCheck: boolean = tcModel.vendorListVersion === this.cmpVendorListVersion;
 
-        const userLanguage: string = this.cmpSupportedLanguageProvider.getBrowserLanguage().split('-', 2)[0];
+        const userLanguage: string = this.cmpSupportedLanguageProvider.getUserLanguage();
 
         let localeCheck = true;
 
