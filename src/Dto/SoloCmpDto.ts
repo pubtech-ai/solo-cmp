@@ -8,6 +8,7 @@ export interface SoloCmpDto {
     isDebugEnabled: boolean;
     cmpConfig: any;
     supportedLanguages: string[];
+    userLanguage: string;
     cmpVersion: number;
     acStringVersion: number;
     cmpVendorListVersion: number;
