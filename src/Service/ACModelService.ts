@@ -16,6 +16,7 @@ export class ACModelService {
     private googleVendorOptions: GoogleVendorOption[] = [];
     private httpRequestService: HttpRequestService;
     private loggerService: LoggerService;
+    private acString: string;
 
     /**
      * Constructor.
@@ -55,6 +56,7 @@ export class ACModelService {
     public async fetchDataAndBuildACModel(acString: string): Promise<ACModel> {
 
         this.googleVendorOptions = [];
+        this.acString = acString;
 
         const url = `${this.baseUrlVendorList}/${ACModelService.googleVendorListFileName}`;
 
@@ -68,7 +70,7 @@ export class ACModelService {
 
                 try {
 
-                    acModel = this.buildACModel(this.googleVendorList, acString);
+                    acModel = this.buildACModel(this.googleVendorList);
 
                 } catch (error) {
 
@@ -99,15 +101,14 @@ export class ACModelService {
      * to restore state if is valid.
      *
      * @param {object[]} googleVendorList
-     * @param {string} acString
      *
      * @return {ACModel}
      */
-    private buildACModel(googleVendorList: Record<string, unknown>[], acString: string): ACModel {
+    private buildACModel(googleVendorList: Record<string, unknown>[]): ACModel {
 
-        if (this.acStringService.isValidACString(acString)) {
+        if (this.acStringService.isValidACString(this.acString)) {
 
-            const vendorIdsEnabled = this.acStringService.getVendorIdsByACString(acString);
+            const vendorIdsEnabled = this.acStringService.getVendorIdsByACString(this.acString);
             this.googleVendorList.forEach((googleVendor: any) => {
 
                 const state = vendorIdsEnabled.includes(String(googleVendor.provider_id));

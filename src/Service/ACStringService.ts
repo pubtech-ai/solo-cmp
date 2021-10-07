@@ -12,7 +12,7 @@ export class ACStringService {
     private readonly acStringLocalStorageKey: string;
     private loggerService: LoggerService;
     private localStorage: Storage;
-    private skipACStringCheck: boolean;
+    private readonly skipACStringCheck: boolean;
 
     /**
      * Constructor.
@@ -119,7 +119,7 @@ export class ACStringService {
      */
     public getVendorIdsByACString(acString: string | null): string[] {
 
-        if (acString) {
+        if (typeof acString == 'string' && acString.length > 0) {
 
             const cleanString = acString.split(ACStringService.acStringIdSeparator).pop();
 

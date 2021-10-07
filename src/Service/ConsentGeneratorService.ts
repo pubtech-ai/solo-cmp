@@ -41,14 +41,10 @@ export class ConsentGeneratorService {
         soloCmpDataBundle: SoloCmpDataBundle,
     ): void {
 
-        const tmpGvl = soloCmpDataBundle.tcModel.gvl;
         const choicesParser = new UIChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
 
         const tcModel = choicesParser.parseTCModel(uiChoicesBridgeDto);
         const acModel = choicesParser.parseACModel(uiChoicesBridgeDto);
-
-        // REQUIRED UNTIL SOLVED https://github.com/InteractiveAdvertisingBureau/iabtcf-es/issues/297
-        tcModel.gvl = tmpGvl;
 
         const tcString = this.tcStringService.buildTCString(tcModel);
         const acString = this.acStringService.buildACString(acModel);
