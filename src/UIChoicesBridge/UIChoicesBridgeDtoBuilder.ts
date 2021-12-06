@@ -31,16 +31,28 @@ export class UIChoicesBridgeDtoBuilder {
      * @param {TCModel} tcModel
      * @param {ACModel} acModel
      * @param {boolean} firstTimeConsentRequest
+     * @param {boolean} isLegitimateInterestDisabled
      * @private
      */
-    constructor(tcModel: TCModel, acModel: ACModel, firstTimeConsentRequest: boolean) {
+    constructor(
+        tcModel: TCModel,
+        acModel: ACModel,
+        firstTimeConsentRequest: boolean,
+        isLegitimateInterestDisabled: boolean,
+    ) {
 
         this.firstTimeConsentRequest = firstTimeConsentRequest;
 
         this.buildUIPurposeChoices(tcModel);
         this.buildUISpecialFeatureOptInsChoices(tcModel);
         this.buildUIVendorChoices(tcModel);
-        this.buildUILegitimateInterestsChoices(tcModel);
+
+        if (!isLegitimateInterestDisabled) {
+
+            this.buildUILegitimateInterestsChoices(tcModel);
+
+        }
+
         this.buildUIGoogleVendorOptions(acModel);
 
     }

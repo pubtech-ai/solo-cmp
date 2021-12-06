@@ -218,6 +218,7 @@ export class SoloCmp {
                     this.uiConstructor,
                     container[EventDispatcher.getClassName()],
                     container[LoggerService.getClassName()],
+                    this.isLegitimateInterestDisabled,
                 );
 
             })
