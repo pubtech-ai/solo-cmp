@@ -119,6 +119,7 @@ export class SoloCmp {
                     this.cmpVersion,
                     this.cmpVendorListVersion,
                     this.tcStringCookieName,
+                    this.isLegitimateInterestDisabled,
                 );
 
             })
