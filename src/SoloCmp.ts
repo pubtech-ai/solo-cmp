@@ -1,9 +1,9 @@
-import {SoloCmpDto} from './Dto';
 import {GVL} from '@iabtcf/core';
 import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
 import {EventDispatcher} from './EventDispatcher';
 import {UIConstructor} from './UIConstructor';
+import {SoloCmpDto} from './Dto';
 
 import {
     AmpSubscriber,
@@ -52,6 +52,7 @@ export class SoloCmp {
     private readonly initialHeightAmpCmpUi: string | null;
     private readonly enableBorderAmpCmpUi: boolean | null = null;
     private readonly skipACStringCheck: boolean;
+    private readonly isLegitimateInterestDisabled: boolean;
 
     /**
      * Constructor.
@@ -76,6 +77,7 @@ export class SoloCmp {
         this.initialHeightAmpCmpUi = soloCmpDto.initialHeightAmpCmpUi;
         this.enableBorderAmpCmpUi = soloCmpDto.enableBorderAmpCmpUi;
         this.skipACStringCheck = soloCmpDto.skipACStringCheck;
+        this.isLegitimateInterestDisabled = soloCmpDto.isLegitimateInterestDisabled;
 
         this.registerServices();
         this.registerSubscribers();
