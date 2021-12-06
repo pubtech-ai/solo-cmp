@@ -14,6 +14,7 @@ export class TCStringService {
     private readonly cmpVendorListVersion: number;
     private readonly cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
     private readonly tcStringCookieName: string;
+    private readonly isLegitimateInterestDisabled: boolean;
 
     /**
      * Constructor.
@@ -24,6 +25,7 @@ export class TCStringService {
      * @param {number} cmpVersion
      * @param {number} cmpVendorListVersion
      * @param {string} tcStringCookieName
+     * @param {boolean} isLegitimateInterestDisabled
      */
     constructor(
         cookieService: CookieService,
@@ -32,6 +34,7 @@ export class TCStringService {
         cmpVersion: number,
         cmpVendorListVersion: number,
         tcStringCookieName: string,
+        isLegitimateInterestDisabled: boolean,
     ) {
 
         if (Number.isNaN(cmpVersion)) {
@@ -60,6 +63,7 @@ export class TCStringService {
         this.cmpVersion = cmpVersion;
         this.cmpVendorListVersion = cmpVendorListVersion;
         this.tcStringCookieName = tcStringCookieName;
+        this.isLegitimateInterestDisabled = isLegitimateInterestDisabled;
 
     }
 
@@ -135,18 +139,26 @@ export class TCStringService {
      */
     public buildTCStringAllEnabled(tcModel: TCModel): string {
 
-        const tcModelWithAllEnabled: TCModel = tcModel;
-
-        tcModelWithAllEnabled.setAll();
+        tcModel.setAll();
 
         // REQUIRED UNTIL SOLVED https://github.com/InteractiveAdvertisingBureau/iabtcf-es/issues/179
         tcModel.publisherConsents.set([...tcModel.purposeConsents.values()]);
-        const purposeLegitimateInterests = [...tcModel.purposeLegitimateInterests.values()].filter(
-            (purposeId) => purposeId !== 1,
-        );
-        tcModel.publisherLegitimateInterests.set(purposeLegitimateInterests);
 
-        return TCString.encode(tcModelWithAllEnabled);
+        if (this.isLegitimateInterestDisabled) {
+
+            tcModel.unsetAllPurposeLegitimateInterests();
+            tcModel.unsetAllVendorLegitimateInterests();
+
+        } else {
+
+            const purposeLegitimateInterests = [...tcModel.purposeLegitimateInterests.values()].filter(
+                (purposeId) => purposeId !== 1,
+            );
+            tcModel.publisherLegitimateInterests.set(purposeLegitimateInterests);
+
+        }
+
+        return TCString.encode(tcModel);
 
     }
 

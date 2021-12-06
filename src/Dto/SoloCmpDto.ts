@@ -20,4 +20,5 @@ export interface SoloCmpDto {
     initialHeightAmpCmpUi: string | null;
     enableBorderAmpCmpUi: boolean | null;
     skipACStringCheck: boolean;
+    isLegitimateInterestDisabled: boolean;
 }

@@ -107,6 +107,7 @@ const soloCmp = new SoloCmp(
     initialHeightAmpCmpUi: '30vh', // Amp configuration this configure the initial height of the CMP running in an AMP environment.
     enableBorderAmpCmpUi: false, // Amp configuration this configure the border of the CMP running in an AMP environment.
     skipACStringCheck: false, // This parameter, if configured to true, allows to avoid the validation code of the ACString.
+    isLegitimateInterestDisabled: false // This parameter, if configured to true, allows to skip the legitimate interest build.
 }
 );
 

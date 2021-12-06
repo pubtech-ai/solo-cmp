@@ -19,6 +19,7 @@ export class CmpPreparatoryService {
     private uiConstructor: UIConstructor;
     private eventDispatcher: EventDispatcher;
     private loggerService: LoggerService;
+    private isLegitimateInterestDisabled: boolean
 
     /**
      * Constructor.
@@ -28,6 +29,7 @@ export class CmpPreparatoryService {
      * @param {UIConstructor} uiConstructor
      * @param {EventDispatcher} eventDispatcher
      * @param {LoggerService} loggerService
+     * @param {Boolean} isLegitimateInterestDisabled
      */
     constructor(
         tcModelService: TCModelService,
@@ -35,6 +37,7 @@ export class CmpPreparatoryService {
         uiConstructor: UIConstructor,
         eventDispatcher: EventDispatcher,
         loggerService: LoggerService,
+        isLegitimateInterestDisabled: boolean,
     ) {
 
         this.tcModelService = tcModelService;
@@ -42,6 +45,7 @@ export class CmpPreparatoryService {
         this.uiConstructor = uiConstructor;
         this.eventDispatcher = eventDispatcher;
         this.loggerService = loggerService;
+        this.isLegitimateInterestDisabled = isLegitimateInterestDisabled;
 
     }
 
@@ -83,6 +87,7 @@ export class CmpPreparatoryService {
                         tcModel,
                         acModel,
                         firstTimeConsentRequest,
+                        this.isLegitimateInterestDisabled,
                     ).createUIChoicesBridgeDto();
 
                     const soloCmpDataBundle = new SoloCmpDataBundle(
