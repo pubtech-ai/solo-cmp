@@ -1,4 +1,4 @@
-import {TCModel} from '@iabtcf/core';
+import {PurposeRestriction, RestrictionType, TCModel} from '@iabtcf/core';
 import {ACModel, PurposeOption, VendorOption} from '../Entity';
 import {UIChoicesBridgeDto} from './UIChoicesBridgeDto';
 
@@ -26,6 +26,55 @@ export class UIChoicesParser {
     }
 
     /**
+     * Create a PurposeRestriction.
+     *
+     * @param {number} purposeId
+     * @param {RestrictionType} restrictionType
+     * @private
+     * @return {PurposeRestriction}
+     */
+    public static createPurposeRestriction(
+        purposeId: number,
+        restrictionType: RestrictionType): PurposeRestriction {
+
+        const purposeRestriction = new PurposeRestriction();
+        purposeRestriction.purposeId = purposeId;
+        purposeRestriction.restrictionType = restrictionType;
+
+        return purposeRestriction;
+
+    }
+
+    /**
+     * This method flip the legitimate interest purpose of Google to Consent,
+     * to enabled the engagement to deliver ads.
+     *
+     * @param {TCModel} tcModel
+     */
+    public static addPublisherRestrictionForGoogle(tcModel: TCModel): void {
+
+        const GoogleVendorId = 755;
+        // Add RequireConsent restriction for Google to serve Ads.
+        tcModel.publisherRestrictions.add(
+            GoogleVendorId,
+            UIChoicesParser.createPurposeRestriction(2, RestrictionType.REQUIRE_CONSENT),
+        );
+        tcModel.publisherRestrictions.add(
+            GoogleVendorId,
+            UIChoicesParser.createPurposeRestriction(7, RestrictionType.REQUIRE_CONSENT),
+        );
+        tcModel.publisherRestrictions.add(
+            GoogleVendorId,
+            UIChoicesParser.createPurposeRestriction(9, RestrictionType.REQUIRE_CONSENT),
+        );
+        tcModel.publisherRestrictions.add(
+            GoogleVendorId,
+            UIChoicesParser.createPurposeRestriction(10, RestrictionType.REQUIRE_CONSENT),
+        );
+
+    }
+
+    /**
      * Parse the choices to build the
      * TCModel with all choices applied.
      *
@@ -38,12 +87,21 @@ export class UIChoicesParser {
         this._tcModel.purposeConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices));
         this._tcModel.vendorConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIVendorChoices));
         this._tcModel.specialFeatureOptins.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UISpecialFeatureChoices));
-        this._tcModel.purposeLegitimateInterests.set(
-            this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices),
+
+        const purposeLegIntEnabled = this.filterEnabledChoicesId(
+            uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices,
         );
+        this._tcModel.purposeLegitimateInterests.set(purposeLegIntEnabled);
         this._tcModel.vendorLegitimateInterests.set(
             this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsVendorChoices),
         );
+
+        if (purposeLegIntEnabled.length === 0) {
+
+            // Required for enable Google to serve ads.
+            UIChoicesParser.addPublisherRestrictionForGoogle(this._tcModel);
+
+        }
 
         this._tcModel.publisherConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices));
         this._tcModel.publisherLegitimateInterests.set(

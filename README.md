@@ -6,6 +6,7 @@
 #### What is it for?
 - This library is a wrapper of the [IAB's Transparency and Consent Framework (TCF)](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework) 
 library with the intention of simplifying and adding more ways of customization of the whole flow that starts from the view of the CMP banner at the release of the user's consent.
+Note that this library was born to satisfy the CMPs for publishers' websites.
 
 #### Are there any requirements?
 - This library is completely framework agnostic, so feel free to implement your CMP with any framework such as Vue, React and others.
@@ -15,6 +16,7 @@ library with the intention of simplifying and adding more ways of customization 
 
 #### Together with the easier implementation of your CMP you have:
 
+- 💻 Specialized for publisher websites
 - 🚀 Optimized consent release performance
 - 🏄 Ability to add plugins in standard flow
 - ⚡️ Integration with AMP

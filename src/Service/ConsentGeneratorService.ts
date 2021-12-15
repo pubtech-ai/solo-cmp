@@ -1,4 +1,4 @@
-import {UIChoicesParser, UIChoicesBridgeDto} from '../UIChoicesBridge/';
+import {UIChoicesParser} from '../UIChoicesBridge/';
 import {ConsentReadyEvent, ConsentPersistEvent} from '../Event';
 import {EventDispatcher} from '../EventDispatcher';
 import {TCStringService} from './TCStringService';

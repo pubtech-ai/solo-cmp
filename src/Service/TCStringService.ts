@@ -1,7 +1,8 @@
-import {TCModel, TCString} from '@iabtcf/core';
+import {RestrictionType, TCModel, TCString} from '@iabtcf/core';
 import {CookieService} from './CookieService';
 import {LoggerService} from './LoggerService';
 import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
+import {UIChoicesParser} from '../UIChoicesBridge';
 
 /**
  * TCStringService.
@@ -148,6 +149,9 @@ export class TCStringService {
 
             tcModel.unsetAllPurposeLegitimateInterests();
             tcModel.unsetAllVendorLegitimateInterests();
+
+            // Required for enable Google to serve ads.
+            UIChoicesParser.addPublisherRestrictionForGoogle(tcModel);
 
         } else {
 
