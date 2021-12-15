@@ -33,18 +33,14 @@ export class ConsentGeneratorService {
      * Generate the consent strings by the changes made on the UI bridges
      * parse the choices and dispatch ready and persist events.
      *
-     * @param {UIChoicesBridgeDto} uiChoicesBridgeDto
      * @param {SoloCmpDataBundle} soloCmpDataBundle
      */
-    public generateAndPersistConsent(
-        uiChoicesBridgeDto: UIChoicesBridgeDto,
-        soloCmpDataBundle: SoloCmpDataBundle,
-    ): void {
+    public generateAndPersistConsent(soloCmpDataBundle: SoloCmpDataBundle): void {
 
         const choicesParser = new UIChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
 
-        const tcModel = choicesParser.parseTCModel(uiChoicesBridgeDto);
-        const acModel = choicesParser.parseACModel(uiChoicesBridgeDto);
+        const tcModel = choicesParser.parseTCModel(soloCmpDataBundle.uiChoicesBridgeDto);
+        const acModel = choicesParser.parseACModel(soloCmpDataBundle.uiChoicesBridgeDto);
 
         const tcString = this.tcStringService.buildTCString(tcModel);
         const acString = this.acStringService.buildACString(acModel);

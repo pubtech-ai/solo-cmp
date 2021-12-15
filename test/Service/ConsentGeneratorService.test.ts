@@ -60,6 +60,7 @@ describe('ConsentGeneratorService suit test', () => {
             Number(tcModel.cmpVersion),
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
+            false,
         );
 
         const acStringService = new ACStringService(
@@ -88,10 +89,14 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel, true).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
+            tcModel,
+            acModel,
+            true,
+            false,
+        ).createUIChoicesBridgeDto();
 
         consentGeneratorService.generateAndPersistConsent(
-            uiChoicesBridgeDto,
             new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel, true),
         );
 
@@ -117,6 +122,7 @@ describe('ConsentGeneratorService suit test', () => {
             Number(tcModel.cmpVersion),
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
+            false,
         );
 
         const acStringService = new ACStringService(
@@ -145,10 +151,14 @@ describe('ConsentGeneratorService suit test', () => {
 
         const consentGeneratorService = new ConsentGeneratorService(tcStringService, acStringService, eventDispatcher);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel, true).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
+            tcModel,
+            acModel,
+            true,
+            false,
+        ).createUIChoicesBridgeDto();
 
         consentGeneratorService.generateAndPersistConsent(
-            uiChoicesBridgeDto,
             new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel, true),
         );
 

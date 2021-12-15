@@ -49,7 +49,13 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const acStringService = new ACStringService(
+            1,
+            'solo-cmp-ac-string',
+            loggerService,
+            mockLocalStorage,
+            false,
+        );
         const tcStringService = new TCStringService(
             cookieService,
             loggerService,
@@ -57,6 +63,7 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
+            false,
         );
 
         return new ConsentGeneratorService(tcStringService, acStringService, EventDispatcher.getInstance());
@@ -77,11 +84,16 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
         const tcModel = TCModelFactory.withGVL();
         const acModel = new ACModel([]);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
+            tcModel,
+            acModel,
+            true,
+            false,
+        ).createUIChoicesBridgeDto();
 
-        const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
+        const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel, true);
 
-        const applyConsentEvent = new ApplyConsentEvent(uiChoicesBridgeDto, soloCmpDataBundle);
+        const applyConsentEvent = new ApplyConsentEvent(soloCmpDataBundle);
 
         const consentGeneratorService = getConsentsGeneratorService();
 
@@ -89,7 +101,7 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         mock.expects('generateAndPersistConsent')
             .once()
-            .withArgs(applyConsentEvent.uiChoicesBridgeDto, soloCmpDataBundle);
+            .withArgs(soloCmpDataBundle);
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 
@@ -106,9 +118,14 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
         const tcModel = TCModelFactory.withGVL();
         const acModel = new ACModel([]);
 
-        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(tcModel, acModel).createUIChoicesBridgeDto();
+        const uiChoicesBridgeDto = new UIChoicesBridgeDtoBuilder(
+            tcModel,
+            acModel,
+            true,
+            false,
+        ).createUIChoicesBridgeDto();
 
-        const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel);
+        const soloCmpDataBundle = new SoloCmpDataBundle(uiChoicesBridgeDto, tcModel, acModel, true);
 
         const acceptAllEvent = new AcceptAllEvent(soloCmpDataBundle);
 

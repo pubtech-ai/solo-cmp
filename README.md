@@ -88,11 +88,9 @@ const soloCmp = new SoloCmp(
 {
     uiConstructor: uiConstructor,
     isDebugEnabled: true, // Debug flag that enable and disable the debug method of LoggerService, this feature should help you to debug some 'bugs'.
-    cmpConfig: {// Store that object inside the CmpConfigurationProvider service that can be used by your plugin.
-           isAmp: true, // This feature is experimental it will dispatch some specific events to implement the AMP version of your CMP.
-           onConsentAds: () => {
-               // Execute some logic when the consents are already present or the user has given his consent.
-           },
+    isAmp: true, // This feature is experimental it will dispatch some specific events to implement the AMP version of your CMP.
+    onConsentAds: () => {
+        // Execute some logic when the consents are already present or the user has given his consent.
     },
     supportedLanguages: ['it', 'en'], // Here you specify all the languages that your CMP supports and consequently the case in which a certain language is not supported will be automatically handled and there will be a fallback to 'en'
     userLanguage: navigator.language.split('-', 2)[0], // Here you specify the user language, only 2 chars.
@@ -112,6 +110,9 @@ const soloCmp = new SoloCmp(
 );
 
 //This starts the library, now you should only worry about implementing the UI of the CMP you want to make! See below!
+//You can provide a tcString, acString and an additional validation callback that must return a boolean value.
+//If you provide a tcString and acString to construct the state of the UIChoicesBridge those strings will be used.
+//The callback is useful if you need to add additional validation check logic that you think is required.
 soloCmp.init();
 
 ```

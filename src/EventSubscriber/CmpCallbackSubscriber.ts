@@ -1,23 +1,22 @@
 import {ConsentReadyEvent} from '../Event';
 import {EventSubscriberInterface} from '../EventDispatcher';
-import {CmpConfigurationProvider, CmpConfiguration} from '../Service';
-import {TCString} from '@iabtcf/core';
+import {TCModel, TCString} from '@iabtcf/core';
 
 /**
  * CmpCallbackSubscriber.
  */
 export class CmpCallbackSubscriber implements EventSubscriberInterface {
 
-    private cmpConfigurationProvider: CmpConfigurationProvider;
+    private onConsentAdsCallBack: (event: ConsentReadyEvent, tcModel: TCModel) => void;
 
     /**
      * Constructor.
      *
-     * @param {CmpConfigurationProvider} cmpConfigurationProvider
+     * @param {CallableFunction} onConsentAdsCallBack
      */
-    constructor(cmpConfigurationProvider: CmpConfigurationProvider) {
+    constructor(onConsentAdsCallBack: (event: ConsentReadyEvent, tcModel: TCModel) => void) {
 
-        this.cmpConfigurationProvider = cmpConfigurationProvider;
+        this.onConsentAdsCallBack = onConsentAdsCallBack;
 
     }
 
@@ -40,9 +39,7 @@ export class CmpCallbackSubscriber implements EventSubscriberInterface {
      */
     public onConsentReady(event: ConsentReadyEvent): void {
 
-        const cmpConfiguration: CmpConfiguration = this.cmpConfigurationProvider.cmpConfiguration;
-
-        cmpConfiguration.onConsentAdsCallBack(event, TCString.decode(event.tcString));
+        this.onConsentAdsCallBack(event, TCString.decode(event.tcString));
 
     }
 

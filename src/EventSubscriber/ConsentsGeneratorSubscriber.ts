@@ -41,7 +41,7 @@ export class ConsentsGeneratorSubscriber implements EventSubscriberInterface {
      */
     public onApplyConsent(event: ApplyConsentEvent): void {
 
-        this.consentGeneratorService.generateAndPersistConsent(event.uiChoicesBridgeDto, event.soloCmpDataBundle);
+        this.consentGeneratorService.generateAndPersistConsent(event.soloCmpDataBundle);
 
     }
 

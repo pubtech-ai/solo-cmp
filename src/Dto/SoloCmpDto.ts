@@ -1,4 +1,6 @@
 import {UIConstructor} from '../UIConstructor';
+import {ConsentReadyEvent} from '../Event';
+import {TCModel} from '@iabtcf/core';
 
 /**
  * SoloCmpDto.
@@ -6,7 +8,8 @@ import {UIConstructor} from '../UIConstructor';
 export interface SoloCmpDto {
     uiConstructor: UIConstructor;
     isDebugEnabled: boolean;
-    cmpConfig: any;
+    isAmp: boolean;
+    onConsentAds: (event: ConsentReadyEvent, tcModel: TCModel) => void;
     supportedLanguages: string[];
     userLanguage: string;
     cmpVersion: number;
