@@ -8,7 +8,6 @@ import {SoloCmpDto} from './Dto';
 import {
     AmpSubscriber,
     OpenCmpUISubscriber,
-    ConsentsPersistSubscriber,
     ConsentsGeneratorSubscriber,
     CmpCallbackSubscriber,
     CmpApiSubscriber,
@@ -233,14 +232,6 @@ export class SoloCmp {
             .addEventSubscriberProvider(OpenCmpUISubscriber.getClassName(), (container: IContainer) => {
 
                 return new OpenCmpUISubscriber(container[CmpPreparatoryService.getClassName()]);
-
-            })
-            .addEventSubscriberProvider(ConsentsPersistSubscriber.getClassName(), (container: IContainer) => {
-
-                return new ConsentsPersistSubscriber(
-                    container[TCStringService.getClassName()],
-                    container[ACStringService.getClassName()],
-                );
 
             })
             .addEventSubscriberProvider(ConsentsGeneratorSubscriber.getClassName(), (container: IContainer) => {

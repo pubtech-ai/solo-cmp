@@ -27,7 +27,7 @@ Note that this library was born to satisfy the CMPs for publishers' websites.
   - [Using](#using)
   - [Contribution](#contribution)
   - [Internal Documentation](https://github.com/pubtech-ai/solo-cmp/blob/main/doc/internal-solo-cmp.md) (complete documentation soon)
-  
+
 #### Installation
 
 ```
