@@ -47,6 +47,7 @@ describe('TCStringService suit test', () => {
                 NaN,
                 1,
                 'solo-cmp-tc-string',
+                true,
             );
 
         };
@@ -68,6 +69,7 @@ describe('TCStringService suit test', () => {
                 1,
                 NaN,
                 'solo-cmp-tc-string',
+                true,
             );
 
         };
@@ -82,7 +84,7 @@ describe('TCStringService suit test', () => {
 
         const construction = function() {
 
-            new TCStringService(cookieService, loggerService, cmpSupportedLanguageProvider, 1, 1, '');
+            new TCStringService(cookieService, loggerService, cmpSupportedLanguageProvider, 1, 1, '', true);
 
         };
 
@@ -103,6 +105,7 @@ describe('TCStringService suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
+            true,
         );
 
         expect(tcStringService.retrieveTCString()).to.equal('');
@@ -133,6 +136,7 @@ describe('TCStringService suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
+            true,
         );
 
         mockLoggerService.expects('debug').once();
@@ -158,6 +162,7 @@ describe('TCStringService suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
+            true,
         );
 
         mockLoggerService.expects('error').once();
@@ -247,6 +252,7 @@ describe('TCStringService suit test', () => {
             Number(tcModel.cmpVersion),
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
+            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
@@ -272,6 +278,7 @@ describe('TCStringService suit test', () => {
             Number(tcModel.cmpVersion),
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
+            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
@@ -298,6 +305,7 @@ describe('TCStringService suit test', () => {
             Number(tcModelTmp.cmpVersion) + 1,
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
+            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
@@ -323,6 +331,7 @@ describe('TCStringService suit test', () => {
             Number(tcModel.cmpVersion),
             1,
             'solo-cmp-tc-string',
+            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);

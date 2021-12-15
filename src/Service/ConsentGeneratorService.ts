@@ -1,5 +1,5 @@
 import {UIChoicesParser} from '../UIChoicesBridge/';
-import {ConsentReadyEvent, ConsentPersistEvent} from '../Event';
+import {ConsentReadyEvent} from '../Event';
 import {EventDispatcher} from '../EventDispatcher';
 import {TCStringService} from './TCStringService';
 import {ACStringService} from './ACStringService';
@@ -45,7 +45,7 @@ export class ConsentGeneratorService {
         const tcString = this.tcStringService.buildTCString(tcModel);
         const acString = this.acStringService.buildACString(acModel);
 
-        this.dispatchReadyAndPersistEvents(tcString, acString);
+        this.dispatchReadyAndPersist(tcString, acString);
 
     }
 
@@ -60,22 +60,23 @@ export class ConsentGeneratorService {
         const tcString = this.tcStringService.buildTCStringAllEnabled(soloCmpDataBundle.tcModel);
         const acString = this.acStringService.buildACStringAllEnabled(soloCmpDataBundle.acModel);
 
-        this.dispatchReadyAndPersistEvents(tcString, acString);
+        this.dispatchReadyAndPersist(tcString, acString);
 
     }
 
     /**
-     * Dispatch the ready and persist events with the provided tcString and acString.
+     * Dispatch the ready event and persist with the provided tcString and acString.
      *
      * @param {string} tcString
      * @param {string} acString
      * @private
      */
-    private dispatchReadyAndPersistEvents(tcString: string, acString: string): void {
+    private dispatchReadyAndPersist(tcString: string, acString: string): void {
 
         this.eventDispatcher.dispatch(new ConsentReadyEvent(tcString, acString));
 
-        this.eventDispatcher.dispatch(new ConsentPersistEvent(tcString, acString));
+        this.tcStringService.persistTCString(tcString);
+        this.acStringService.persistACString(acString);
 
     }
 
