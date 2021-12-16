@@ -5,8 +5,8 @@ import {BaseEvent} from '../EventDispatcher';
  */
 export class ConsentReadyEvent implements BaseEvent {
 
-    readonly EVENT_NAME = 'ConsentReadyEvent';
-    static readonly EVENT_NAME = 'ConsentReadyEvent';
+    readonly EVENT_NAME = 'ConsentReady';
+    static readonly EVENT_NAME = 'ConsentReady';
 
     private readonly _tcString: string;
     private readonly _acString: string;

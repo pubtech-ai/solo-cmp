@@ -8,7 +8,7 @@ describe('CmpCallbackSubscriber suit test', () => {
 
         const cmpCallbackSubscriber = new CmpCallbackSubscriber(() => {});
 
-        expect(cmpCallbackSubscriber.getSubscribedEvents()).to.have.own.property(ConsentReadyEvent.name);
+        expect(cmpCallbackSubscriber.getSubscribedEvents()).to.have.own.property(ConsentReadyEvent.EVENT_NAME);
 
     });
 
@@ -35,7 +35,7 @@ describe('CmpCallbackSubscriber suit test', () => {
 
         const consentReadyEvent = new ConsentReadyEvent(tcString, 'cba');
 
-        cmpCallbackSubscriber[cmpCallbackSubscriber.getSubscribedEvents()[ConsentReadyEvent.name]](consentReadyEvent);
+        cmpCallbackSubscriber[cmpCallbackSubscriber.getSubscribedEvents()[ConsentReadyEvent.EVENT_NAME]](consentReadyEvent);
 
     });
 

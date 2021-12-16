@@ -63,10 +63,9 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
-            false,
         );
 
-        return new ConsentGeneratorService(tcStringService, acStringService, EventDispatcher.getInstance());
+        return new ConsentGeneratorService(tcStringService, acStringService, EventDispatcher.getInstance(), true);
 
     };
 
@@ -74,8 +73,8 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(getConsentsGeneratorService());
 
-        expect(consentGeneratorSubscriber.getSubscribedEvents()).to.have.own.property(ApplyConsentEvent.name);
-        expect(consentGeneratorSubscriber.getSubscribedEvents()).to.have.own.property(AcceptAllEvent.name);
+        expect(consentGeneratorSubscriber.getSubscribedEvents()).to.have.own.property(ApplyConsentEvent.EVENT_NAME);
+        expect(consentGeneratorSubscriber.getSubscribedEvents()).to.have.own.property(AcceptAllEvent.EVENT_NAME);
 
     });
 
@@ -105,7 +104,7 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 
-        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[ApplyConsentEvent.name]](
+        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[ApplyConsentEvent.EVENT_NAME]](
             applyConsentEvent,
         );
 
@@ -137,7 +136,7 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 
-        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[AcceptAllEvent.name]](
+        consentGeneratorSubscriber[consentGeneratorSubscriber.getSubscribedEvents()[AcceptAllEvent.EVENT_NAME]](
             acceptAllEvent,
         );
 

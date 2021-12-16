@@ -6,6 +6,7 @@ import {ACStringService} from './ACStringService';
 import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
 import {TCModel} from '@iabtcf/core';
 import {ACModel} from '../Entity';
+import {BeforeBuildStringsEvent} from '../Event/BeforeBuildStringsEvent';
 
 /**
  * ConsentGeneratorService.
@@ -80,6 +81,12 @@ export class ConsentGeneratorService {
      * @private
      */
     private dispatchReadyAndPersist(tcModel: TCModel, acModel: ACModel): void {
+
+        const beforeBuildStringsEvent = new BeforeBuildStringsEvent(tcModel, acModel);
+        this.eventDispatcher.dispatch(beforeBuildStringsEvent);
+
+        tcModel = beforeBuildStringsEvent.tcModel;
+        acModel = beforeBuildStringsEvent.acModel;
 
         const tcString = this.tcStringService.buildTCString(tcModel);
         const acString = this.acStringService.buildACString(acModel);

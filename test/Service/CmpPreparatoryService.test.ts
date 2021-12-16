@@ -43,7 +43,7 @@ describe('CmpPreparatoryService suit test', () => {
 
         const loggerService: LoggerService = new LoggerService(false);
 
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage, false);
         const httpRequestService = new HttpRequestService();
 
         const jsonContent = [
@@ -141,6 +141,7 @@ describe('CmpPreparatoryService suit test', () => {
             uiConstructor,
             eventDispatcher,
             loggerService,
+            true,
         );
 
         cmpPreparatoryService.prepareAndRender('', '');
@@ -151,7 +152,7 @@ describe('CmpPreparatoryService suit test', () => {
 
         const loggerService: LoggerService = new LoggerService(false);
 
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage, false);
         const httpRequestService = new HttpRequestService();
 
         const jsonContent = [
@@ -247,7 +248,7 @@ describe('CmpPreparatoryService suit test', () => {
 
         const eventDispatcher = EventDispatcher.getInstance();
 
-        const subscription = eventDispatcher.subscribe('SubscriberTest', ConsentRequiredEvent.name, subscriber.method);
+        const subscription = eventDispatcher.subscribe('SubscriberTest', ConsentRequiredEvent.EVENT_NAME, subscriber.method);
 
         const cmpPreparatoryService = new CmpPreparatoryService(
             tcModelService,
@@ -255,6 +256,7 @@ describe('CmpPreparatoryService suit test', () => {
             uiConstructor,
             eventDispatcher,
             loggerService,
+            true,
         );
 
         cmpPreparatoryService.prepareAndRender('', '').then(() => {

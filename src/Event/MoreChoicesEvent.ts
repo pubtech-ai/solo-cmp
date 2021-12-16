@@ -5,7 +5,7 @@ import {BaseEvent} from '../EventDispatcher';
  */
 export class MoreChoicesEvent implements BaseEvent {
 
-    readonly EVENT_NAME = 'MoreChoicesEvent';
-    static readonly EVENT_NAME = 'MoreChoicesEvent';
+    readonly EVENT_NAME = 'MoreChoices';
+    static readonly EVENT_NAME = 'MoreChoices';
 
 }

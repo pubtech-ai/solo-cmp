@@ -6,8 +6,8 @@ import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
  */
 export class ApplyConsentEvent implements BaseEvent {
 
-    readonly EVENT_NAME = 'ApplyConsentEvent';
-    static readonly EVENT_NAME = 'ApplyConsentEvent';
+    readonly EVENT_NAME = 'ApplyConsent';
+    static readonly EVENT_NAME = 'ApplyConsent';
 
     private readonly _soloCmpDataBundle: SoloCmpDataBundle;
 
