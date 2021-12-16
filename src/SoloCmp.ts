@@ -118,7 +118,6 @@ export class SoloCmp {
                     this.cmpVersion,
                     this.cmpVendorListVersion,
                     this.tcStringCookieName,
-                    this.isLegitimateInterestDisabled,
                 );
 
             })
@@ -217,6 +216,7 @@ export class SoloCmp {
                     container[TCStringService.getClassName()],
                     container[ACStringService.getClassName()],
                     container[EventDispatcher.getClassName()],
+                    this.isLegitimateInterestDisabled,
                 );
 
             });

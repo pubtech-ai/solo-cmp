@@ -4,6 +4,8 @@ import {EventDispatcher} from '../EventDispatcher';
 import {TCStringService} from './TCStringService';
 import {ACStringService} from './ACStringService';
 import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
+import {TCModel} from '@iabtcf/core';
+import {ACModel} from '../Entity';
 
 /**
  * ConsentGeneratorService.
@@ -13,6 +15,7 @@ export class ConsentGeneratorService {
     private tcStringService: TCStringService;
     private acStringService: ACStringService;
     private eventDispatcher: EventDispatcher;
+    private isLegitimateInterestDisabled: boolean;
 
     /**
      * Constructor.
@@ -20,12 +23,19 @@ export class ConsentGeneratorService {
      * @param {TCStringService} tcStringService
      * @param {ACStringService} acStringService
      * @param {EventDispatcher} eventDispatcher
+     * @param {boolean} isLegitimateInterestDisabled
      */
-    constructor(tcStringService: TCStringService, acStringService: ACStringService, eventDispatcher: EventDispatcher) {
+    constructor(
+        tcStringService: TCStringService,
+        acStringService: ACStringService,
+        eventDispatcher: EventDispatcher,
+        isLegitimateInterestDisabled: boolean,
+    ) {
 
         this.tcStringService = tcStringService;
         this.acStringService = acStringService;
         this.eventDispatcher = eventDispatcher;
+        this.isLegitimateInterestDisabled = isLegitimateInterestDisabled;
 
     }
 
@@ -42,10 +52,7 @@ export class ConsentGeneratorService {
         const tcModel = choicesParser.parseTCModel(soloCmpDataBundle.uiChoicesBridgeDto);
         const acModel = choicesParser.parseACModel(soloCmpDataBundle.uiChoicesBridgeDto);
 
-        const tcString = this.tcStringService.buildTCString(tcModel);
-        const acString = this.acStringService.buildACString(acModel);
-
-        this.dispatchReadyAndPersist(tcString, acString);
+        this.dispatchReadyAndPersist(tcModel, acModel);
 
     }
 
@@ -57,22 +64,25 @@ export class ConsentGeneratorService {
      */
     public generateAndPersistConsentWithAllEnabled(soloCmpDataBundle: SoloCmpDataBundle): void {
 
-        const tcString = this.tcStringService.buildTCStringAllEnabled(soloCmpDataBundle.tcModel);
-        const acString = this.acStringService.buildACStringAllEnabled(soloCmpDataBundle.acModel);
+        const choicesParser = new UIChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
+        const tcModel = choicesParser.buildTCModelAllEnabled(this.isLegitimateInterestDisabled);
+        const acModel = choicesParser.buildACModelAllEnabled();
 
-        this.dispatchReadyAndPersist(tcString, acString);
+        this.dispatchReadyAndPersist(tcModel, acModel);
 
     }
 
     /**
-     * Dispatch the ready event and persist with the provided tcString and acString.
+     * Dispatch the ready event and persist with the provided tcModel and acModel.
      *
-     * @param {string} tcString
-     * @param {string} acString
+     * @param {TCModel} tcModel
+     * @param {ACModel} acModel
      * @private
      */
-    private dispatchReadyAndPersist(tcString: string, acString: string): void {
+    private dispatchReadyAndPersist(tcModel: TCModel, acModel: ACModel): void {
 
+        const tcString = this.tcStringService.buildTCString(tcModel);
+        const acString = this.acStringService.buildACString(acModel);
         this.eventDispatcher.dispatch(new ConsentReadyEvent(tcString, acString));
 
         this.tcStringService.persistTCString(tcString);

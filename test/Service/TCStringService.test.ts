@@ -47,7 +47,6 @@ describe('TCStringService suit test', () => {
                 NaN,
                 1,
                 'solo-cmp-tc-string',
-                true,
             );
 
         };
@@ -69,7 +68,6 @@ describe('TCStringService suit test', () => {
                 1,
                 NaN,
                 'solo-cmp-tc-string',
-                true,
             );
 
         };
@@ -84,7 +82,7 @@ describe('TCStringService suit test', () => {
 
         const construction = function() {
 
-            new TCStringService(cookieService, loggerService, cmpSupportedLanguageProvider, 1, 1, '', true);
+            new TCStringService(cookieService, loggerService, cmpSupportedLanguageProvider, 1, 1, '');
 
         };
 
@@ -105,7 +103,6 @@ describe('TCStringService suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
-            true,
         );
 
         expect(tcStringService.retrieveTCString()).to.equal('');
@@ -136,7 +133,6 @@ describe('TCStringService suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
-            true,
         );
 
         mockLoggerService.expects('debug').once();
@@ -162,7 +158,6 @@ describe('TCStringService suit test', () => {
             1,
             1,
             'solo-cmp-tc-string',
-            true,
         );
 
         mockLoggerService.expects('error').once();
@@ -170,68 +165,6 @@ describe('TCStringService suit test', () => {
         expect(tcStringService.buildTCString(tcModel)).to.equal('');
 
         mockLoggerService.verify();
-
-    });
-
-    it('TCStringService build tcString with all consents enabled test', () => {
-
-        const tcString = TCString.encode(getTCModel());
-
-        const tcModel: TCModel = TCString.decode(tcString);
-
-        tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
-
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
-
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            1,
-            1,
-            'solo-cmp-tc-string',
-            false,
-        );
-
-        const tcStringWillAllConsentsEnabled: string = tcStringService.buildTCStringAllEnabled(tcModel);
-
-        const tcModelWithAllEnabled: TCModel = TCString.decode(tcStringWillAllConsentsEnabled);
-
-        expect(tcModelWithAllEnabled.purposeLegitimateInterests.size).to.equal(9);
-        expect(tcModelWithAllEnabled.purposeConsents.size).to.equal(10);
-        expect(tcModelWithAllEnabled.vendorLegitimateInterests.size).to.equal(209);
-        expect(tcModelWithAllEnabled.vendorConsents.size).to.equal(467);
-
-    });
-
-    it('TCStringService build tcString with all consents enabled without legitimate interest test', () => {
-
-        const tcString = TCString.encode(getTCModel());
-
-        const tcModel: TCModel = TCString.decode(tcString);
-
-        tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
-
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
-
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            1,
-            1,
-            'solo-cmp-tc-string',
-            true,
-        );
-
-        const tcStringWillAllConsentsEnabled: string = tcStringService.buildTCStringAllEnabled(tcModel);
-
-        const tcModelWithAllEnabled: TCModel = TCString.decode(tcStringWillAllConsentsEnabled);
-
-        expect(tcModelWithAllEnabled.purposeLegitimateInterests.size).to.equal(0);
-        expect(tcModelWithAllEnabled.purposeConsents.size).to.equal(10);
-        expect(tcModelWithAllEnabled.vendorLegitimateInterests.size).to.equal(0);
-        expect(tcModelWithAllEnabled.vendorConsents.size).to.equal(467);
 
     });
 
@@ -252,7 +185,6 @@ describe('TCStringService suit test', () => {
             Number(tcModel.cmpVersion),
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
-            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
@@ -278,7 +210,6 @@ describe('TCStringService suit test', () => {
             Number(tcModel.cmpVersion),
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
-            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
@@ -305,7 +236,6 @@ describe('TCStringService suit test', () => {
             Number(tcModelTmp.cmpVersion) + 1,
             Number(tcModel.vendorListVersion),
             'solo-cmp-tc-string',
-            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
@@ -331,7 +261,6 @@ describe('TCStringService suit test', () => {
             Number(tcModel.cmpVersion),
             1,
             'solo-cmp-tc-string',
-            true,
         );
 
         const isValidTCString: boolean = tcStringService.isValidTCString(tcString);

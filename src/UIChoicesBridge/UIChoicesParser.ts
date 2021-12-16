@@ -113,6 +113,54 @@ export class UIChoicesParser {
     }
 
     /**
+     * Build the TCString with all enabled.
+     *
+     * @param {boolean} isLegitimateInterestDisabled
+     *
+     * @return {TCModel}
+     */
+    public buildTCModelAllEnabled(isLegitimateInterestDisabled: boolean): TCModel {
+
+        this._tcModel.setAll();
+
+        // REQUIRED UNTIL SOLVED https://github.com/InteractiveAdvertisingBureau/iabtcf-es/issues/179
+        this._tcModel.publisherConsents.set([...this._tcModel.purposeConsents.values()]);
+
+        if (isLegitimateInterestDisabled) {
+
+            this._tcModel.unsetAllPurposeLegitimateInterests();
+            this._tcModel.unsetAllVendorLegitimateInterests();
+
+            // Required for enable Google to serve ads.
+            UIChoicesParser.addPublisherRestrictionForGoogle(this._tcModel);
+
+        } else {
+
+            const purposeLegitimateInterests = [...this._tcModel.purposeLegitimateInterests.values()].filter(
+                (purposeId) => purposeId !== 1,
+            );
+            this._tcModel.publisherLegitimateInterests.set(purposeLegitimateInterests);
+
+        }
+
+        return this._tcModel;
+
+    }
+
+    /**
+     * Build the ACString with all vendors enabled.
+     *
+     * @return {ACModel}
+     */
+    public buildACModelAllEnabled(): ACModel {
+
+        this._acModel.googleVendorOptions.forEach((googleVendor) => googleVendor.state = true);
+
+        return this._acModel;
+
+    }
+
+    /**
      * Parse the choices to build the
      * ACModel with all choices applied.
      *

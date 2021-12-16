@@ -18,6 +18,7 @@ describe('UIChoicesParser suit test', () => {
             tcModelInit,
             acModelInit,
             true,
+            false,
         ).createUIChoicesBridgeDto();
 
         // Simulate User choices changes
@@ -34,7 +35,7 @@ describe('UIChoicesParser suit test', () => {
             'uiChoicesParser.acModel.googleVendorOptions.length',
         ).to.equal(2);
 
-        const tcModel = uiChoicesParser.parseTCModel(choicesStateHandler);
+        let tcModel = uiChoicesParser.parseTCModel(choicesStateHandler);
 
         expect(
             [...tcModel.publisherConsents.values()].length,
@@ -57,17 +58,31 @@ describe('UIChoicesParser suit test', () => {
             '[...tcModel.vendorLegitimateInterests.values()].length',
         ).to.equal(290);
 
-        const acModel = uiChoicesParser.parseACModel(choicesStateHandler);
+        let acModel = uiChoicesParser.parseACModel(choicesStateHandler);
 
         expect(
             [...acModel.googleVendorOptions.filter((option) => option.state)].length,
             '[...acModel.googleVendorOptions.filter(option => option.state)].length',
         ).to.equal(1);
 
+        acModel = uiChoicesParser.buildACModelAllEnabled();
+
+        expect(
+            [...acModel.googleVendorOptions.filter((option) => option.state)].length,
+            'enabled all [...acModel.googleVendorOptions.filter(option => option.state)].length',
+        ).to.equal(acModel.googleVendorOptions.length);
+
         expect(
             [...tcModel.specialFeatureOptins.values()].length,
             '[...tcModel.specialFeatureOptins.values()].length',
         ).to.equal(1);
+
+        tcModel = uiChoicesParser.buildTCModelAllEnabled(true);
+
+        expect(
+            [...tcModel.specialFeatureOptins.values()].length,
+            '[...tcModel.specialFeatureOptins.values()].length',
+        ).to.equal(2);
 
     });
 
