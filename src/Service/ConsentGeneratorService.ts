@@ -1,12 +1,11 @@
 import {UIChoicesParser} from '../UIChoicesBridge/';
-import {ConsentReadyEvent} from '../Event';
+import {ConsentPersistedEvent, ConsentReadyEvent, BeforeBuildStringsEvent} from '../Event';
 import {EventDispatcher} from '../EventDispatcher';
 import {TCStringService} from './TCStringService';
 import {ACStringService} from './ACStringService';
 import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
 import {TCModel} from '@iabtcf/core';
 import {ACModel} from '../Entity';
-import {BeforeBuildStringsEvent} from '../Event/BeforeBuildStringsEvent';
 
 /**
  * ConsentGeneratorService.
@@ -94,6 +93,7 @@ export class ConsentGeneratorService {
 
         this.tcStringService.persistTCString(tcString);
         this.acStringService.persistACString(acString);
+        this.eventDispatcher.dispatch(new ConsentPersistedEvent(tcString, acString));
 
     }
 

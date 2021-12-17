@@ -19,7 +19,7 @@ Note that this library was born to satisfy the CMPs for publishers' websites.
 - 💻 Specialized for publisher websites
 - 🚀 Optimized consent release performance
 - 🏄 Ability to add plugins in standard flow
-- ⚡️ Integration with AMP
+- ⚡️ Partial integration with AMP (docs later)
 
 #### Guidelines
 

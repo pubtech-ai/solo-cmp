@@ -91,7 +91,7 @@ export class SoloCmp {
     /**
      * Register all default services.
      */
-    registerServices(): void {
+    private registerServices(): void {
 
         this._DependencyInjectionManager
             .addServiceProvider(LoggerService.getClassName(), () => {
@@ -226,7 +226,7 @@ export class SoloCmp {
     /**
      * Register all default subscribers.
      */
-    registerSubscribers(): void {
+    private registerSubscribers(): void {
 
         this._DependencyInjectionManager
             .addEventSubscriberProvider(OpenCmpUISubscriber.getClassName(), (container: IContainer) => {
