@@ -115,7 +115,7 @@ const soloCmp = new SoloCmp(
 //You can provide a tcString, acString and an additional validation callback that must return a boolean value.
 //If you provide a tcString and acString to construct the state of the UIChoicesBridge those strings will be used.
 //The callback is useful if you need to add additional validation check logic that you think is required.
-soloCmp.init();
+soloCmp.init(externalTCString, externalACString, () => { return true; });
 
 ```
 After this first initialization what needs to be done is to render all the choices available within the 
@@ -152,23 +152,14 @@ EventDispatcher.getInstance().dispatch(new MoreChoicesEvent());
 /** ApplyConsentEvent **/
 EventDispatcher
     .getInstance()
-    .dispatch(
-        new ApplyConsentEvent(
-            soloCmpDataBundle.uiChoicesBridgeDto,
-            soloCmpDataBundle
-        )
-    );
+    .dispatch(new ApplyConsentEvent(soloCmpDataBundle));
 
 /** AcceptAllEvent
 In this case, when the user clicks accept everything, it is not necessary to dispatch the event 'MoreChoicesEvent'
 **/
 EventDispatcher
     .getInstance()
-    .dispatch(
-        new AcceptAllEvent(
-            soloCmpDataBundle
-        )
-    );
+    .dispatch(new AcceptAllEvent(soloCmpDataBundle));
 
 ```
 
