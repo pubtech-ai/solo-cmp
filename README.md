@@ -6,6 +6,7 @@
 #### What is it for?
 - This library is a wrapper of the [IAB's Transparency and Consent Framework (TCF)](https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework) 
 library with the intention of simplifying and adding more ways of customization of the whole flow that starts from the view of the CMP banner at the release of the user's consent.
+Note that this library was born to satisfy the CMPs for publishers' websites.
 
 #### Are there any requirements?
 - This library is completely framework agnostic, so feel free to implement your CMP with any framework such as Vue, React and others.
@@ -15,9 +16,10 @@ library with the intention of simplifying and adding more ways of customization 
 
 #### Together with the easier implementation of your CMP you have:
 
+- 💻 Specialized for publisher websites
 - 🚀 Optimized consent release performance
 - 🏄 Ability to add plugins in standard flow
-- ⚡️ Integration with AMP
+- ⚡️ Partial integration with AMP (docs later)
 
 #### Guidelines
 
@@ -25,7 +27,7 @@ library with the intention of simplifying and adding more ways of customization 
   - [Using](#using)
   - [Contribution](#contribution)
   - [Internal Documentation](https://github.com/pubtech-ai/solo-cmp/blob/main/doc/internal-solo-cmp.md)
-  
+
 #### Installation
 
 ```
@@ -88,11 +90,9 @@ const soloCmp = new SoloCmp(
 {
     uiConstructor: uiConstructor,
     isDebugEnabled: true, // Debug flag that enable and disable the debug method of LoggerService, this feature should help you to debug some 'bugs'.
-    cmpConfig: {// Store that object inside the CmpConfigurationProvider service that can be used by your plugin.
-           isAmp: true, // This feature is experimental it will dispatch some specific events to implement the AMP version of your CMP.
-           onConsentAds: () => {
-               // Execute some logic when the consents are already present or the user has given his consent.
-           },
+    isAmp: true, // This feature is experimental it will dispatch some specific events to implement the AMP version of your CMP.
+    onConsentAds: () => {
+        // Execute some logic when the consents are already present or the user has given his consent.
     },
     supportedLanguages: ['it', 'en'], // Here you specify all the languages that your CMP supports and consequently the case in which a certain language is not supported will be automatically handled and there will be a fallback to 'en'
     userLanguage: navigator.language.split('-', 2)[0], // Here you specify the user language, only 2 chars.
@@ -112,7 +112,10 @@ const soloCmp = new SoloCmp(
 );
 
 //This starts the library, now you should only worry about implementing the UI of the CMP you want to make! See below!
-soloCmp.init();
+//You can provide a tcString, acString and an additional validation callback that must return a boolean value.
+//If you provide a tcString and acString to construct the state of the UIChoicesBridge those strings will be used.
+//The callback is useful if you need to add additional validation check logic that you think is required.
+soloCmp.init(externalTCString, externalACString, () => { return true; });
 
 ```
 After this first initialization what needs to be done is to render all the choices available within the 
@@ -149,23 +152,14 @@ EventDispatcher.getInstance().dispatch(new MoreChoicesEvent());
 /** ApplyConsentEvent **/
 EventDispatcher
     .getInstance()
-    .dispatch(
-        new ApplyConsentEvent(
-            soloCmpDataBundle.uiChoicesBridgeDto,
-            soloCmpDataBundle
-        )
-    );
+    .dispatch(new ApplyConsentEvent(soloCmpDataBundle));
 
 /** AcceptAllEvent
 In this case, when the user clicks accept everything, it is not necessary to dispatch the event 'MoreChoicesEvent'
 **/
 EventDispatcher
     .getInstance()
-    .dispatch(
-        new AcceptAllEvent(
-            soloCmpDataBundle
-        )
-    );
+    .dispatch(new AcceptAllEvent(soloCmpDataBundle));
 
 ```
 

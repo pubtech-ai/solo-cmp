@@ -168,68 +168,6 @@ describe('TCStringService suit test', () => {
 
     });
 
-    it('TCStringService build tcString with all consents enabled test', () => {
-
-        const tcString = TCString.encode(getTCModel());
-
-        const tcModel: TCModel = TCString.decode(tcString);
-
-        tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
-
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
-
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            1,
-            1,
-            'solo-cmp-tc-string',
-            false,
-        );
-
-        const tcStringWillAllConsentsEnabled: string = tcStringService.buildTCStringAllEnabled(tcModel);
-
-        const tcModelWithAllEnabled: TCModel = TCString.decode(tcStringWillAllConsentsEnabled);
-
-        expect(tcModelWithAllEnabled.purposeLegitimateInterests.size).to.equal(9);
-        expect(tcModelWithAllEnabled.purposeConsents.size).to.equal(10);
-        expect(tcModelWithAllEnabled.vendorLegitimateInterests.size).to.equal(209);
-        expect(tcModelWithAllEnabled.vendorConsents.size).to.equal(467);
-
-    });
-
-    it('TCStringService build tcString with all consents enabled without legitimate interest test', () => {
-
-        const tcString = TCString.encode(getTCModel());
-
-        const tcModel: TCModel = TCString.decode(tcString);
-
-        tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
-
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
-
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            1,
-            1,
-            'solo-cmp-tc-string',
-            true,
-        );
-
-        const tcStringWillAllConsentsEnabled: string = tcStringService.buildTCStringAllEnabled(tcModel);
-
-        const tcModelWithAllEnabled: TCModel = TCString.decode(tcStringWillAllConsentsEnabled);
-
-        expect(tcModelWithAllEnabled.purposeLegitimateInterests.size).to.equal(0);
-        expect(tcModelWithAllEnabled.purposeConsents.size).to.equal(10);
-        expect(tcModelWithAllEnabled.vendorLegitimateInterests.size).to.equal(0);
-        expect(tcModelWithAllEnabled.vendorConsents.size).to.equal(467);
-
-    });
-
     it('TCStringService is valid tcString test', () => {
 
         const tcString = TCString.encode(getTCModel());

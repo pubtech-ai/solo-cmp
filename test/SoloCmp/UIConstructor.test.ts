@@ -21,7 +21,7 @@ describe('UIConstructor suit test', () => {
         };
 
         expect(construction).to.throw(
-            'UIConstructor, domElementId must be a string with length greater than zero and contains only letters and numbers.',
+            'UIConstructor, domElementId string must contains only letters and numbers.',
         );
 
     });
@@ -38,9 +38,10 @@ describe('UIConstructor suit test', () => {
 
         uiConstructor.buildUIAndRender(
             new SoloCmpDataBundle(
-                new UIChoicesBridgeDto([], [], [], [], []),
+                new UIChoicesBridgeDto([], [], [], [], [], []),
                 getTCModelByFixture(),
                 getACModelByFixture(),
+                true,
             ),
         );
 
@@ -79,9 +80,10 @@ describe('UIConstructor suit test', () => {
 
             uiConstructor.buildUIAndRender(
                 new SoloCmpDataBundle(
-                    new UIChoicesBridgeDto([], [], [], [], []),
+                    new UIChoicesBridgeDto([], [], [], [], [], []),
                     getTCModelByFixture(),
                     getACModelByFixture(),
+                    true,
                 ),
             );
 

@@ -77,25 +77,6 @@ export class ACStringService {
     }
 
     /**
-     * Build the ACString with all vendors enabled.
-     *
-     * @param {ACModel} acModel
-     *
-     * @return {string}
-     */
-    public buildACStringAllEnabled(acModel: ACModel): string {
-
-        const allGoogleVendors = acModel.googleVendorOptions.map((vendor: any) => vendor.id);
-
-        const builtACString = this.buildACStringString(allGoogleVendors);
-
-        this.loggerService.debug('ACString all enabled built: ' + builtACString);
-
-        return builtACString;
-
-    }
-
-    /**
      * Return the ACString string with proper schema.
      *
      * @param {number[]} enabledGoogleVendorIds

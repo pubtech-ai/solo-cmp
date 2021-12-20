@@ -114,32 +114,6 @@ describe('ACStringService suit test', () => {
 
     });
 
-    it('ACStringService buildACStringAllEnabled test', () => {
-
-        const cmpVersion = 1;
-        const acStringService = new ACStringService(
-            cmpVersion,
-            'solo-cmp-ac-string',
-            loggerService,
-            mockLocalStorage,
-            false,
-        );
-
-        const firstVendorOption = getGoogleVendorOption();
-        const secondVendorOption = getGoogleVendorOption();
-
-        firstVendorOption.state = true;
-
-        const googleVendorOptions = [firstVendorOption, secondVendorOption];
-
-        const acModel = new ACModel(googleVendorOptions);
-
-        expect(acStringService.buildACStringAllEnabled(acModel)).to.equal(
-            `${cmpVersion}~${firstVendorOption.id}.${secondVendorOption.id}`,
-        );
-
-    });
-
     it('ACStringService persistACString test', () => {
 
         const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, localStorage, false);
@@ -153,11 +127,14 @@ describe('ACStringService suit test', () => {
 
         const acModel = new ACModel(googleVendorOptions);
 
+        acModel.googleVendorOptions.forEach((googleVendor) => googleVendor.state = true);
+        const acStringWithAllEnabled = acStringService.buildACString(acModel);
+
         mockLocalStorage
             .expects('setItem')
-            .withExactArgs('solo-cmp-ac-string', acStringService.buildACStringAllEnabled(acModel));
+            .withExactArgs('solo-cmp-ac-string', acStringWithAllEnabled);
 
-        acStringService.persistACString(acStringService.buildACStringAllEnabled(acModel));
+        acStringService.persistACString(acStringWithAllEnabled);
 
         mockLocalStorage.verify();
 

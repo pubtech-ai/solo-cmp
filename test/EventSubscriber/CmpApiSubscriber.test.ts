@@ -14,8 +14,8 @@ describe('CmpApiSubscriber suit test', () => {
 
         const cmpApiSubscriber = new CmpApiSubscriber(mock);
 
-        expect(cmpApiSubscriber.getSubscribedEvents()).to.have.own.property(ConsentReadyEvent.name);
-        expect(cmpApiSubscriber.getSubscribedEvents()).to.have.own.property(ConsentRequiredEvent.name);
+        expect(cmpApiSubscriber.getSubscribedEvents()).to.have.own.property(ConsentReadyEvent.EVENT_NAME);
+        expect(cmpApiSubscriber.getSubscribedEvents()).to.have.own.property(ConsentRequiredEvent.EVENT_NAME);
 
     });
 
@@ -31,7 +31,7 @@ describe('CmpApiSubscriber suit test', () => {
 
         const cmpApiSubscriber = new CmpApiSubscriber(cmpApiProvider);
 
-        cmpApiSubscriber[cmpApiSubscriber.getSubscribedEvents()[ConsentReadyEvent.name]](consentReadyEvent);
+        cmpApiSubscriber[cmpApiSubscriber.getSubscribedEvents()[ConsentReadyEvent.EVENT_NAME]](consentReadyEvent);
 
         mock.verify();
 
@@ -49,7 +49,7 @@ describe('CmpApiSubscriber suit test', () => {
 
         const cmpApiSubscriber = new CmpApiSubscriber(cmpApiProvider);
 
-        cmpApiSubscriber[cmpApiSubscriber.getSubscribedEvents()[ConsentRequiredEvent.name]](consentRequiredEvent);
+        cmpApiSubscriber[cmpApiSubscriber.getSubscribedEvents()[ConsentRequiredEvent.EVENT_NAME]](consentRequiredEvent);
 
         mock.verify();
 

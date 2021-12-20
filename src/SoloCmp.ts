@@ -1,6 +1,6 @@
-import {GVL} from '@iabtcf/core';
-import {IContainer} from 'bottlejs';
 import DependencyInjectionManager from './DependencyInjection/DependencyInjectionManager';
+import {GVL, TCModel} from '@iabtcf/core';
+import {IContainer} from 'bottlejs';
 import {EventDispatcher} from './EventDispatcher';
 import {UIConstructor} from './UIConstructor';
 import {SoloCmpDto} from './Dto';
@@ -8,16 +8,19 @@ import {SoloCmpDto} from './Dto';
 import {
     AmpSubscriber,
     OpenCmpUISubscriber,
-    ConsentsPersistSubscriber,
     ConsentsGeneratorSubscriber,
     CmpCallbackSubscriber,
     CmpApiSubscriber,
 } from './EventSubscriber';
 
 import {
+    ConsentReadyEvent,
+    OpenCmpUIEvent,
+} from './Event';
+
+import {
     LoggerService,
     CookieService,
-    CmpConfigurationProvider,
     CmpSupportedLanguageProvider,
     TCStringService,
     TCModelService,
@@ -27,7 +30,6 @@ import {
     CmpApiProvider,
     CmpPreparatoryService,
     ConsentGeneratorService,
-    Orchestrator,
 } from './Service';
 
 /**
@@ -46,7 +48,8 @@ export class SoloCmp {
     private readonly isServiceSpecific: boolean;
     private readonly tcStringCookieName: string;
     private readonly acStringLocalStorageName: string;
-    private readonly cmpConfig: any;
+    private readonly isAmp: boolean;
+    private readonly onConsentAds: (event: ConsentReadyEvent, tcModel: TCModel) => void;
     private readonly supportedLanguages: string[];
     private readonly userLanguage: string;
     private readonly initialHeightAmpCmpUi: string | null;
@@ -63,7 +66,8 @@ export class SoloCmp {
 
         this.uiConstructor = soloCmpDto.uiConstructor;
         this.isDebugEnabled = soloCmpDto.isDebugEnabled;
-        this.cmpConfig = soloCmpDto.cmpConfig;
+        this.isAmp = soloCmpDto.isAmp;
+        this.onConsentAds = soloCmpDto.onConsentAds;
         this.supportedLanguages = soloCmpDto.supportedLanguages;
         this.userLanguage = soloCmpDto.userLanguage;
         this.cmpVersion = soloCmpDto.cmpVersion;
@@ -87,7 +91,7 @@ export class SoloCmp {
     /**
      * Register all default services.
      */
-    registerServices(): void {
+    private registerServices(): void {
 
         this._DependencyInjectionManager
             .addServiceProvider(LoggerService.getClassName(), () => {
@@ -98,11 +102,6 @@ export class SoloCmp {
             .addServiceProvider(CookieService.getClassName(), (container: IContainer) => {
 
                 return new CookieService(container[LoggerService.getClassName()], window.location.hostname, document);
-
-            })
-            .addServiceProvider(CmpConfigurationProvider.getClassName(), () => {
-
-                return new CmpConfigurationProvider(this.cmpConfig);
 
             })
             .addServiceProvider(CmpSupportedLanguageProvider.getClassName(), () => {
@@ -119,7 +118,6 @@ export class SoloCmp {
                     this.cmpVersion,
                     this.cmpVendorListVersion,
                     this.tcStringCookieName,
-                    this.isLegitimateInterestDisabled,
                 );
 
             })
@@ -180,7 +178,7 @@ export class SoloCmp {
                 );
 
             })
-            .addServiceProvider(HttpRequestService.getClassName(), (container: IContainer) => {
+            .addServiceProvider(HttpRequestService.getClassName(), () => {
 
                 return new HttpRequestService();
 
@@ -198,17 +196,6 @@ export class SoloCmp {
             .addServiceProvider(EventDispatcher.getClassName(), () => {
 
                 return EventDispatcher.getInstance();
-
-            })
-            .addServiceProvider(Orchestrator.getClassName(), (container: IContainer) => {
-
-                return new Orchestrator(
-                    container[TCStringService.getClassName()],
-                    container[ACStringService.getClassName()],
-                    this.uiConstructor,
-                    container[EventDispatcher.getClassName()],
-                    container[LoggerService.getClassName()],
-                );
 
             })
             .addServiceProvider(CmpPreparatoryService.getClassName(), (container: IContainer) => {
@@ -229,6 +216,7 @@ export class SoloCmp {
                     container[TCStringService.getClassName()],
                     container[ACStringService.getClassName()],
                     container[EventDispatcher.getClassName()],
+                    this.isLegitimateInterestDisabled,
                 );
 
             });
@@ -238,7 +226,7 @@ export class SoloCmp {
     /**
      * Register all default subscribers.
      */
-    registerSubscribers(): void {
+    private registerSubscribers(): void {
 
         this._DependencyInjectionManager
             .addEventSubscriberProvider(OpenCmpUISubscriber.getClassName(), (container: IContainer) => {
@@ -246,22 +234,14 @@ export class SoloCmp {
                 return new OpenCmpUISubscriber(container[CmpPreparatoryService.getClassName()]);
 
             })
-            .addEventSubscriberProvider(ConsentsPersistSubscriber.getClassName(), (container: IContainer) => {
-
-                return new ConsentsPersistSubscriber(
-                    container[TCStringService.getClassName()],
-                    container[ACStringService.getClassName()],
-                );
-
-            })
             .addEventSubscriberProvider(ConsentsGeneratorSubscriber.getClassName(), (container: IContainer) => {
 
                 return new ConsentsGeneratorSubscriber(container[ConsentGeneratorService.getClassName()]);
 
             })
-            .addEventSubscriberProvider(CmpCallbackSubscriber.getClassName(), (container: IContainer) => {
+            .addEventSubscriberProvider(CmpCallbackSubscriber.getClassName(), () => {
 
-                return new CmpCallbackSubscriber(container[CmpConfigurationProvider.getClassName()]);
+                return new CmpCallbackSubscriber(this.onConsentAds);
 
             })
             .addEventSubscriberProvider(CmpApiSubscriber.getClassName(), (container: IContainer) => {
@@ -269,13 +249,10 @@ export class SoloCmp {
                 return new CmpApiSubscriber(container[CmpApiProvider.getClassName()]);
 
             })
-            .addEventSubscriberProvider(AmpSubscriber.getClassName(), (container: IContainer) => {
-
-                const cmpConfigurationProvider: CmpConfigurationProvider =
-                    container[CmpConfigurationProvider.getClassName()];
+            .addEventSubscriberProvider(AmpSubscriber.getClassName(), () => {
 
                 return new AmpSubscriber(
-                    cmpConfigurationProvider.cmpConfiguration.isAmp,
+                    this.isAmp,
                     window,
                     this.initialHeightAmpCmpUi,
                     this.enableBorderAmpCmpUi,
@@ -297,11 +274,47 @@ export class SoloCmp {
     }
 
     /**
-     * Call the Orchestrator.initCmp() method.
+     * This logic decide if is required to render the CMP UI or dispatch directly the ConsentReadyEvent.
+     * The tcString and acString are useful to the implementation of AMP version of the CMP.
+     *
+     * @param {string|null} tcString
+     * @param {string|null} acString
+     * @param {CallableFunction|null} additionalValidationCallback
      */
-    init(): void {
+    init(
+        tcString: string|null = null,
+        acString: string|null = null,
+        additionalValidationCallback: (() => boolean)|null = null,
+    ): void {
 
-        this._DependencyInjectionManager.getService(Orchestrator.getClassName()).initCmp();
+        const tcStringService = this._DependencyInjectionManager.getService(TCStringService.getClassName());
+        const acStringService = this._DependencyInjectionManager.getService(ACStringService.getClassName());
+
+        tcString = typeof tcString == 'string' ? tcString : tcStringService.retrieveTCString();
+        acString = typeof acString == 'string' ? acString : acStringService.retrieveACString();
+
+        const eventDispatcher = this._DependencyInjectionManager.getService(EventDispatcher.getClassName());
+
+        if (tcStringService.isValidTCString(tcString) && acStringService.isValidACString(acString) && (typeof additionalValidationCallback == 'function' ? additionalValidationCallback() : true)) {
+
+            const consentReadyEvent = new ConsentReadyEvent(tcString as string, acString as string);
+
+            eventDispatcher.dispatch(consentReadyEvent);
+
+            this.uiConstructor.buildOpenCmpButtonAndRender();
+
+        } else {
+
+            if (tcString && tcString.length > 0) {
+
+                tcStringService.removeTCString();
+                acStringService.removeACString();
+
+            }
+
+            eventDispatcher.dispatch(new OpenCmpUIEvent());
+
+        }
 
     }
 

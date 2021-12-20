@@ -6,8 +6,8 @@ import {SoloCmpDataBundle} from '../SoloCmpDataBundle';
  */
 export class AcceptAllEvent implements BaseEvent {
 
-    readonly EVENT_NAME = 'AcceptAllEvent';
-    static readonly EVENT_NAME = 'AcceptAllEvent';
+    readonly EVENT_NAME = 'AcceptAll';
+    static readonly EVENT_NAME = 'AcceptAll';
 
     private readonly _soloCmpDataBundle: SoloCmpDataBundle;
 

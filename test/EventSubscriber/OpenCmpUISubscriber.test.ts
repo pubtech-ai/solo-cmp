@@ -44,7 +44,7 @@ describe('OpenCmpUISubscriber suit test', () => {
 
         const loggerService: LoggerService = new LoggerService(false);
 
-        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage);
+        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage, false);
         const httpRequestService = new HttpRequestService();
 
         const jsonContent = [
@@ -132,7 +132,13 @@ describe('OpenCmpUISubscriber suit test', () => {
 
         const eventDispatcher = EventDispatcher.getInstance();
 
-        return new CmpPreparatoryService(tcModelService, acModelService, uiConstructor, eventDispatcher, loggerService);
+        return new CmpPreparatoryService(
+            tcModelService,
+            acModelService,
+            uiConstructor,
+            eventDispatcher,
+            loggerService,
+            true);
 
     };
 
@@ -140,7 +146,7 @@ describe('OpenCmpUISubscriber suit test', () => {
 
         const openCmpUISubscriber = new OpenCmpUISubscriber(getCmpPreparatoryService());
 
-        expect(openCmpUISubscriber.getSubscribedEvents()).to.have.own.property(OpenCmpUIEvent.name);
+        expect(openCmpUISubscriber.getSubscribedEvents()).to.have.own.property(OpenCmpUIEvent.EVENT_NAME);
 
     });
 
@@ -156,7 +162,7 @@ describe('OpenCmpUISubscriber suit test', () => {
 
         const openCmpUISubscriber = new OpenCmpUISubscriber(cmpPreparatoryService);
 
-        openCmpUISubscriber[openCmpUISubscriber.getSubscribedEvents()[OpenCmpUIEvent.name]](openCmpUIEvent);
+        openCmpUISubscriber[openCmpUISubscriber.getSubscribedEvents()[OpenCmpUIEvent.EVENT_NAME]](openCmpUIEvent);
 
         mock.verify();
 
