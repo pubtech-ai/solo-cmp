@@ -304,6 +304,7 @@ export class SoloCmp {
 
             if (this.isAmp) {
 
+                // We always need to render the CMP when the environment is AMP
                 eventDispatcher.dispatch(new OpenCmpUIEvent(tcString as string, acString as string));
 
             } else {
