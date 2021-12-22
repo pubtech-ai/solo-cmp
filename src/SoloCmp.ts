@@ -295,13 +295,26 @@ export class SoloCmp {
 
         const eventDispatcher = this._DependencyInjectionManager.getService(EventDispatcher.getClassName());
 
-        if (tcStringService.isValidTCString(tcString) && acStringService.isValidACString(acString) && (typeof additionalValidationCallback == 'function' ? additionalValidationCallback() : true)) {
+        const isAdditionalValidationCallbackValid: boolean = (typeof additionalValidationCallback == 'function' ? additionalValidationCallback() : true);
 
-            const consentReadyEvent = new ConsentReadyEvent(tcString as string, acString as string);
+        if (
+            tcStringService.isValidTCString(tcString) &&
+            acStringService.isValidACString(acString) &&
+            isAdditionalValidationCallbackValid) {
 
-            eventDispatcher.dispatch(consentReadyEvent);
+            if (this.isAmp) {
 
-            this.uiConstructor.buildOpenCmpButtonAndRender();
+                eventDispatcher.dispatch(new OpenCmpUIEvent(tcString as string, acString as string));
+
+            } else {
+
+                const consentReadyEvent = new ConsentReadyEvent(tcString as string, acString as string);
+
+                eventDispatcher.dispatch(consentReadyEvent);
+
+                this.uiConstructor.buildOpenCmpButtonAndRender();
+
+            }
 
         } else {
 
