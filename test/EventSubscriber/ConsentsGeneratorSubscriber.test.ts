@@ -49,13 +49,7 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it-IT');
 
-        const acStringService = new ACStringService(
-            1,
-            'solo-cmp-ac-string',
-            loggerService,
-            mockLocalStorage,
-            false,
-        );
+        const acStringService = new ACStringService(1, 'solo-cmp-ac-string', loggerService, mockLocalStorage, false);
         const tcStringService = new TCStringService(
             cookieService,
             loggerService,
@@ -98,9 +92,7 @@ describe('ConsentsGeneratorSubscriber suit test', () => {
 
         const mock = sinon.mock(consentGeneratorService);
 
-        mock.expects('generateAndPersistConsent')
-            .once()
-            .withArgs(soloCmpDataBundle);
+        mock.expects('generateAndPersistConsent').once().withArgs(soloCmpDataBundle);
 
         const consentGeneratorSubscriber = new ConsentsGeneratorSubscriber(consentGeneratorService);
 

@@ -165,7 +165,7 @@ export class TCStringService {
 
                 const tcStringDate = new Date(tcModel.created.getTime());
                 tcStringDate.setDate(tcStringDate.getDate() + Number(this.expirationDaysForPartialConsents));
-                isExpirationValid = tcStringDate.getTime() >= (new Date()).getTime();
+                isExpirationValid = tcStringDate.getTime() >= new Date().getTime();
 
             }
 

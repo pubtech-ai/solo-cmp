@@ -29,9 +29,7 @@ export class UIConstructor {
 
         if (domElementId.length === 0 || !/^[a-z0-9]\D\S+$/i.test(domElementId)) {
 
-            throw new Error(
-                'UIConstructor, domElementId string must contains only letters and numbers.',
-            );
+            throw new Error('UIConstructor, domElementId string must contains only letters and numbers.');
 
         }
 

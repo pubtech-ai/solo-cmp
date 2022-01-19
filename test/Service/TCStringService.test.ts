@@ -275,8 +275,10 @@ describe('TCStringService suit test', () => {
 
             const tcString = TCString.encode(tcModel);
 
-            const cmpSupportedLanguageProvider =
-                new CmpSupportedLanguageProvider(testData.supportedLanguages, testData.userLanguage);
+            const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(
+                testData.supportedLanguages,
+                testData.userLanguage,
+            );
 
             const tcStringService = new TCStringService(
                 cookieService,

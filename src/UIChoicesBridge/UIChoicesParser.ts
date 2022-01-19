@@ -93,7 +93,7 @@ export class UIChoicesParser {
      */
     public buildACModelAllEnabled(): ACModel {
 
-        this._acModel.googleVendorOptions.forEach((googleVendor) => googleVendor.state = true);
+        this._acModel.googleVendorOptions.forEach((googleVendor) => (googleVendor.state = true));
 
         return this._acModel;
 

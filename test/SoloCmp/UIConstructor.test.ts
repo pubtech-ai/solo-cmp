@@ -20,9 +20,7 @@ describe('UIConstructor suit test', () => {
 
         };
 
-        expect(construction).to.throw(
-            'UIConstructor, domElementId string must contains only letters and numbers.',
-        );
+        expect(construction).to.throw('UIConstructor, domElementId string must contains only letters and numbers.');
 
     });
 

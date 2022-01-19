@@ -84,7 +84,12 @@ export class UIChoicesBridgeDtoBuilder {
      */
     private buildUIPurposeChoices(tcModel: TCModel): void {
 
-        this._UIPurposeChoices = this.buildUIConsentChoices(tcModel, tcModel.gvl.purposes, 'purposeConsents', 'getVendorsWithConsentPurpose');
+        this._UIPurposeChoices = this.buildUIConsentChoices(
+            tcModel,
+            tcModel.gvl.purposes,
+            'purposeConsents',
+            'getVendorsWithConsentPurpose',
+        );
 
     }
 
@@ -97,7 +102,12 @@ export class UIChoicesBridgeDtoBuilder {
      */
     private buildUISpecialFeatureOptInsChoices(tcModel: TCModel): void {
 
-        this._UISpecialFeatureOptInsChoices = this.buildUIConsentChoices(tcModel, tcModel.gvl.specialFeatures, 'specialFeatureOptins', 'getVendorsWithSpecialFeature');
+        this._UISpecialFeatureOptInsChoices = this.buildUIConsentChoices(
+            tcModel,
+            tcModel.gvl.specialFeatures,
+            'specialFeatureOptins',
+            'getVendorsWithSpecialFeature',
+        );
 
     }
 
@@ -189,7 +199,12 @@ export class UIChoicesBridgeDtoBuilder {
 
         const vendorIds = Object.keys(allVendorsWithLegitimateInterests);
 
-        this._UILegitimateInterestsVendorChoices = this.buildUIConsentVendorChoices(tcModel, vendorIds, allVendorsWithLegitimateInterests, 'vendorLegitimateInterests');
+        this._UILegitimateInterestsVendorChoices = this.buildUIConsentVendorChoices(
+            tcModel,
+            vendorIds,
+            allVendorsWithLegitimateInterests,
+            'vendorLegitimateInterests',
+        );
 
     }
 
@@ -208,7 +223,8 @@ export class UIChoicesBridgeDtoBuilder {
         tcModel: TCModel,
         vendorIds: string[],
         allVendorsWithLegitimateInterests: IntMap<Vendor>,
-        tcfModelStateChoices: string): VendorOption[] {
+        tcfModelStateChoices: string,
+    ): VendorOption[] {
 
         const consentVendorOptions: VendorOption[] = [];
 
@@ -230,16 +246,20 @@ export class UIChoicesBridgeDtoBuilder {
 
             consentVendorOptions.push({
                 state: state,
-                features: UIChoicesBridgeDtoBuilder
-                    .buildVendorPurposesOrVendorFeatures(vendor.features, tcModel.gvl.features),
+                features: UIChoicesBridgeDtoBuilder.buildVendorPurposesOrVendorFeatures(
+                    vendor.features,
+                    tcModel.gvl.features,
+                ),
                 flexiblePurposes: vendor.flexiblePurposes,
                 id: Number(vendor.id),
                 legIntPurposes: vendor.legIntPurposes,
                 name: vendor.name,
                 policyUrl: vendor.policyUrl,
                 cookieMaxAgeSeconds: cookieMaxAgeSeconds,
-                purposes: UIChoicesBridgeDtoBuilder
-                    .buildVendorPurposesOrVendorFeatures(vendor.purposes, tcModel.gvl.purposes),
+                purposes: UIChoicesBridgeDtoBuilder.buildVendorPurposesOrVendorFeatures(
+                    vendor.purposes,
+                    tcModel.gvl.purposes,
+                ),
                 specialFeatures: UIChoicesBridgeDtoBuilder.buildVendorPurposesOrVendorFeatures(
                     vendor.specialFeatures,
                     tcModel.gvl.specialFeatures,
