@@ -56,6 +56,7 @@ export class SoloCmp {
     private readonly enableBorderAmpCmpUi: boolean | null = null;
     private readonly skipACStringCheck: boolean;
     private readonly isLegitimateInterestDisabled: boolean;
+    private readonly expirationDaysForPartialConsents: number | null;
 
     /**
      * Constructor.
@@ -82,6 +83,7 @@ export class SoloCmp {
         this.enableBorderAmpCmpUi = soloCmpDto.enableBorderAmpCmpUi;
         this.skipACStringCheck = soloCmpDto.skipACStringCheck;
         this.isLegitimateInterestDisabled = soloCmpDto.isLegitimateInterestDisabled;
+        this.expirationDaysForPartialConsents = soloCmpDto.expirationDaysForPartialConsents;
 
         this.registerServices();
         this.registerSubscribers();
@@ -118,6 +120,7 @@ export class SoloCmp {
                     this.cmpVersion,
                     this.cmpVendorListVersion,
                     this.tcStringCookieName,
+                    this.expirationDaysForPartialConsents,
                 );
 
             })
