@@ -69,7 +69,7 @@ export class TCStringService {
      * @param {string} tcString
      * @param {number} expireInDays
      */
-    public persistTCString(tcString: string, expireInDays = 365): void {
+    public persistTCString(tcString: string, expireInDays = 185): void {
 
         this.cookieService.setCookie(this.tcStringCookieName, tcString, expireInDays);
 
