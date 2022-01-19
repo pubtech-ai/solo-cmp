@@ -51,7 +51,7 @@ describe('TCStringService suit test', () => {
 
         };
 
-        expect(construction).to.throw('TCStringService, cmpVersion parameter must be a valid number.');
+        expect(construction).to.throw('TCStringService.cmpVersion must be a number.');
 
     });
 
@@ -72,7 +72,7 @@ describe('TCStringService suit test', () => {
 
         };
 
-        expect(construction).to.throw('TCStringService, cmpVendorListVersion parameter must be a valid number.');
+        expect(construction).to.throw('TCStringService.cmpVendorListVersion must be a number.');
 
     });
 
@@ -87,7 +87,7 @@ describe('TCStringService suit test', () => {
         };
 
         expect(construction).to.throw(
-            'TCStringService, tcStringCookieName parameter must be a string with a length greater than zero.',
+            'TCStringService.tcStringCookieName must be a not empty string.',
         );
 
     });
@@ -192,6 +192,8 @@ describe('TCStringService suit test', () => {
             vendorListVersion: globalTCModel.vendorListVersion,
             supportedLanguages: ['fr', 'en'],
             userLanguage: 'it',
+            purposeIds: [2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
             result: false,
         },
         {
@@ -202,6 +204,20 @@ describe('TCStringService suit test', () => {
             vendorListVersion: globalTCModel.vendorListVersion,
             supportedLanguages: ['fr', 'en'],
             userLanguage: 'it',
+            purposeIds: [2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
+            result: true,
+        },
+        {
+            title: 'TCStringService is valid tcString when expirationDaysForPartialConsents is exceeded but skip the partial consent check test',
+            subtractDaysFromNow: 6,
+            expirationDaysForPartialConsents: 5,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: globalTCModel.vendorListVersion,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            purposeIds: [2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [],
             result: true,
         },
         {
@@ -212,16 +228,44 @@ describe('TCStringService suit test', () => {
             vendorListVersion: globalTCModel.vendorListVersion,
             supportedLanguages: ['fr', 'en'],
             userLanguage: 'it',
+            purposeIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
             result: false,
         },
         {
-            title: 'TCStringService is invalid tcString with different vendor list version used test',
+            title: 'TCStringService is invalid tcString with different vendor list version used and consent is not partial test',
             subtractDaysFromNow: 5,
             expirationDaysForPartialConsents: 6,
             cmpVersion: globalTCModel.cmpVersion,
             vendorListVersion: Number(globalTCModel.vendorListVersion) + 1,
             supportedLanguages: ['fr', 'en'],
             userLanguage: 'it',
+            purposeIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
+            result: true,
+        },
+        {
+            title: 'TCStringService is invalid tcString with different vendor list version used and consent is partial test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: 6,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: Number(globalTCModel.vendorListVersion) + 1,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            purposeIds: [2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
+            result: false,
+        },
+        {
+            title: 'TCStringService is invalid tcString with different vendor list version used and partial check is skipped test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: 6,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: Number(globalTCModel.vendorListVersion) + 1,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            purposeIds: [2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [],
             result: false,
         },
         {
@@ -232,6 +276,8 @@ describe('TCStringService suit test', () => {
             vendorListVersion: globalTCModel.vendorListVersion,
             supportedLanguages: ['fr', 'en', 'it'],
             userLanguage: 'it',
+            purposeIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
             result: false,
         },
         {
@@ -242,6 +288,8 @@ describe('TCStringService suit test', () => {
             vendorListVersion: globalTCModel.vendorListVersion,
             supportedLanguages: ['fr', 'en'],
             userLanguage: 'it',
+            purposeIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
             result: true,
         },
         {
@@ -252,6 +300,8 @@ describe('TCStringService suit test', () => {
             vendorListVersion: globalTCModel.vendorListVersion,
             supportedLanguages: ['fr', 'en'],
             userLanguage: 'it',
+            purposeIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            purposeIdsForPartialCheck: [1],
             result: true,
         },
     ];
@@ -269,7 +319,8 @@ describe('TCStringService suit test', () => {
             createdDate.setDate(createdDate.getDate() - subtractDaysFromNow);
             tcModel.created = createdDate;
 
-            tcModel.purposeConsents.unset(1);
+            tcModel.purposeConsents.unset([...tcModel.purposeConsents.values()]);
+            tcModel.purposeConsents.set(testData.purposeIds);
 
             tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
@@ -287,6 +338,8 @@ describe('TCStringService suit test', () => {
                 Number(testData.cmpVersion),
                 Number(testData.vendorListVersion),
                 'solo-cmp-tc-string',
+                NaN,
+                testData.purposeIdsForPartialCheck,
                 expirationDaysForPartialConsents,
             );
 
