@@ -38,7 +38,7 @@ export class TCStringService {
         cmpVersion: number,
         cmpVendorListVersion: number,
         tcStringCookieName: string,
-        expireTCStringInDays = 365,
+        expireTCStringInDays = 180,
         purposeIdsForPartialCheck: number[] = [],
         expirationDaysForPartialConsents: number | null = null,
     ) {
