@@ -8,12 +8,15 @@ import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
  */
 export class TCStringService {
 
+    private static readonly expireTCStringInDays = 180;
+
     private cookieService: CookieService;
     private loggerService: LoggerService;
     private readonly cmpVersion: number;
     private readonly cmpVendorListVersion: number;
     private readonly cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
     private readonly tcStringCookieName: string;
+    private readonly expirationDaysForPartialConsents: number | null;
 
     /**
      * Constructor.
@@ -24,6 +27,7 @@ export class TCStringService {
      * @param {number} cmpVersion
      * @param {number} cmpVendorListVersion
      * @param {string} tcStringCookieName
+     * @param {number|null} expirationDaysForPartialConsents
      */
     constructor(
         cookieService: CookieService,
@@ -32,15 +36,16 @@ export class TCStringService {
         cmpVersion: number,
         cmpVendorListVersion: number,
         tcStringCookieName: string,
+        expirationDaysForPartialConsents: number | null = null,
     ) {
 
-        if (Number.isNaN(cmpVersion)) {
+        if (isNaN(cmpVersion)) {
 
             throw new Error('TCStringService, cmpVersion parameter must be a valid number.');
 
         }
 
-        if (Number.isNaN(cmpVendorListVersion)) {
+        if (isNaN(cmpVendorListVersion)) {
 
             throw new Error('TCStringService, cmpVendorListVersion parameter must be a valid number.');
 
@@ -57,9 +62,10 @@ export class TCStringService {
         this.cookieService = cookieService;
         this.loggerService = loggerService;
         this.cmpSupportedLanguageProvider = cmpSupportedLanguageProvider;
-        this.cmpVersion = cmpVersion;
-        this.cmpVendorListVersion = cmpVendorListVersion;
+        this.cmpVersion = Number(cmpVersion);
+        this.cmpVendorListVersion = Number(cmpVendorListVersion);
         this.tcStringCookieName = tcStringCookieName;
+        this.expirationDaysForPartialConsents = expirationDaysForPartialConsents;
 
     }
 
@@ -67,11 +73,10 @@ export class TCStringService {
      * Save the encoded TCString.
      *
      * @param {string} tcString
-     * @param {number} expireInDays
      */
-    public persistTCString(tcString: string, expireInDays = 365): void {
+    public persistTCString(tcString: string): void {
 
-        this.cookieService.setCookie(this.tcStringCookieName, tcString, expireInDays);
+        this.cookieService.setCookie(this.tcStringCookieName, tcString, TCStringService.expireTCStringInDays);
 
     }
 
@@ -152,6 +157,20 @@ export class TCStringService {
 
         }
 
+        let isExpirationValid = true;
+
+        if (this.expirationDaysForPartialConsents != null && !isNaN(this.expirationDaysForPartialConsents)) {
+
+            if (!tcModel.purposeConsents.has(1) && tcModel.created instanceof Date) {
+
+                const tcStringDate = new Date(tcModel.created.getTime());
+                tcStringDate.setDate(tcStringDate.getDate() + Number(this.expirationDaysForPartialConsents));
+                isExpirationValid = tcStringDate.getTime() >= new Date().getTime();
+
+            }
+
+        }
+
         const cmpVersionCheck: boolean = tcModel.cmpVersion === this.cmpVersion;
         const cmpVendorListVersionCheck: boolean = tcModel.vendorListVersion === this.cmpVendorListVersion;
 
@@ -166,10 +185,14 @@ export class TCStringService {
         }
 
         this.loggerService.debug(
-            `Checking if TCString is valid: localeCheck: ${localeCheck} | cmpVersionCheck: ${cmpVersionCheck} | cmpVendorListVersionCheck ${cmpVendorListVersionCheck}`,
+            `Checking if TCString is valid: 
+            localeCheck: ${localeCheck} | 
+            cmpVersionCheck: ${cmpVersionCheck} | 
+            cmpVendorListVersionCheck ${cmpVendorListVersionCheck} |
+            isExpirationValid ${isExpirationValid}`,
         );
 
-        return localeCheck && cmpVersionCheck && cmpVendorListVersionCheck;
+        return localeCheck && cmpVersionCheck && cmpVendorListVersionCheck && isExpirationValid;
 
     }
 

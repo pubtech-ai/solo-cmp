@@ -21,8 +21,8 @@ describe('CmpCallbackSubscriber suit test', () => {
 
             if (
                 iabConsentsObject instanceof TCModel &&
-            iabConsentsObject.purposeConsents.has(1) &&
-            eventData.tcString === tcString
+                iabConsentsObject.purposeConsents.has(1) &&
+                eventData.tcString === tcString
             ) {
 
                 done();
@@ -35,7 +35,9 @@ describe('CmpCallbackSubscriber suit test', () => {
 
         const consentReadyEvent = new ConsentReadyEvent(tcString, 'cba');
 
-        cmpCallbackSubscriber[cmpCallbackSubscriber.getSubscribedEvents()[ConsentReadyEvent.EVENT_NAME]](consentReadyEvent);
+        cmpCallbackSubscriber[cmpCallbackSubscriber.getSubscribedEvents()[ConsentReadyEvent.EVENT_NAME]](
+            consentReadyEvent,
+        );
 
     });
 

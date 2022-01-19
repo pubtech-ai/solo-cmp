@@ -138,7 +138,8 @@ describe('OpenCmpUISubscriber suit test', () => {
             uiConstructor,
             eventDispatcher,
             loggerService,
-            true);
+            true,
+        );
 
     };
 

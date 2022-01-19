@@ -19,7 +19,7 @@ export class CmpPreparatoryService {
     private uiConstructor: UIConstructor;
     private eventDispatcher: EventDispatcher;
     private loggerService: LoggerService;
-    private isLegitimateInterestDisabled: boolean
+    private isLegitimateInterestDisabled: boolean;
 
     /**
      * Constructor.

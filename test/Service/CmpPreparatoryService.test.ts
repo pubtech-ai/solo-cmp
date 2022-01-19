@@ -248,7 +248,11 @@ describe('CmpPreparatoryService suit test', () => {
 
         const eventDispatcher = EventDispatcher.getInstance();
 
-        const subscription = eventDispatcher.subscribe('SubscriberTest', ConsentRequiredEvent.EVENT_NAME, subscriber.method);
+        const subscription = eventDispatcher.subscribe(
+            'SubscriberTest',
+            ConsentRequiredEvent.EVENT_NAME,
+            subscriber.method,
+        );
 
         const cmpPreparatoryService = new CmpPreparatoryService(
             tcModelService,

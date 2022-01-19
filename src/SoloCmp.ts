@@ -13,10 +13,7 @@ import {
     CmpApiSubscriber,
 } from './EventSubscriber';
 
-import {
-    ConsentReadyEvent,
-    OpenCmpUIEvent,
-} from './Event';
+import {ConsentReadyEvent, OpenCmpUIEvent} from './Event';
 
 import {
     LoggerService,
@@ -56,6 +53,7 @@ export class SoloCmp {
     private readonly enableBorderAmpCmpUi: boolean | null = null;
     private readonly skipACStringCheck: boolean;
     private readonly isLegitimateInterestDisabled: boolean;
+    private readonly expirationDaysForPartialConsents: number | null;
 
     /**
      * Constructor.
@@ -82,6 +80,7 @@ export class SoloCmp {
         this.enableBorderAmpCmpUi = soloCmpDto.enableBorderAmpCmpUi;
         this.skipACStringCheck = soloCmpDto.skipACStringCheck;
         this.isLegitimateInterestDisabled = soloCmpDto.isLegitimateInterestDisabled;
+        this.expirationDaysForPartialConsents = soloCmpDto.expirationDaysForPartialConsents;
 
         this.registerServices();
         this.registerSubscribers();
@@ -118,6 +117,7 @@ export class SoloCmp {
                     this.cmpVersion,
                     this.cmpVendorListVersion,
                     this.tcStringCookieName,
+                    this.expirationDaysForPartialConsents,
                 );
 
             })
@@ -251,12 +251,7 @@ export class SoloCmp {
             })
             .addEventSubscriberProvider(AmpSubscriber.getClassName(), () => {
 
-                return new AmpSubscriber(
-                    this.isAmp,
-                    window,
-                    this.initialHeightAmpCmpUi,
-                    this.enableBorderAmpCmpUi,
-                );
+                return new AmpSubscriber(this.isAmp, window, this.initialHeightAmpCmpUi, this.enableBorderAmpCmpUi);
 
             });
 
@@ -282,9 +277,9 @@ export class SoloCmp {
      * @param {CallableFunction|null} additionalValidationCallback
      */
     init(
-        tcString: string|null = null,
-        acString: string|null = null,
-        additionalValidationCallback: (() => boolean)|null = null,
+        tcString: string | null = null,
+        acString: string | null = null,
+        additionalValidationCallback: (() => boolean) | null = null,
     ): void {
 
         const tcStringService = this._DependencyInjectionManager.getService(TCStringService.getClassName());
@@ -295,12 +290,14 @@ export class SoloCmp {
 
         const eventDispatcher = this._DependencyInjectionManager.getService(EventDispatcher.getClassName());
 
-        const isAdditionalValidationCallbackValid: boolean = (typeof additionalValidationCallback == 'function' ? additionalValidationCallback() : true);
+        const isAdditionalValidationCallbackValid: boolean =
+            typeof additionalValidationCallback == 'function' ? additionalValidationCallback() : true;
 
         if (
             tcStringService.isValidTCString(tcString) &&
             acStringService.isValidACString(acString) &&
-            isAdditionalValidationCallbackValid) {
+            isAdditionalValidationCallbackValid
+        ) {
 
             if (this.isAmp) {
 

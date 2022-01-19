@@ -24,4 +24,5 @@ export interface SoloCmpDto {
     enableBorderAmpCmpUi: boolean | null;
     skipACStringCheck: boolean;
     isLegitimateInterestDisabled: boolean;
+    expirationDaysForPartialConsents: number | null;
 }

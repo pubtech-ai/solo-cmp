@@ -168,7 +168,7 @@ describe('TCStringService suit test', () => {
 
     });
 
-    it('TCStringService is valid tcString test', () => {
+    const globalTCModel = (() => {
 
         const tcString = TCString.encode(getTCModel());
 
@@ -176,96 +176,125 @@ describe('TCStringService suit test', () => {
 
         tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it');
+        return tcModel;
 
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            Number(tcModel.cmpVersion),
-            Number(tcModel.vendorListVersion),
-            'solo-cmp-tc-string',
-        );
+    })();
 
-        const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
+    /**
+     * Test the condition for the expiration days for partial consent.
+     */
+    const testFixtureForIsValidTCString = [
+        {
+            title: 'TCStringService is invalid tcString when expirationDaysForPartialConsents is exceeded test',
+            subtractDaysFromNow: 6,
+            expirationDaysForPartialConsents: 5,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: globalTCModel.vendorListVersion,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            result: false,
+        },
+        {
+            title: 'TCStringService is valid tcString when expirationDaysForPartialConsents is not exceeded test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: 6,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: globalTCModel.vendorListVersion,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            result: true,
+        },
+        {
+            title: 'TCStringService is invalid tcString with different CMP version used test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: 6,
+            cmpVersion: Number(globalTCModel.cmpVersion) + 1,
+            vendorListVersion: globalTCModel.vendorListVersion,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            result: false,
+        },
+        {
+            title: 'TCStringService is invalid tcString with different vendor list version used test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: 6,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: Number(globalTCModel.vendorListVersion) + 1,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            result: false,
+        },
+        {
+            title: 'TCStringService is valid tcString with different language used test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: 6,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: globalTCModel.vendorListVersion,
+            supportedLanguages: ['fr', 'en', 'it'],
+            userLanguage: 'it',
+            result: false,
+        },
+        {
+            title: 'TCStringService is valid tcString test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: 6,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: globalTCModel.vendorListVersion,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            result: true,
+        },
+        {
+            title: 'TCStringService is valid tcString without expirationDaysForPartialConsents test',
+            subtractDaysFromNow: 5,
+            expirationDaysForPartialConsents: null,
+            cmpVersion: globalTCModel.cmpVersion,
+            vendorListVersion: globalTCModel.vendorListVersion,
+            supportedLanguages: ['fr', 'en'],
+            userLanguage: 'it',
+            result: true,
+        },
+    ];
 
-        expect(isValidTCString).to.be.true;
+    testFixtureForIsValidTCString.forEach((testData) => {
 
-    });
+        it(testData.title, () => {
 
-    it('TCStringService is valid tcString with different language used test', () => {
+            const subtractDaysFromNow = testData.subtractDaysFromNow;
+            const expirationDaysForPartialConsents = testData.expirationDaysForPartialConsents;
 
-        const tcString = TCString.encode(getTCModel());
+            const tcModel: TCModel = globalTCModel;
 
-        const tcModel: TCModel = TCString.decode(tcString);
+            const createdDate = new Date();
+            createdDate.setDate(createdDate.getDate() - subtractDaysFromNow);
+            tcModel.created = createdDate;
 
-        tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
+            tcModel.purposeConsents.unset(1);
 
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['it', 'fr', 'en'], 'it');
+            tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
 
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            Number(tcModel.cmpVersion),
-            Number(tcModel.vendorListVersion),
-            'solo-cmp-tc-string',
-        );
+            const tcString = TCString.encode(tcModel);
 
-        const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
+            const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(
+                testData.supportedLanguages,
+                testData.userLanguage,
+            );
 
-        expect(isValidTCString).to.be.false;
+            const tcStringService = new TCStringService(
+                cookieService,
+                loggerService,
+                cmpSupportedLanguageProvider,
+                Number(testData.cmpVersion),
+                Number(testData.vendorListVersion),
+                'solo-cmp-tc-string',
+                expirationDaysForPartialConsents,
+            );
 
-    });
+            const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
 
-    it('TCStringService is valid tcString with different CMP version used test', () => {
+            expect(isValidTCString).to.be[testData.result.toString()];
 
-        const tcModelTmp: TCModel = getTCModel();
-        const tcString = TCString.encode(tcModelTmp);
-
-        const tcModel: TCModel = TCString.decode(tcString);
-
-        tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
-
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it');
-
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            Number(tcModelTmp.cmpVersion) + 1,
-            Number(tcModel.vendorListVersion),
-            'solo-cmp-tc-string',
-        );
-
-        const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
-
-        expect(isValidTCString).to.be.false;
-
-    });
-
-    it('TCStringService is valid tcString with different CMP version used test', () => {
-
-        const tcString = TCString.encode(getTCModel());
-
-        const tcModel: TCModel = TCString.decode(tcString);
-
-        tcModel.gvl = new GVL(require('@iabtcf/testing/lib/vendorlist/vendor-list.json'));
-
-        const cmpSupportedLanguageProvider = new CmpSupportedLanguageProvider(['fr', 'en'], 'it');
-
-        const tcStringService = new TCStringService(
-            cookieService,
-            loggerService,
-            cmpSupportedLanguageProvider,
-            Number(tcModel.cmpVersion),
-            1,
-            'solo-cmp-tc-string',
-        );
-
-        const isValidTCString: boolean = tcStringService.isValidTCString(tcString);
-
-        expect(isValidTCString).to.be.false;
+        });
 
     });
 

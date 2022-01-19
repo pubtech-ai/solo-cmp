@@ -127,12 +127,10 @@ describe('ACStringService suit test', () => {
 
         const acModel = new ACModel(googleVendorOptions);
 
-        acModel.googleVendorOptions.forEach((googleVendor) => googleVendor.state = true);
+        acModel.googleVendorOptions.forEach((googleVendor) => (googleVendor.state = true));
         const acStringWithAllEnabled = acStringService.buildACString(acModel);
 
-        mockLocalStorage
-            .expects('setItem')
-            .withExactArgs('solo-cmp-ac-string', acStringWithAllEnabled);
+        mockLocalStorage.expects('setItem').withExactArgs('solo-cmp-ac-string', acStringWithAllEnabled);
 
         acStringService.persistACString(acStringWithAllEnabled);
 
