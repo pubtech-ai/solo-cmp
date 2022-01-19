@@ -53,6 +53,8 @@ export class SoloCmp {
     private readonly enableBorderAmpCmpUi: boolean | null = null;
     private readonly skipACStringCheck: boolean;
     private readonly isLegitimateInterestDisabled: boolean;
+    private readonly expireTCStringInDays: number;
+    private readonly purposeIdsForPartialCheck: number[];
     private readonly expirationDaysForPartialConsents: number | null;
 
     /**
@@ -80,6 +82,8 @@ export class SoloCmp {
         this.enableBorderAmpCmpUi = soloCmpDto.enableBorderAmpCmpUi;
         this.skipACStringCheck = soloCmpDto.skipACStringCheck;
         this.isLegitimateInterestDisabled = soloCmpDto.isLegitimateInterestDisabled;
+        this.expireTCStringInDays = soloCmpDto.expireTCStringInDays;
+        this.purposeIdsForPartialCheck = soloCmpDto.purposeIdsForPartialCheck;
         this.expirationDaysForPartialConsents = soloCmpDto.expirationDaysForPartialConsents;
 
         this.registerServices();
@@ -117,6 +121,8 @@ export class SoloCmp {
                     this.cmpVersion,
                     this.cmpVendorListVersion,
                     this.tcStringCookieName,
+                    this.expireTCStringInDays,
+                    this.purposeIdsForPartialCheck,
                     this.expirationDaysForPartialConsents,
                 );
 

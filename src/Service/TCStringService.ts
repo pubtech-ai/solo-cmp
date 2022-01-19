@@ -8,14 +8,14 @@ import {CmpSupportedLanguageProvider} from './CmpSupportedLanguageProvider';
  */
 export class TCStringService {
 
-    private static readonly expireTCStringInDays = 180;
-
     private cookieService: CookieService;
     private loggerService: LoggerService;
     private readonly cmpVersion: number;
     private readonly cmpVendorListVersion: number;
     private readonly cmpSupportedLanguageProvider: CmpSupportedLanguageProvider;
     private readonly tcStringCookieName: string;
+    private readonly expireTCStringInDays: number;
+    private readonly purposeIdsForPartialCheck: number[];
     private readonly expirationDaysForPartialConsents: number | null;
 
     /**
@@ -27,6 +27,8 @@ export class TCStringService {
      * @param {number} cmpVersion
      * @param {number} cmpVendorListVersion
      * @param {string} tcStringCookieName
+     * @param {number} expireTCStringInDays
+     * @param {number[]} purposeIdsForPartialCheck
      * @param {number|null} expirationDaysForPartialConsents
      */
     constructor(
@@ -36,26 +38,26 @@ export class TCStringService {
         cmpVersion: number,
         cmpVendorListVersion: number,
         tcStringCookieName: string,
+        expireTCStringInDays = 180,
+        purposeIdsForPartialCheck: number[] = [],
         expirationDaysForPartialConsents: number | null = null,
     ) {
 
-        if (isNaN(cmpVersion)) {
+        if (isNaN(cmpVersion) || typeof cmpVersion == 'object') {
 
-            throw new Error('TCStringService, cmpVersion parameter must be a valid number.');
+            throw new Error('TCStringService.cmpVersion must be a number.');
 
         }
 
-        if (isNaN(cmpVendorListVersion)) {
+        if (isNaN(cmpVendorListVersion) || typeof cmpVersion == 'object') {
 
-            throw new Error('TCStringService, cmpVendorListVersion parameter must be a valid number.');
+            throw new Error('TCStringService.cmpVendorListVersion must be a number.');
 
         }
 
         if (tcStringCookieName.length === 0) {
 
-            throw new Error(
-                'TCStringService, tcStringCookieName parameter must be a string with a length greater than zero.',
-            );
+            throw new Error('TCStringService.tcStringCookieName must be a not empty string.');
 
         }
 
@@ -65,6 +67,8 @@ export class TCStringService {
         this.cmpVersion = Number(cmpVersion);
         this.cmpVendorListVersion = Number(cmpVendorListVersion);
         this.tcStringCookieName = tcStringCookieName;
+        this.expireTCStringInDays = Number(expireTCStringInDays);
+        this.purposeIdsForPartialCheck = purposeIdsForPartialCheck;
         this.expirationDaysForPartialConsents = expirationDaysForPartialConsents;
 
     }
@@ -76,7 +80,7 @@ export class TCStringService {
      */
     public persistTCString(tcString: string): void {
 
-        this.cookieService.setCookie(this.tcStringCookieName, tcString, TCStringService.expireTCStringInDays);
+        this.cookieService.setCookie(this.tcStringCookieName, tcString, this.expireTCStringInDays);
 
     }
 
@@ -123,7 +127,7 @@ export class TCStringService {
 
         if (tcString.length > 0) {
 
-            this.loggerService.debug('TCString built: ' + tcString);
+            this.loggerService.debug('TCString.buildTCString: ' + tcString);
 
         }
 
@@ -151,17 +155,23 @@ export class TCStringService {
 
         } catch (e) {
 
-            this.loggerService.debug(`Checking if TCString is valid: the tcstring is not decodable.`);
+            this.loggerService.debug(`TCStringService.isValidTCString: not decodable.`);
 
             return false;
 
         }
 
+        const isPartialConsent = this.purposeIdsForPartialCheck.filter((purposeId) => {
+
+            return !tcModel.purposeConsents.has(Number(purposeId));
+
+        }).length != 0;
+
         let isExpirationValid = true;
 
         if (this.expirationDaysForPartialConsents != null && !isNaN(this.expirationDaysForPartialConsents)) {
 
-            if (!tcModel.purposeConsents.has(1) && tcModel.created instanceof Date) {
+            if (isPartialConsent && tcModel.created instanceof Date) {
 
                 const tcStringDate = new Date(tcModel.created.getTime());
                 tcStringDate.setDate(tcStringDate.getDate() + Number(this.expirationDaysForPartialConsents));
@@ -171,12 +181,14 @@ export class TCStringService {
 
         }
 
-        const cmpVersionCheck: boolean = tcModel.cmpVersion === this.cmpVersion;
-        const cmpVendorListVersionCheck: boolean = tcModel.vendorListVersion === this.cmpVendorListVersion;
+        const cmpVendorListVersionCheck = isPartialConsent || this.purposeIdsForPartialCheck.length == 0 ?
+            tcModel.vendorListVersion === this.cmpVendorListVersion : true;
 
         const userLanguage: string = this.cmpSupportedLanguageProvider.getUserLanguage();
 
         let localeCheck = true;
+
+        const cmpVersionCheck: boolean = tcModel.cmpVersion === this.cmpVersion;
 
         if (this.cmpSupportedLanguageProvider.getCmpSupportedLanguages().includes(userLanguage)) {
 
@@ -185,11 +197,11 @@ export class TCStringService {
         }
 
         this.loggerService.debug(
-            `Checking if TCString is valid: 
-            localeCheck: ${localeCheck} | 
-            cmpVersionCheck: ${cmpVersionCheck} | 
-            cmpVendorListVersionCheck ${cmpVendorListVersionCheck} |
-            isExpirationValid ${isExpirationValid}`,
+            `TCStringService.isValidTCString: 
+            locale: ${localeCheck} | 
+            cmpVersion: ${cmpVersionCheck} | 
+            cmpVendorListVersion: ${cmpVendorListVersionCheck} |
+            isExpirationValid: ${isExpirationValid}`,
         );
 
         return localeCheck && cmpVersionCheck && cmpVendorListVersionCheck && isExpirationValid;
