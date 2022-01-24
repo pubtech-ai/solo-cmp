@@ -64,7 +64,6 @@ export class CookieService {
         } catch (error) {
 
             this.logger.debug('decodeURIComponent error when read cookie, fallback to document.cookie.', error);
-            
 
         }
 
