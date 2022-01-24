@@ -24,6 +24,7 @@ export interface SoloCmpDto {
     enableBorderAmpCmpUi: boolean | null;
     skipACStringCheck: boolean;
     isLegitimateInterestDisabled: boolean;
+    legitimateMirror: boolean;
     expireTCStringInDays: number;
     purposeIdsForPartialCheck: number[];
     expirationDaysForPartialConsents: number | null;
