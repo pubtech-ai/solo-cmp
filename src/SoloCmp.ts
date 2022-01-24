@@ -53,6 +53,7 @@ export class SoloCmp {
     private readonly enableBorderAmpCmpUi: boolean | null = null;
     private readonly skipACStringCheck: boolean;
     private readonly isLegitimateInterestDisabled: boolean;
+    private readonly legitimateMirror: boolean;
     private readonly expireTCStringInDays: number;
     private readonly purposeIdsForPartialCheck: number[];
     private readonly expirationDaysForPartialConsents: number | null;
@@ -82,6 +83,7 @@ export class SoloCmp {
         this.enableBorderAmpCmpUi = soloCmpDto.enableBorderAmpCmpUi;
         this.skipACStringCheck = soloCmpDto.skipACStringCheck;
         this.isLegitimateInterestDisabled = soloCmpDto.isLegitimateInterestDisabled;
+        this.legitimateMirror = soloCmpDto.legitimateMirror;
         this.expireTCStringInDays = soloCmpDto.expireTCStringInDays;
         this.purposeIdsForPartialCheck = soloCmpDto.purposeIdsForPartialCheck;
         this.expirationDaysForPartialConsents = soloCmpDto.expirationDaysForPartialConsents;
@@ -223,6 +225,7 @@ export class SoloCmp {
                     container[ACStringService.getClassName()],
                     container[EventDispatcher.getClassName()],
                     this.isLegitimateInterestDisabled,
+                    this.legitimateMirror,
                 );
 
             });

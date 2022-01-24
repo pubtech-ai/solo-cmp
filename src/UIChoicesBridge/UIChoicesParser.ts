@@ -9,19 +9,30 @@ export class UIChoicesParser {
 
     private readonly _tcModel: TCModel;
     private readonly _acModel: ACModel;
+    private readonly isLegitimateInterestDisabled: boolean;
+    private readonly legitimateMirror: boolean;
 
     /**
      * Constructor.
      *
      * @param {TCModel} tcModel
      * @param {ACModel} acModel
+     * @param {boolean} isLegitimateInterestDisabled
+     * @param {boolean} legitimateMirror
      * @private
      */
-    constructor(tcModel: TCModel, acModel: ACModel) {
+    constructor(
+        tcModel: TCModel,
+        acModel: ACModel,
+        isLegitimateInterestDisabled: boolean,
+        legitimateMirror: boolean,
+    ) {
 
         this._tcModel = tcModel.clone();
         this._tcModel.unsetAll();
         this._acModel = acModel;
+        this.isLegitimateInterestDisabled = isLegitimateInterestDisabled;
+        this.legitimateMirror = legitimateMirror;
 
     }
 
@@ -35,20 +46,30 @@ export class UIChoicesParser {
      */
     public parseTCModel(uiChoicesBridgeDto: UIChoicesBridgeDto): TCModel {
 
-        this._tcModel.purposeConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices));
-        this._tcModel.vendorConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIVendorChoices));
+        const enabledPurposes = this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices);
+        const enabledVendors = this.filterEnabledChoicesId(uiChoicesBridgeDto.UIVendorChoices);
+        this._tcModel.purposeConsents.set(enabledPurposes);
+        this._tcModel.vendorConsents.set(enabledVendors);
         this._tcModel.specialFeatureOptins.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UISpecialFeatureChoices));
-        this._tcModel.purposeLegitimateInterests.set(
-            this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices),
-        );
-        this._tcModel.vendorLegitimateInterests.set(
-            this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsVendorChoices),
+
+        let legIntPurposes = this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices);
+        let legIntVendors = this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsVendorChoices);
+        let letIntPurposesPublisher = this.filterEnabledChoicesId(
+            uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices,
         );
 
-        this._tcModel.publisherConsents.set(this.filterEnabledChoicesId(uiChoicesBridgeDto.UIPurposeChoices));
-        this._tcModel.publisherLegitimateInterests.set(
-            this.filterEnabledChoicesId(uiChoicesBridgeDto.UILegitimateInterestsPurposeChoices),
-        );
+        if (this.legitimateMirror) {
+
+            legIntPurposes = enabledPurposes.filter((purposeId) => purposeId != 1);
+            legIntVendors = enabledVendors;
+            letIntPurposesPublisher = enabledPurposes.filter((purposeId) => purposeId != 1);
+
+        }
+
+        this._tcModel.purposeLegitimateInterests.set(legIntPurposes);
+        this._tcModel.vendorLegitimateInterests.set(legIntVendors);
+        this._tcModel.publisherConsents.set(enabledPurposes);
+        this._tcModel.publisherLegitimateInterests.set(letIntPurposesPublisher);
 
         return this._tcModel;
 
@@ -57,18 +78,16 @@ export class UIChoicesParser {
     /**
      * Build the TCString with all enabled.
      *
-     * @param {boolean} isLegitimateInterestDisabled
-     *
      * @return {TCModel}
      */
-    public buildTCModelAllEnabled(isLegitimateInterestDisabled: boolean): TCModel {
+    public buildTCModelAllEnabled(): TCModel {
 
         this._tcModel.setAll();
 
         // REQUIRED UNTIL SOLVED https://github.com/InteractiveAdvertisingBureau/iabtcf-es/issues/179
         this._tcModel.publisherConsents.set([...this._tcModel.purposeConsents.values()]);
 
-        if (isLegitimateInterestDisabled) {
+        if (this.isLegitimateInterestDisabled && !this.legitimateMirror) {
 
             this._tcModel.unsetAllPurposeLegitimateInterests();
             this._tcModel.unsetAllVendorLegitimateInterests();

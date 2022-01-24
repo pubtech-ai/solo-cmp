@@ -15,7 +15,8 @@ export class ConsentGeneratorService {
     private tcStringService: TCStringService;
     private acStringService: ACStringService;
     private eventDispatcher: EventDispatcher;
-    private isLegitimateInterestDisabled: boolean;
+    private readonly isLegitimateInterestDisabled: boolean;
+    private readonly legitimateMirror: boolean;
 
     /**
      * Constructor.
@@ -24,18 +25,21 @@ export class ConsentGeneratorService {
      * @param {ACStringService} acStringService
      * @param {EventDispatcher} eventDispatcher
      * @param {boolean} isLegitimateInterestDisabled
+     * @param {boolean} legitimateMirror
      */
     constructor(
         tcStringService: TCStringService,
         acStringService: ACStringService,
         eventDispatcher: EventDispatcher,
         isLegitimateInterestDisabled: boolean,
+        legitimateMirror: boolean,
     ) {
 
         this.tcStringService = tcStringService;
         this.acStringService = acStringService;
         this.eventDispatcher = eventDispatcher;
         this.isLegitimateInterestDisabled = isLegitimateInterestDisabled;
+        this.legitimateMirror = legitimateMirror;
 
     }
 
@@ -47,7 +51,12 @@ export class ConsentGeneratorService {
      */
     public generateAndPersistConsent(soloCmpDataBundle: SoloCmpDataBundle): void {
 
-        const choicesParser = new UIChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
+        const choicesParser = new UIChoicesParser(
+            soloCmpDataBundle.tcModel,
+            soloCmpDataBundle.acModel,
+            this.isLegitimateInterestDisabled,
+            this.legitimateMirror,
+        );
 
         const tcModel = choicesParser.parseTCModel(soloCmpDataBundle.uiChoicesBridgeDto);
         const acModel = choicesParser.parseACModel(soloCmpDataBundle.uiChoicesBridgeDto);
@@ -64,8 +73,14 @@ export class ConsentGeneratorService {
      */
     public generateAndPersistConsentWithAllEnabled(soloCmpDataBundle: SoloCmpDataBundle): void {
 
-        const choicesParser = new UIChoicesParser(soloCmpDataBundle.tcModel, soloCmpDataBundle.acModel);
-        const tcModel = choicesParser.buildTCModelAllEnabled(this.isLegitimateInterestDisabled);
+        const choicesParser = new UIChoicesParser(
+            soloCmpDataBundle.tcModel,
+            soloCmpDataBundle.acModel,
+            this.isLegitimateInterestDisabled,
+            this.legitimateMirror,
+        );
+
+        const tcModel = choicesParser.buildTCModelAllEnabled();
         const acModel = choicesParser.buildACModelAllEnabled();
 
         this.dispatchReadyAndPersist(tcModel, acModel);
