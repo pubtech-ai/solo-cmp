@@ -108,6 +108,7 @@ const soloCmp = new SoloCmp(
     enableBorderAmpCmpUi: false, // Amp configuration this configure the border of the CMP running in an AMP environment.
     skipACStringCheck: false, // This parameter, if configured to true, allows to avoid the validation code of the ACString.
     isLegitimateInterestDisabled: false, // This parameter, if configured to true, allows to skip the legitimate interest build.
+    legitimateMirror: true, // If configured to true, the consents for legitimate interest will be enabled or disabled in the same way as basic consents.
     expireTCStringInDays: 180, // Provide for how much days the TCString should be valid.
     purposeIdsForPartialCheck: [], // Here you can provide an array of purpose ids that the validation logic used to check if the consent is partial when these purpose ids are not enabled.
     expirationDaysForPartialConsents: null // This parameter, if configured with a Number, allows the preventive expiration of the tcString when purpose 1 is not enabled.
