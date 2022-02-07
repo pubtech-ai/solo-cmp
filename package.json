@@ -1,6 +1,6 @@
 {
   "name": "@pubtech-ai/solo-cmp",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Wrapper of IAB module that make simple to made a CMP",
   "author": "Marco Prontera <https://github.com/Marco-Prontera>",
   "license": "Apache-2.0",
