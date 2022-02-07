@@ -159,8 +159,6 @@ export class UIConstructor {
 
         }
 
-        rootElement.innerHTML = '';
-
         return rootElement;
 
     }
